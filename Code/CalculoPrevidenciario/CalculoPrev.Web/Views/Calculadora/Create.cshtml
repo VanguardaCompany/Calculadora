@@ -1,0 +1,926 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Cálculo Previdenciário</h5>
+                    <div class="ibox-tools">
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div id="wizard">
+                        <h1>Selecione o Cliente</h1>
+                        <div class="step-content">
+                            <div class="text-center">
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>Selecione o cliente</h5>
+                                                <div class="ibox-tools">
+                                                    <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success"
+                                                            type="button" data-toggle="modal" data-target="#myModal">
+                                                        <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="row" style="text-align:left; margin-bottom:0px">
+                                                    <div class="col-lg-12">
+                                                        <form role="form" class="form-inline">
+                                                            <div class="form-group" style="margin-bottom:-15px">
+                                                                <div class="input-group">
+                                                                    <input type="text" placeholder="Pesquisar" class="form-control" style="width:300px">
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-white"><i class="fa fa-search"></i></button>
+                                                                    </span>
+
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example display" id="tabelaCalculo">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>CPF</th>
+                                                                <th>Nome</th>
+                                                                <th>Telefone</th>
+                                                                <th>Email</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="gradeX">
+                                                                <td>285.503.259-06</td>
+                                                                <td>
+                                                                    Carlos da Silva Martins
+                                                                </td>
+                                                                <td>(32) 99702-6598</td>
+                                                                <td class="center">carlos.martins@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeC">
+                                                                <td>286.503.259-06</td>
+                                                                <td>
+                                                                    Maria das Graças Oliveira
+                                                                </td>
+                                                                <td>(32) 98702-6598</td>
+                                                                <td class="center">maria.oliveira@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeA">
+                                                                <td>287.503.259-06</td>
+                                                                <td>
+                                                                    Pedro Moreira Santos
+                                                                </td>
+                                                                <td>(32) 99703-6598</td>
+                                                                <td class="center">pedro.santos@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeX">
+                                                                <td>285.503.259-06</td>
+                                                                <td>
+                                                                    Carlos da Silva Martins
+                                                                </td>
+                                                                <td>(32) 99702-6598</td>
+                                                                <td class="center">carlos.martins@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeC">
+                                                                <td>286.503.259-06</td>
+                                                                <td>
+                                                                    Maria das Graças Oliveira
+                                                                </td>
+                                                                <td>(32) 98702-6598</td>
+                                                                <td class="center">maria.oliveira@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeA">
+                                                                <td>287.503.259-06</td>
+                                                                <td>
+                                                                    Pedro Moreira Santos
+                                                                </td>
+                                                                <td>(32) 99703-6598</td>
+                                                                <td class="center">pedro.santos@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeX">
+                                                                <td>285.503.259-06</td>
+                                                                <td>
+                                                                    Carlos da Silva Martins
+                                                                </td>
+                                                                <td>(32) 99702-6598</td>
+                                                                <td class="center">carlos.martins@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeC">
+                                                                <td>286.503.259-06</td>
+                                                                <td>
+                                                                    Maria das Graças Oliveira
+                                                                </td>
+                                                                <td>(32) 98702-6598</td>
+                                                                <td class="center">maria.oliveira@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeA">
+                                                                <td>287.503.259-06</td>
+                                                                <td>
+                                                                    Pedro Moreira Santos
+                                                                </td>
+                                                                <td>(32) 99703-6598</td>
+                                                                <td class="center">pedro.santos@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeX">
+                                                                <td>285.503.259-06</td>
+                                                                <td>
+                                                                    Carlos da Silva Martins
+                                                                </td>
+                                                                <td>(32) 99702-6598</td>
+                                                                <td class="center">carlos.martins@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeC">
+                                                                <td>286.503.259-06</td>
+                                                                <td>
+                                                                    Maria das Graças Oliveira
+                                                                </td>
+                                                                <td>(32) 98702-6598</td>
+                                                                <td class="center">maria.oliveira@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="gradeA">
+                                                                <td>287.503.259-06</td>
+                                                                <td>
+                                                                    Pedro Moreira Santos
+                                                                </td>
+                                                                <td>(32) 99703-6598</td>
+                                                                <td class="center">pedro.santos@gmail.com</td>
+                                                                <td class="center" style="text-align:center">
+                                                                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</button>
+
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <h1>Selecione os Benefícios</h1>
+                        <div class="step-content">
+                            <div class="text-center">
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Selecione os Benefícios</h5>
+                                                <div class="ibox-tools">
+
+                                                </div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <form id="form2" action="#" class="wizard-big">
+                                                    <select class="form-control dual_select" multiple>
+                                                        <option value="1">Aposentadoria por tempo de contribuição</option>
+                                                        <option value="2">Aposentadoria por tempo de serviço de professor (até nível médio)</option>
+                                                        <option value="3">Aposentadoria por idade ou compulsória</option>
+                                                        <option value="4">Aposentadoria por invalidez</option>
+                                                        <option value="5">Auxílio doença</option>
+                                                        <option value="6">Pensão por morte</option>
+                                                        <option value="7">Auxílio Acidente</option>
+                                                        <option value="8">Aposentadoria Especial</option>
+                                                        <option value="9">Benefício assistêncial à pessoa idosa ou portadora de deficiência</option>
+                                                        <option value="10">Aposentadoria rural por idade</option>
+                                                    </select>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h1>Tempo de Contribuição</h1>
+                        <div class="step-content">
+                            <div class="text-center">
+                                <div class="row animated fadeInRight">
+                                    <div class="col-lg-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>Tempo de Contribuição</h5>
+                                                <div class="ibox-tools">
+                                                    <button class="btn btn-xs btn-success"
+                                                            type="button" data-toggle="modal" data-target="#modalContibuicao">
+                                                        <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="ibox-content" id="ibox-content">
+                                                <img src="~/Images/tempocontribuicao.png" />                                             
+                                            </div>
+                                            <div class="ibox-content" id="ibox-content">
+                                                <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
+                                                    <div class="vertical-timeline-block">
+                                                        <div class="vertical-timeline-icon navy-bg">
+                                                            <i class="fa fa-briefcase"></i>
+                                                        </div>
+                                                        <div class="vertical-timeline-content">
+                                                            <h2 style="text-align:left;">CONMEDH</h2>
+                                                            
+                                                            <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-edit"
+                                                                    type="button" data-toggle="modal" data-target="#myModal">
+                                                                <strong><i class="fa fa-edit"></i></strong>
+                                                            </button>
+                                                            <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-delete"
+                                                                    type="button" data-toggle="modal" data-target="#myModal">
+                                                                <strong><i class="fa fa-remove"></i></strong>
+                                                            </button>
+                                                            <div style="text-align:left">
+                                                                <p style="margin-bottom:0;margin-top:5px;"><strong>Início:</strong> 01/02/1973</p>
+                                                                <p style="margin-bottom:0;margin-top:0px;"><strong>Fim:</strong> 13/03/1978</p>
+                                                                <p style="margin-bottom:10px;margin-top:0px;"> <strong>Tipo: </strong> Período Especial</p>
+                                                            </div>
+                                                            <span class="vertical-date" style="text-align:left">
+                                                                1973 <br />
+                                                                <small>Fevereiro</small>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="vertical-timeline-block">
+                                                        <div class="vertical-timeline-icon blue-bg">
+                                                            <i class="fa fa-briefcase"></i>
+                                                        </div>
+                                                        <div class="vertical-timeline-content">
+                                                            <h2 style="text-align:left;">CONMEDH</h2>
+
+                                                            <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-edit"
+                                                                    type="button" data-toggle="modal" data-target="#myModal">
+                                                                <strong><i class="fa fa-edit"></i></strong>
+                                                            </button>
+                                                            <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-delete"
+                                                                    type="button" data-toggle="modal" data-target="#myModal">
+                                                                <strong><i class="fa fa-remove"></i></strong>
+                                                            </button>
+                                                            <div style="text-align:left">
+                                                                <p style="margin-bottom:0;margin-top:5px;"><strong>Início:</strong> 01/02/1973</p>
+                                                                <p style="margin-bottom:0;margin-top:0px;"><strong>Fim:</strong> 13/03/1978</p>
+                                                                <p style="margin-bottom:10px;margin-top:0px;"> <strong>Tipo: </strong> Período Especial</p>
+                                                            </div>
+                                                            <span class="vertical-date" style="text-align:right">
+                                                                1973 <br />
+                                                                <small>Fevereiro</small>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="vertical-timeline-block">
+                                                        <div class="vertical-timeline-icon navy-bg">
+                                                            <i class="fa fa-briefcase"></i>
+                                                        </div>
+                                                        <div class="vertical-timeline-content">
+                                                            <h2 style="text-align:left;">CONMEDH</h2>
+
+                                                            <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-edit"
+                                                                    type="button" data-toggle="modal" data-target="#myModal">
+                                                                <strong><i class="fa fa-edit"></i></strong>
+                                                            </button>
+                                                            <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-delete"
+                                                                    type="button" data-toggle="modal" data-target="#myModal">
+                                                                <strong><i class="fa fa-remove"></i></strong>
+                                                            </button>
+                                                            <div style="text-align:left">
+                                                                <p style="margin-bottom:0;margin-top:5px;"><strong>Início:</strong> 01/02/1973</p>
+                                                                <p style="margin-bottom:0;margin-top:0px;"><strong>Fim:</strong> 13/03/1978</p>
+                                                                <p style="margin-bottom:10px;margin-top:0px;"> <strong>Tipo: </strong> Período Especial</p>
+                                                            </div>
+                                                            <span class="vertical-date" style="text-align:left">
+                                                                1973 <br />
+                                                                <small>Fevereiro</small>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="vertical-timeline-block">
+                                                        <div class="vertical-timeline-icon blue-bg">
+                                                            <i class="fa fa-briefcase"></i>
+                                                        </div>
+                                                        <div class="vertical-timeline-content">
+                                                            <h2 style="text-align:left;">CONMEDH</h2>
+
+                                                            <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-edit"
+                                                                    type="button" data-toggle="modal" data-target="#myModal">
+                                                                <strong><i class="fa fa-edit"></i></strong>
+                                                            </button>
+                                                            <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-delete"
+                                                                    type="button" data-toggle="modal" data-target="#myModal">
+                                                                <strong><i class="fa fa-remove"></i></strong>
+                                                            </button>
+                                                            <div style="text-align:left">
+                                                                <p style="margin-bottom:0;margin-top:5px;"><strong>Início:</strong> 01/02/1973</p>
+                                                                <p style="margin-bottom:0;margin-top:0px;"><strong>Fim:</strong> 13/03/1978</p>
+                                                                <p style="margin-bottom:10px;margin-top:0px;"> <strong>Tipo: </strong> Período Especial</p>
+                                                            </div>
+                                                            <span class="vertical-date" style="text-align:right">
+                                                                1973 <br />
+                                                                <small>Fevereiro</small>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ibox-content" id="ibox-content">
+                                                <img src="~/Images/tempocontribuicao.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="col-lg-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>Resumo</h5>
+                                            </div>
+                                            <div class="ibox-content" id="ibox-content">
+                                                <div id="ionrange_1"></div>
+                                                <div id="ionrange_2"></div>
+                                                <div id="ionrange_3"></div>
+                                                <div id="ionrange_4"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    *@
+                                </div>
+                            </div>
+                        </div>
+                        <h1>Salários de Contribuição</h1>
+                        <div class="step-content">
+                            <div class="text-center">
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>Salários de Contribuição</h5>
+                                                <div class="ibox-tools">
+                                                    <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success"
+                                                            type="button" data-toggle="modal" data-target="#myModal">
+                                                        <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="row" style="text-align:left; margin-bottom:0px">
+                                                    <div class="col-lg-12">
+                                                        <form role="form" class="form-inline">
+                                                            <div class="form-group" style="margin-bottom:-15px">
+                                                                <div class="input-group">
+                                                                    <input type="text" placeholder="Pesquisar" class="form-control" style="width:300px">
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-white"><i class="fa fa-search"></i></button>
+                                                                    </span>
+
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example display" id="tabelaCalculo">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Data</th>
+                                                                <th>Sálario Atividade Principal</th>
+                                                                <th>Contribuição Secundaria 1</th>
+                                                                <th>Contribuição Secundaria 1</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="gradeX">
+                                                                <td>07/97</td>
+                                                                <td>R$ 1.205,32</td>
+                                                                <td></td>
+                                                                <td class="center"></td>
+                                                            </tr>
+                                                            <tr class="gradeX">
+                                                                <td>08/97</td>
+                                                                <td>R$ 1.205,32</td>
+                                                                <td></td>
+                                                                <td class="center"></td>
+                                                            </tr>
+                                                            <tr class="gradeX">
+                                                                <td>09/97</td>
+                                                                <td>R$ 1.205,32</td>
+                                                                <td></td>
+                                                                <td class="center"></td>
+                                                            </tr>
+                                                            <tr class="gradeX">
+                                                                <td>10/97</td>
+                                                                <td>R$ 1.205,32</td>
+                                                                <td></td>
+                                                                <td class="center"></td>
+                                                            </tr>
+                                                            <tr class="gradeX">
+                                                                <td>11/97</td>
+                                                                <td>R$ 1.205,32</td>
+                                                                <td></td>
+                                                                <td class="center"></td>
+                                                            </tr>
+                                                            <tr class="gradeX">
+                                                                <td>12/97</td>
+                                                                <td>R$ 1.205,32</td>
+                                                                <td></td>
+                                                                <td class="center"></td>
+                                                            </tr>
+                                                            <tr class="gradeX">
+                                                                <td>01/98</td>
+                                                                <td>R$ 1.205,32</td>
+                                                                <td></td>
+                                                                <td class="center"></td>
+                                                            </tr>
+                                                            <tr class="gradeX">
+                                                                <td>02/98</td>
+                                                                <td>R$ 1.205,32</td>
+                                                                <td></td>
+                                                                <td class="center"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <h1>Opções para o cálculo</h1>
+                        <div class="step-content">
+                            <div class="text-center">
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>Opções para o cálculo</h5>
+                                                <div class="ibox-tools">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <h1>Benefícios recebidos</h1>
+                        <div class="step-content">
+                            <div class="text-center">
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>Benefícios recebidos</h5>
+                                                <div class="ibox-tools">
+
+                                                </div>
+                                            </div>
+                                            <div class="ibox-content">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <h1>Correção das diferenças</h1>
+                        <div class="step-content">
+                            <div class="text-center">
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>Correção das diferenças</h5>
+                                                <div class="ibox-tools">
+
+                                                </div>
+                                            </div>
+                                            <div class="ibox-content">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal inmodal" id="modalContibuicao" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width:500px">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header" style="padding:15px 20px ">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" style="text-align:left;font-size:16px">Adicionar tempo de contribuição</h3>
+            </div>
+            <div class="modal-body ">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group" id="data_inicio">
+                            <label>Início</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group" id="data_fim">
+                            <label>Fim</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select class="form-control m-b" name="account">
+                                <option>Período normal</option>
+                                <option>Período especial</option>
+                                <option>Período dobrado</option>
+                                <option>Licença (não considerado no cálculo)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Fator</label>
+                            <form role="form" class="form-inline">
+                                <div class="input-group" style="width:100%">
+                                    <input type="text" class="form-control" value="1,00">
+                                    <span class="input-group-btn" >
+                                        <button type="button" class="btn btn-white"><i class="fa fa-search"></i></button>
+                                    </span>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group"><label>Empresa</label> <input type="text"  class="form-control"></div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group"><label>Cargo</label> <input type="text"  class="form-control"></div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="checkbox i-checks">
+                            <label> <input type="checkbox" checked > 
+                                <i></i> Considerar no cálculo da carência
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="formRealizarCalculo" action="@Url.Action("Result","Calculadora",null)">
+
+</form>
+
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/plugins/wizardStepsStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/duallistStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/datapickerStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/wizardSteps")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/validate")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/duallist")
+    @Scripts.Render("~/plugins/datapicker")
+    @Scripts.Render("~/plugins/ionRange")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var selected = [];
+            var settings = {
+                labels: {
+                    current: "Passo atual:",
+                    pagination: "Paginação",
+                    finish: "Realizar Cálculo",
+                    next: "Próximo",
+                    previous: "Anterior",
+                    loading: "Carregando ..."
+                }
+            };
+            $("#wizard").steps({
+                labels: {
+                    current: "Passo atual:",
+                    pagination: "Paginação",
+                    finish: "Realizar Cálculo",
+                    next: "Próximo",
+                    previous: "Anterior",
+                    loading: "Carregando ..."
+                },
+                onFinished: function (event, currentIndex) {
+                    var form = $('#formRealizarCalculo');
+
+                    // Submit form input
+                    form.submit();
+                    //var url = '@Url.Action("Result","Calculadora",null)';
+                    //window.location = window.location.host + url; 
+                }
+            });
+            $("#form").steps({
+                bodyTag: "fieldset",
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    // Always allow going backward even if the current step contains invalid fields!
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+
+                    // Forbid suppressing "Warning" step if the user is to young
+                    if (newIndex === 3 && Number($("#age").val()) < 18) {
+                        return false;
+                    }
+
+                    var form = $(this);
+
+                    // Clean up if user went backward before
+                    if (currentIndex < newIndex) {
+                        // To remove error styles
+                        $(".body:eq(" + newIndex + ") label.error", form).remove();
+                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                    }
+
+                    // Disable validation on fields that are disabled or hidden.
+                    form.validate().settings.ignore = ":disabled,:hidden";
+
+                    // Start validation; Prevent going forward if false
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                    // Suppress (skip) "Warning" step if the user is old enough.
+                    if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                        $(this).steps("next");
+                    }
+
+                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                    if (currentIndex === 2 && priorIndex === 3) {
+                        $(this).steps("previous");
+                    }
+                },
+                onFinishing: function (event, currentIndex) {
+                    var form = $(this);
+
+                    // Disable validation on fields that are disabled.
+                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                    form.validate().settings.ignore = ":disabled";
+
+                    // Start validation; Prevent form submission if false
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex) {
+                    var form = $(this);
+
+                    // Submit form input
+                    form.submit();
+                }
+            }).validate({
+                errorPlacement: function (error, element) {
+                    element.before(error);
+                },
+                rules: {
+                    confirm: {
+                        equalTo: "#password"
+                    }
+                }
+            });
+            $('.dual_select').bootstrapDualListbox({
+                selectorMinimalHeight: 210,
+                showFilterInputs: false,
+                infoText: false,
+                filterTextClear: false,
+                selectedListLabel: "Benefícios selecionados  ",
+                nonSelectedListLabel: "Lista de benefícios  ",
+                moveAllLabel: "Selecionar todos",
+                removeAllLabel: "Retirar os selecionados",
+                //moveOnSelect: false,
+                preserveSelectionOnMove: 'all'
+            });
+
+
+            $('.dataTables-example').DataTable({
+                "bFilter": false,
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "_MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                },
+                pageLength: 5,
+                responsive: true,
+                //dom: '<"html5buttons"B>lTfgitp',
+                dom: '<"html5buttons"B>ftipr',
+                buttons: [
+                    //{ extend: 'copy'}, 
+                    //{extend: 'csv'},
+                    //{extend: 'excel', title: 'ExampleFile'},
+                    //{extend: 'pdf', title: 'ExampleFile'}
+
+                    /*{extend: 'print',
+						 customize: function (win){
+								$(win.document.body).addClass('white-bg');
+								$(win.document.body).css('font-size', '10px');
+
+								$(win.document.body).find('table')
+										.addClass('compact')
+										.css('font-size', 'inherit');
+						}
+                    }*/
+                ]
+
+            });
+
+            $('#data_inicio .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+            $('#data_fim .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $("#ionrange_1").ionRangeSlider({
+                values: [
+                    "Jan-1973", "Feb-1973", "Mar-1973",
+                    "Abr-1973", "Mai-1973", "Jun-1973",
+                    "Jul-1973", "Ago-1973", "Set-1973",
+                    "Out-1973", "Nov-1973", "Dez-1973",
+                    "Jan-1974", "Feb-1974", "Mar-1974",
+                    "Abr-1974", "Mai-1974", "Jun-1974",
+                    "Jul-1974", "Ago-1974", "Set-1974",
+                    "Out-1974", "Nov-1974", "Dez-1974"
+                ],
+                type: 'double',
+                hasGrid: true,
+                from: 0,
+                to: 20
+            });
+            $("#ionrange_2").ionRangeSlider({
+                values: [
+                    "Jan-1973", "Feb-1973", "Mar-1973",
+                    "Abr-1973", "Mai-1973", "Jun-1973",
+                    "Jul-1973", "Ago-1973", "Set-1973",
+                    "Out-1973", "Nov-1973", "Dez-1973",
+                    "Jan-1974", "Feb-1974", "Mar-1974",
+                    "Abr-1974", "Mai-1974", "Jun-1974",
+                    "Jul-1974", "Ago-1974", "Set-1974",
+                    "Out-1974", "Nov-1974", "Dez-1974"
+                ],
+                type: 'double',
+                hasGrid: true,
+                from: 6,
+                to: 9
+            });
+            $("#ionrange_3").ionRangeSlider({
+                values: [
+                    "Jan-1973", "Feb-1973", "Mar-1973",
+                    "Abr-1973", "Mai-1973", "Jun-1973",
+                    "Jul-1973", "Ago-1973", "Set-1973",
+                    "Out-1973", "Nov-1973", "Dez-1973",
+                    "Jan-1974", "Feb-1974", "Mar-1974",
+                    "Abr-1974", "Mai-1974", "Jun-1974",
+                    "Jul-1974", "Ago-1974", "Set-1974",
+                    "Out-1974", "Nov-1974", "Dez-1974"
+                ],
+                type: 'double',
+                hasGrid: true,
+                from: 10,
+                to: 15
+            });
+            $('#ionrange_4').ionRangeSlider({
+                values: [
+                    "Jan-1973", "Feb-1973", "Mar-1973",
+                    "Abr-1973", "Mai-1973", "Jun-1973",
+                    "Jul-1973", "Ago-1973", "Set-1973",
+                    "Out-1973", "Nov-1973", "Dez-1973",
+                    "Jan-1974", "Feb-1974", "Mar-1974",
+                    "Abr-1974", "Mai-1974", "Jun-1974",
+                    "Jul-1974", "Ago-1974", "Set-1974",
+                    "Out-1974", "Nov-1974", "Dez-1974"
+                ],
+                type: 'double',
+                hasGrid: true,
+                from: 16,
+                to: 22
+            });
+
+        });
+    </script>
+}
+

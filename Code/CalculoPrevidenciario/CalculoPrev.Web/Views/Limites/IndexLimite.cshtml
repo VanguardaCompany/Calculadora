@@ -1,0 +1,294 @@
+﻿
+@model PagedList.IPagedList<CalculoPrev.DAL.Models.Limite>
+@using PagedList.Mvc
+@using PagedList
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Limites";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Limites</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="home.html">Home</a>
+            </li>
+            <li>
+                <a>Cadastro</a>
+            </li>
+            <li class="active">
+                <strong>Limites</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Limites</h5>
+                    <div class="ibox-tools">
+                        @*<button onclick="window.location.href='@Url.Action("CreateLimite","Limites")'" class="btn btn-xs btn-success"
+                                    type="button">
+                                <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+                            </button>*@
+                        <button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalLimite">
+                            <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <form role="form" class="form-inline"></form>
+
+                    <hr />
+
+                    <div class="table-responsive">
+                        <table class="footable table table-stripped toggle-arrow-tiny">
+                            <thead>
+                                <tr>
+                                    <th hidden>LimiteID</th>
+                                    <th>@Html.ActionLink("Data", "IndexLimite", new { sortOrder = ViewBag.NomeIndiceParm, currentFilter = ViewBag.CurrentFilter })</th>
+                                    <th>Teto de Contribuição</th>
+                                    <th>Teto para a R.M.I.</th>
+                                    <th>Menor valor Teto</th>
+                                    <th>Maior valor Teto</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td hidden>@Html.DisplayFor(modelItem => item.LimiteID)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Data, "{0:MM/dd/yyyy}")</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TetoContribuicao)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TetoRMI)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.MenorValorTeto)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.MaiorValorTeto)</td>
+                                        <td>
+                                            <button class="btn btn-xs btn-default" type="button" onclick="editarLimite('@Html.DisplayFor(modelItem => item.LimiteID)',
+                                                    '@Html.DisplayFor(modelItem => item.Data)','@Html.DisplayFor(modelItem => item.TetoContribuicao)',
+                                                    '@Html.DisplayFor(modelItem => item.TetoRMI)', '@Html.DisplayFor(modelItem => item.MenorValorTeto)',
+                                                    '@Html.DisplayFor(modelItem => item.MaiorValorTeto)')">
+                                                <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
+                                            </button>
+                                            <button class="btn btn-xs btn-default" type="button" onclick="location.href='@Url.Action("DeleteLimite", "Limites",new { limiteId = Html.DisplayFor(modelItem => item.LimiteID) })'">
+                                                <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
+                                            </button>
+                                            @*@Html.ActionLink("Apagar", "DeleteLimite", new { id = item.LimiteID }, new { @class = "btn btn-white btn-sm" })*@
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                        <br />
+                        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+
+                        @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexLimite",
+new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+new PagedListRenderOptions()
+{
+DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+DisplayLinkToLastPage = PagedListDisplayMode.Always,
+DisplayLinkToNextPage = PagedListDisplayMode.Always,
+MaximumPageNumbersToDisplay = 5
+})
+
+
+                        <div>
+                            Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                            of @Model.PageCount
+
+                            @if (Model.HasPreviousPage)
+                            {
+                                @Html.ActionLink("<<", "IndexLimite", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+                                @Html.Raw(" ");
+                                @Html.ActionLink("< Anterior", "IndexLimite", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+                            }
+                            else
+                            {
+                                @:<<
+                                @Html.Raw(" ");
+                                @:< Anterior
+                            }
+
+                            @if (Model.HasNextPage)
+                            {
+                                @Html.ActionLink("Próxima >", "IndexLimite", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+                                @Html.Raw(" ");
+                                @Html.ActionLink(">>", "IndexLimite", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+                            }
+                            else
+                            {
+                                @:Próxima >
+                                @Html.Raw(" ")
+                                @:>>
+                            }
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modalLimite">
+    <div class="modal-dialog" style="width:500px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Adicionar Valor</h4>
+            </div>
+            @Html.Hidden("limiteId")
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="form-group" id="dataModal">
+                            <label>Mês/Ano</label>
+                            <div class="input-group date datetimepicker">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @Html.TextBox("dataAdd", null, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group" >
+                            <label>Teto de Contribuição</label>
+                            <div class="input-group" style="width:100%">
+                                @Html.TextBox("tetoContribuicaoAdd", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group" >
+                            <label>Teto para a R.M.I.</label>
+                            <div class="input-group" style="width:100%">
+                                @Html.TextBox("tetoRmiAdd", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group" >
+                            <label>Menor valor Teto</label>
+                            <div class="input-group" style="width:100%">
+                                @Html.TextBox("menorValorTetoAdd", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group" >
+                            <label>Maior valor Teto</label>
+                            <div class="input-group" style="width:100%">
+                                @Html.TextBox("maiorValorTetoAdd", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button id="salvarLimite" type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+@section Styles {
+    @Styles.Render("~/plugins/footableStyles")
+    @Styles.Render("~/plugins/datapickerStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/footable")
+    @Scripts.Render("~/plugins/datapicker")
+    <script type="text/javascript">
+
+        function editarLimite(limiteId, data, tetoContribuicao, tetoRmi, menorValorTeto, maiorValorTeto) {
+            $('#limiteId').val(limiteId);
+            $('#dataAdd').val(data);
+            tetoContribuicao = tetoContribuicao.replace(/,/g, '.');
+            $('#tetoContribuicaoAdd').val(tetoContribuicao);
+            tetoRmi = tetoRmi.replace(/,/g, '.');
+            $('#tetoRmiAdd').val(tetoRmi);
+            menorValorTeto = menorValorTeto.replace(/,/g, '.');
+            $('#menorValorTetoAdd').val(menorValorTeto);
+            maiorValorTeto = maiorValorTeto.replace(/,/g, '.');
+            $('#maiorValorTetoAdd').val(maiorValorTeto);
+            $('#modalLimite').modal('show');
+        }
+
+    $(document).ready(function () {
+
+        $('.footable').footable();
+        $('.footable2').footable();
+
+    });
+
+    $('.datetimepicker').datepicker({
+        viewMode: "months",
+        minViewMode: "months",
+        format: 'mm/yyyy',
+        language: 'pt-BR',
+        todayHighlight: true,
+        autoclose: true
+    });
+
+    $('#salvarLimite').click(function () {
+        console.log($('#dataAdd').val());
+        $.ajax({
+            url: '@Url.Action("SaveLimiteAjax", "Limites", new { })',
+            type: "Post",
+            cache: false,
+            dataType: "json",
+            data: {
+                limiteId: $('#limiteId').val(),
+                data: $('#dataAdd').val(),
+                tetoContribuicao: $('#tetoContribuicaoAdd').val(),
+                tetoRmi: $('#tetoRmiAdd').val(),
+                menorValorTeto: $('#menorValorTetoAdd').val(),
+                maiorValorTeto: $('#maiorValorTetoAdd').val()
+            },
+            beforeSend: function () {
+
+            },
+            success: function (items) {
+                console.log('sucesso');
+                $('#modalLimite').modal('hide');
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+
+    </script>
+}
+

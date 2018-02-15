@@ -1,0 +1,123 @@
+﻿@model IEnumerable<CalculoPrev.DAL.Models.ValorIndiceCorrecao>
+
+<div class="ibox float-e-margins valoresIC">
+    <div class="ibox-title">
+        <h5>Valores</h5>
+        <div class="ibox-tools">
+            <button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalAddValorIC">
+                <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+            </button>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="footable table table-stripped toggle-arrow-tiny">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Valor</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Data)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Valor)</td>
+                            <td>
+                                @Html.ActionLink("Editar", "EditIC", new { id = item.IndiceCorrecaoID }, new { @class = "btn btn-white btn-sm" })
+                                @Html.ActionLink("Apagar", "Delete", new { id = item.IndiceCorrecaoID }, new { @class = "btn btn-white btn-sm" })
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            <br />
+
+
+
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalAddValorIC">
+    <div class="modal-dialog" style="width:300px !important" >
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Adicionar Valor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-12">
+                            <div class="form-group" id="dataModal">
+                                <label>Data</label>
+                                <div class="input-group date datetimepicker">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @Html.TextBox("dataAdd", null, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group" id="valorModal">
+                                <label>Valor</label>
+                                <div class="input-group" style="width:100%">
+                                    @Html.TextBox("valorAdd", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.00001" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button id="salvarValor" type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+@section Styles {
+    @Styles.Render("~/plugins/footableStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/footable")
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('.footable').footable();
+                $('.footable2').footable();
+
+            
+                $('.decimal').keyup(function () {
+                    var val = $(this).val();
+                    if (isNaN(val)) {
+                        val = val.replace(/[^0-9\.]/g, '');
+                        if (val.split('.').length > 2)
+                            val = val.replace(/\.+$/, "");
+                    }
+                    $(this).val(val);
+                });
+            });
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+

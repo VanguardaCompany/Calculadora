@@ -1,0 +1,369 @@
+﻿
+@{
+    ViewBag.Title = "Adicionar Cliente";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Cadastro de Cliente</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="home.html">Home</a>
+            </li>
+            <li>
+                <a>Cadastro</a>
+            </li>
+            <li>
+                <a>Cliente</a>
+            </li>
+            <li class="active">
+                <strong>Adicionar Cliente</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Adicionar Cliente</h5>
+                    <div class="ibox-tools">
+                        <!--<a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                         <i class="fa fa-wrench"></i> 
+                         </a> 
+                        <ul class="dropdown-menu dropdown-user"> 
+                         <li><a href="#">Config option 1</a> 
+                         </li> 
+                         <li><a href="#">Config option 2</a>
+                        </li> 
+                         </ul> 
+                        <a class="close-link"> 
+                         <i class="fa fa-times"></i> 
+                         </a> -->
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form id="form-cadastro" role="form" action="home.html">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group"><label>Nome Completo</label> <input type="text" placeholder="" class="form-control"></div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label>Sexo</label>
+                                    <select class="form-control m-b" name="account">
+                                        <option></option>
+                                        <option>Masculino</option>
+                                        <option>Feminino</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label>Tratamento</label>
+                                    <select class="form-control m-b" name="account">
+                                        <option></option>
+                                        <option>Sr.</option>
+                                        <option>Sra.</option>
+                                        <option>Srta.</option>
+                                        <option>Menor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label>Estado Civil</label>
+                                    <select class="form-control m-b" name="account">
+                                        <option></option>
+                                        <option>Solteiro(a)</option>
+                                        <option>Casado(a)</option>
+                                        <option>Divorciado(a)</option>
+                                        <option>Viúvo(a)</option>
+                                        <option>Separado(a)</option>
+                                        <option>União estável
+                                        <option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group"><label>Profissão</label> <input type="text" placeholder="" class="form-control"></div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group" id="data_1">
+                                    <label>Data de nascimento</label>
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label>Doc. de Identificação</label>
+                                    <select class="form-control m-b" name="account">
+                                        <option></option>
+                                        <option>RG</option>
+                                        <option>CTPS</option>
+                                        <option>Passaporte</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group"><label># Doc. Identificação</label> <input type="text" placeholder="___.___.___-__" class="form-control"></div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>C.P.F.</label>
+                                    <div class="input-group">
+                                        <input type="text" placeholder="___.___.___-__" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-white" data-toggle="popover" data-placement="auto top" data-content="Link para a Receita Federal."><i class="fa fa-search"></i></button>
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#tab-1">Endereço de Correspondência</a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-2">Endereço de Cobrança</a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-3">Endereço de Faturamento</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="tab-1" class="tab-pane active">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Localização</label>
+                                                            <select class="form-control m-b" name="account">
+                                                                <option>Residência</option>
+                                                                <option>Matriz</option>
+                                                                <option>Escritório</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Logradouro</label>
+                                                            <select class="form-control m-b" name="account">
+                                                                <option>Rua</option>
+                                                                <option>Avenida</option>
+                                                                <option>Praça</option>
+                                                                <option>Rodovia</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                        <div class="form-group"><label>Nome do logradouro</label> <input type="text" placeholder="" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <div class="form-group"><label>Número</label> <input type="text" placeholder="" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group"><label>Complemento</label> <input type="text" placeholder="" class="form-control"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group"><label>Bairro</label> <input type="text" placeholder="" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Cidade</label>
+                                                            <select class="form-control m-b" name="account">
+                                                                <option>Juiz de Fora</option>
+                                                                <option>Belo Horizonte</option>
+                                                                <option>Rio de Janeiro</option>
+                                                                <option>Etc...</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Estado</label>
+                                                            <select class="form-control m-b" name="account">
+                                                                <option>MG</option>
+                                                                <option>RJ</option>
+                                                                <option>SP</option>
+                                                                <option>Etc...</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>País</label>
+                                                            <select class="form-control m-b" name="account">
+                                                                <option>Brasil</option>
+                                                                <option>Etc...</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group">
+                                                            <label>CEP</label>
+                                                            <div class="input-group">
+                                                                <input type="text" placeholder="___.___-___" class="form-control">
+                                                                <span class="input-group-btn">
+                                                                    <button type="button" class="btn btn-white" data-toggle="popover" data-placement="auto top" data-content="Link para a Receita Federal."><i class="fa fa-search"></i></button>
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group"><label>E-mail</label> <input type="text" placeholder="" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group"><label>Home page</label> <input type="text" placeholder="" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group"><label>Contato</label> <input type="text" placeholder="" class="form-control"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group"><label>Telefone 1</label> <input type="text" placeholder="(__) ___.____-____" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Tipo</label>
+                                                            <select class="form-control m-b" name="account">
+                                                                <option>Celular</option>
+                                                                <option>Fixo</option>
+                                                                <option>Fax</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group"><label>Telefone 2</label> <input type="text" placeholder="(__) ___.____-____" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Tipo</label>
+                                                            <select class="form-control m-b" name="account">
+                                                                <option>Celular</option>
+                                                                <option>Fixo</option>
+                                                                <option>Fax</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group"><label>Telefone 3</label> <input type="text" placeholder="(__) ___.____-____" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Tipo</label>
+                                                            <select class="form-control m-b" name="account">
+                                                                <option>Celular</option>
+                                                                <option>Fixo</option>
+                                                                <option>Fax</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="tab-2" class="tab-pane">
+                                            <div class="panel-body">
+
+                                            </div>
+                                        </div>
+                                        <div id="tab-3" class="tab-pane">
+                                            <div class="panel-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div style="float:right">
+                                        <button class="btn btn-white btn-cancelar" type="button">Cancelar</button>
+                                        <button class="btn btn-primary btn-salvar" type="button">Salvar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Styles {
+    @Styles.Render("~/plugins/sweetAlertStyles")
+    @Styles.Render("~/plugins/toastrStyles")
+    @Styles.Render("~/plugins/datapickerStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/sweetalert")
+    @Scripts.Render("~/plugins/toastr")
+    @Scripts.Render("~/plugins/datapicker")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+            $('.btn-cancelar').click(function () {
+                swal({
+                    title: "Tem certeza?",
+                    text: "Cuidado, você perderá todas as modificações caso confirme este cancelamento!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Sim, pode cancelar!",
+                    cancelButtonText: "Não",
+                    closeOnConfirm: true
+                }, function () {
+                    //swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                });
+            });
+
+            $('.btn-salvar').click(function () {
+                swal({
+                    title: "Sucesso!",
+                    text: "Cadastro realizado com sucesso!",
+                    type: "success"
+                });
+            });
+
+        });
+    </script>
+}
+

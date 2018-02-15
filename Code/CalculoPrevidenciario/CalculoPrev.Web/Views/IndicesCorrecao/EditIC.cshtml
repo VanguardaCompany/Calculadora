@@ -1,0 +1,196 @@
+﻿@model CalculoPrev.DAL.Models.IndiceCorrecao
+@*@using PagedList.Mvc
+    @using PagedList*@
+@{
+    ViewBag.Title = "EditIC";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Editar Índices de Correção</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="home.html">Home</a>
+            </li>
+            <li>
+                <a>Cadastro</a>
+            </li>
+            <li class="active">
+                <strong>Índices de Correção</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+
+
+@using (Html.BeginForm("EditIC", "IndicesCorrecao", FormMethod.Get, new { @class = "" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.IndiceCorrecaoID)
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Editar Índice de Correção</h5>
+                        <div class="ibox-tools">
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-7">
+                                    <form id="form-cadastro" role="form" action="home.html">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Nome do índice</label>
+                                                    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Tipo de índice</label>
+                                                    @Html.EnumDropDownListFor(m => m.Tipo, "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Periodicidade</label>
+                                                    @Html.EnumDropDownListFor(m => m.Periodicidade, "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group" id="dataInicio">
+                                                    <label>Ínicio</label>
+                                                    <div class="input-group date datetimepicker">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        @Html.TextBoxFor(m => m.DataInicio, "{0:MM/yyyy}", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group" id="dataFim">
+                                                    <label>Fim</label>
+                                                    <div class="input-group date datetimepicker">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        @Html.TextBoxFor(m => m.DataFim, "{0:MM/yyyy}", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Descrição do Índice</label>
+                                                    @Html.TextBoxFor(m => m.Descricao, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Informações Gerais sobre o índice</label>
+                                                    @Html.TextAreaFor(m => m.Informacoes, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-lg-2 form-checkbox" style="text-align:center;">
+                                                @Html.CheckBoxFor(m => m.Extinto, new { @id = "checkboxExtinto", @class = "form-control toggle" })
+                                                <label for="checkboxExtinto">
+                                                    Extinto
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-5">
+                                    @Html.Partial("_ValoresIC", Model.Valores)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-solid"></div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div style="float:right">
+                                        <button class="btn btn-white btn-cancelar" type="button">Cancelar</button>
+                                        <button class="btn btn-primary btn-salvar" value="Create" type="submit">Salvar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+
+            
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "IndexIC")
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/datapickerStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/datapicker")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.datetimepicker').datepicker({
+                viewMode: "months",
+                minViewMode: "months",
+                format: 'mm/yyyy',
+                language: 'pt-BR',
+                todayHighlight: true,
+                autoclose: true
+            });
+            
+
+            $('#salvarValor').click(function () {
+                console.log($('#dataAdd').val());
+                $.ajax({
+                    url: '@Url.Action("CreateValorICAjax", "IndicesCorrecao", new { })',
+                    type: "Post",
+                    cache: false,
+                    dataType: "json",
+                    data: {
+                        data: $('#dataAdd').val(),
+                        valor: $('#valorAdd').val(),
+                        indiceCorrecaoID: $('#IndiceCorrecaoID').val()
+                    },
+                    beforeSend: function () {
+
+                    },
+                    success: function (items) {
+                        console.log('sucesso');
+                        $('#modalAddValorIC').modal('hide');
+                        window.location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+
+        });
+    </script>
+}
+
+
