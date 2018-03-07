@@ -1,0 +1,227 @@
+﻿@model PagedList.Core.IPagedList<Calculadora.DAL.Models.IndiceCorrecao>
+@using PagedList.Core.Mvc
+@using PagedList.Core
+
+@{
+    ViewBag.Title = "Índice de Correção";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Cadastro de Índices de Correção</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="home.html">Home</a>
+            </li>
+            <li>
+                <a>Cadastro</a>
+            </li>
+            <li class="active">
+                <strong>Índices de Correção</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Índices de Correção</h5>
+                    <div class="ibox-tools">
+                        <button onclick="window.location.href='@Url.Action("CreateIC","IndicesCorrecao")'" class="btn btn-xs btn-success"
+                                type="button">
+                            <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="ibox-filter">
+                        @using (Html.BeginForm("IndexIC", "IndicesCorrecao", FormMethod.Get, new { @class = "form-inline" }))
+                        {
+
+                            <div class="form-group col-lg-12" style="padding:0; text-align:center;">
+                                <div class="col-lg-4" style="padding:0">
+                                    <div class="checkbox m-r-xs col-lg-4" style="padding:0;margin:0">
+                                        @Html.CheckBox("PercentagemFilter", (bool)ViewBag.PercentagemFilter, new { @id = "checkbox1", @class = "form-control toggle", onclick = "this.form.submit();" })
+                                        <label for="checkbox1">
+                                            Em Percentagem
+                                        </label>
+                                    </div>
+                                    <div class="checkbox m-r-xs col-lg-4" style="padding:0;margin:0">
+                                        @Html.CheckBox("ValorFilter", (bool)ViewBag.ValorFilter, new { @id = "checkbox2", @class = "form-control toggle", onclick = "this.form.submit();" })
+                                        <label for="checkbox2">
+                                            Em Valor
+                                        </label>
+                                    </div>
+
+                                    <div class="checkbox m-r-xs col-lg-4" style="padding:0;margin:0">
+                                        @Html.CheckBox("AniversarioFilter", (bool)ViewBag.AniversarioFilter, new { @id = "checkbox3", @class = "form-control toggle", onclick = "this.form.submit();" })
+                                        <label for="checkbox3">
+                                            Com Aniversário
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4" style="padding:0">
+                                    <div class="checkbox m-r-xs col-lg-4" style="padding:0;margin:0">
+                                        @Html.CheckBox("SomatorioFilter", (bool)ViewBag.SomatorioFilter, new { @id = "checkbox4", @class = "form-control toggle", onclick = "this.form.submit();" })
+                                        <label for="checkbox4">
+                                            Com Somatório
+                                        </label>
+                                    </div>
+
+                                    <div class="checkbox m-r-xs col-lg-4" style="padding:0;margin:0">
+                                        @Html.CheckBox("MensaisFilter", (bool)ViewBag.MensaisFilter, new { @id = "checkbox5", @class = "form-control toggle", onclick = "this.form.submit();" })
+                                        <label for="checkbox5">
+                                            Mensais
+                                        </label>
+                                    </div>
+                                    <div class="checkbox m-r-xs col-lg-4" style="padding:0;margin:0">
+                                        @Html.CheckBox("DiariosFilter", (bool)ViewBag.DiariosFilter, new { @id = "checkbox6", @class = "form-control toggle", onclick = "this.form.submit();" })
+                                        <label for="checkbox6">
+                                            Diários
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4" style="padding:0">
+                                    <div class="checkbox m-r-xs col-lg-4" style="padding:0;margin:0">
+                                        @Html.CheckBox("AtualizadosFilter", (bool)ViewBag.AtualizadosFilter, new { @id = "checkbox7", @class = "form-control toggle", onclick = "this.form.submit();" })
+                                        <label for="checkbox7">
+                                            Atualizados
+                                        </label>
+                                    </div>
+                                    <div class="checkbox m-r-xs col-lg-4" style="padding:0;margin:0">
+                                        @Html.CheckBox("DesatualizadosFilter", (bool)ViewBag.DesatualizadosFilter, new { @id = "checkbox8", @class = "form-control toggle", onclick = "this.form.submit();" })
+                                        <label for="checkbox8">
+                                            Desatualizados
+                                        </label>
+                                    </div>
+
+                                    <div class="checkbox m-r-xs col-lg-4" style="padding:0;margin:0">
+                                        @Html.CheckBox("ExtintosFilter", (bool)ViewBag.ExtintosFilter, new { @id = "checkbox9", @class = "form-control toggle", onclick = "this.form.submit();" })
+                                        <label for="checkbox9">
+                                            Extintos
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        }
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="footable table table-stripped toggle-arrow-tiny">
+                            <thead>
+                                <tr>
+                                    @*<th>Nome do Índice</th>*@
+                                    <th>@Html.ActionLink("Nome do Índice", "IndexIC", new { sortOrder = ViewBag.NomeIndiceParm, currentFilter = ViewBag.CurrentFilter })</th>
+                                    <th>Tipo</th>
+                                    <th>Periodicidade</th>
+                                    <th>Início</th>
+                                    <th>Fim</th>
+                                    <th>Último Valor</th>
+                                    <th></th>
+                                    <th data-hide="all">Descrição</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Tipo)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Periodicidade)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.DataInicio)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.DataFim)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UltimoValor)</td>
+                                        <td>
+                                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("EditIC", "IndicesCorrecao", new { id = item.IndiceCorrecaoID})'">
+                                                <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
+                                            </button>
+                                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("DeleteIC", "IndicesCorrecao", new { id = item.IndiceCorrecaoID})'">
+                                                <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
+                                            </button>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                        <br />
+                        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+
+
+                        <div>
+                            Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                            of @Model.PageCount
+
+                            @if (Model.HasPreviousPage)
+                            {
+                                @Html.ActionLink("<<", "IndexIC", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, percentagemFilter = (bool)ViewBag.PercentagemFilter, valorFilter = (bool)ViewBag.ValorFilter, aniversarioFilter = true, somatorioFilter = (bool)ViewBag.SomatorioFilter, mensaisFilter = (bool)ViewBag.MensaisFilter, diariosFilter = (bool)ViewBag.DiariosFilter, atualizadosFilter = (bool)ViewBag.AtualizadosFilter, desatualizadosFilter = (bool)ViewBag.DesatualizadosFilter, extintosFilter = (bool)ViewBag.ExtintosFilter })
+                                @Html.Raw(" ");
+                                @Html.ActionLink("< Anterior", "IndexIC", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, percentagemFilter = (bool)ViewBag.PercentagemFilter, valorFilter = (bool)ViewBag.ValorFilter, aniversarioFilter = true, somatorioFilter = (bool)ViewBag.SomatorioFilter, mensaisFilter = (bool)ViewBag.MensaisFilter, diariosFilter = (bool)ViewBag.DiariosFilter, atualizadosFilter = (bool)ViewBag.AtualizadosFilter, desatualizadosFilter = (bool)ViewBag.DesatualizadosFilter, extintosFilter = (bool)ViewBag.ExtintosFilter })
+                            }
+                            else
+                            {
+                                @:<<
+                                @Html.Raw(" ");
+                                @:< Anterior
+                            }
+
+                            @if (Model.HasNextPage)
+                            {
+                                @Html.ActionLink("Próxima >", "IndexIC", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, percentagemFilter = (bool)ViewBag.PercentagemFilter, valorFilter = (bool)ViewBag.ValorFilter, aniversarioFilter = true, somatorioFilter = (bool)ViewBag.SomatorioFilter, mensaisFilter = (bool)ViewBag.MensaisFilter, diariosFilter = (bool)ViewBag.DiariosFilter, atualizadosFilter = (bool)ViewBag.AtualizadosFilter, desatualizadosFilter = (bool)ViewBag.DesatualizadosFilter, extintosFilter = (bool)ViewBag.ExtintosFilter })
+                                @Html.Raw(" ");
+                                @Html.ActionLink(">>", "IndexIC", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, percentagemFilter = (bool)ViewBag.PercentagemFilter, valorFilter = (bool)ViewBag.ValorFilter, aniversarioFilter = true, somatorioFilter = (bool)ViewBag.SomatorioFilter, mensaisFilter = (bool)ViewBag.MensaisFilter, diariosFilter = (bool)ViewBag.DiariosFilter, atualizadosFilter = (bool)ViewBag.AtualizadosFilter, desatualizadosFilter = (bool)ViewBag.DesatualizadosFilter, extintosFilter = (bool)ViewBag.ExtintosFilter })
+                            }
+                            else
+                            {
+                                @:Próxima >
+                                @Html.Raw(" ")
+                                @:>>
+                            }
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+    </environment>
+}
+@section Scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/footable/dist/footable.all.min.js"></script>
+    </environment>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.footable').footable();
+        });
+
+    </script>
+}
+
+

@@ -1,0 +1,206 @@
+﻿@model Calculadora.DAL.Models.Limite
+@{
+    ViewBag.Title = "Adicionar Limite";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Cadastro de Limites</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="home.html">Home</a>
+            </li>
+            <li>
+                <a>Cadastro</a>
+            </li>
+            <li class="active">
+                <strong>Adicionar Limite</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Adicionar Limite</h5>
+                        <div class="ibox-tools">
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        @*<form id="form-cadastro" role="form" action="home.html">*@
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="form-group" id="dataInicio">
+                                        <label>Data</label>
+                                        <div class="input-group date datetimepicker">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            @Html.TextBoxFor(m => m.Data, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Teto de Contribuição</label>
+                                        @Html.TextBoxFor(m => m.TetoContribuicao, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Teto para a R.M.I.</label>
+                                        @Html.TextBoxFor(m => m.TetoRMI, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Menor valor Teto</label>
+                                        @Html.TextBoxFor(m => m.MenorValorTeto, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Maior valor Teto</label>
+                                        @Html.TextBoxFor(m => m.MaiorValorTeto, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div style="float:right">
+                                            <button class="btn btn-white btn-cancelar" type="button">Cancelar</button>
+                                            <button class="btn btn-primary btn-salvar" value="Create" type="submit">Salvar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @*</form>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib_bower/sweetalert/dist/sweetalert.css" />
+        <link rel="stylesheet" href="~/lib_bower/toastr/toastr.css" />
+        <link rel="stylesheet" href="~/lib/iCheck/custom.css" />
+        <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib_bower/sweetalert/dist/sweetalert.css" />
+        <link rel="stylesheet" href="~/lib_bower/toastr/toastr.min.css" />
+        <link rel="stylesheet" href="~/lib/iCheck/custom.css" />
+        <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" />
+    </environment>
+}
+@section Scripts {
+    <environment names="Development">
+        <script src="~/lib/iCheck/icheck.min.js"></script>
+        <script src="~/lib_bower/sweetalert/dist/sweetalert-dev.js"></script>
+        <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+        <script src="~/lib_bower/toastr/toastr.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/iCheck/icheck.min.js"></script>
+        <script src="~/lib_bower/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        <script src="~/lib_bower/toastr/toastr.min.js"></script>
+    </environment>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $('.btn-cancelar').click(function () {
+                swal({
+                    title: "Tem certeza?",
+                    text: "Cuidado, você perderá todas as modificações caso confirme este cancelamento!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Sim, pode cancelar!",
+                    cancelButtonText: "Não",
+                    closeOnConfirm: true
+                }, function () {
+                    //swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                });
+            });
+
+            //$('.btn-salvar').click(function () {
+            //    swal({
+            //        title: "Sucesso!",
+            //        text: "Cadastro realizado com sucesso!",
+            //        type: "success"
+            //    });
+            //});
+
+            $('.datetimepicker').datepicker({
+                viewMode: "months",
+                minViewMode: "months",
+                format: 'mm/yyyy',
+                language: 'pt-BR',
+                todayHighlight: true,
+                autoclose: true
+            });
+
+
+
+        });
+                //$(document).on('keyup', '.decimal', function () {
+                //    $(this).val($(this).val().replace(/,/g, '.'));
+                //    var val = $(this).val();
+                //    if (isNaN(val)) {
+                //        val = val.replace(/[^0-9\.]/g, '');
+                //        if (val.split('.').length > 2)
+                //            val = val.replace(/\.+$/, "");
+                //    }
+                //    $(this).val(val);
+                //});
+
+    </script>
+
+    <script type='text/javascript'>
+////<![CDATA[
+//        $(window).load(function () {
+//            $('.decimal').keyup(function () {
+//                var val = $(this).val();
+//                if (isNaN(val)) {
+//                    val = val.replace(/[^0-9\,]/g, '');
+//                    if (val.split(',').length > 2)
+//                        val = val.replace(/\,+$/, "");
+//                }
+//                $(this).val(val);
+//            });
+//        });//]]>
+
+    </script>
+}
+
+
+
+
+
+
+

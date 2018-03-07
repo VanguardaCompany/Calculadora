@@ -1,0 +1,367 @@
+﻿@model PagedList.Core.IPagedList<Calculadora.DAL.Models.ReajusteRMI>
+@using PagedList.Core.Mvc
+@using PagedList.Core
+@{
+    ViewBag.Title = "Reajustes da R.M.I.";
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Cadastro de Reajuste da R.M.I.</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="home.html">Home</a>
+            </li>
+            <li>
+                <a>Cadastro</a>
+            </li>
+            <li class="active">
+                <strong>Tabela de Reajuste da R.M.I.</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Tabela de Reajustes R.M.I.</h5>
+                    <div class="ibox-tools">
+                        <button id="addRMI" class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalReajuste"><strong><i class="fa fa-plus btn-icon"></i>Adicionar</strong></button>
+                        @*Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs" })*@
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form role="form" class="form-inline"></form>
+
+                    <hr />
+
+                    <div class="table-responsive">
+                        <table class="footable table table-stripped toggle-arrow-tiny">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Reajuste (%)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td hidden>@Html.DisplayFor(modelItem => item.ReajusteRMIID)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Data)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ReajusteTotal)</td>
+
+                                        <td>
+                                            <button class="btn btn-xs btn-default" type="button" onclick="editarRMI('@Html.DisplayFor(modelItem => item.ReajusteRMIID)')">
+                                                <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
+                                            </button>
+                                            <button class="btn btn-xs btn-default" type="button" onclick="location.href='@Url.Action("DeleteRMI", "ReajustesRMI",new { limiteId = Html.DisplayFor(modelItem => item.ReajusteRMIID) })'">
+                                                <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal" id="modalReajuste" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width:900px">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header" style="padding:15px 20px ">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" style="text-align:left;font-size:16px">Adicionar Reajuste R.M.I.</h3>
+            </div>
+            @Html.Hidden("reajusteId")
+            <div class="modal-body ">
+                <div class="row">
+                    <div class="col-sm-3 ">
+                        <div class="form-group" id="dataModal">
+                            <label>Mês/Ano</label>
+                            <div class="input-group date datetimepicker">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @Html.TextBox("dataAdd", null, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 ">
+                        <form role="form">
+                            <div class="form-group">
+                                <label>Reajuste Total %</label>
+                                @Html.TextBox("reajusteTotalAdd", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <hr />
+                <p>Informe abaixo os fatores proporcionais de acordo com a D.B.I. </p>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator1"></label>
+                                @Html.TextBox("fator1Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator2"></label>
+                                @Html.TextBox("fator2Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator3"></label>
+                                @Html.TextBox("fator3Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator4"></label>
+                                @Html.TextBox("fator4Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator5"></label>
+                                @Html.TextBox("fator5Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator6"></label>
+                                @Html.TextBox("fator6Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator7"></label>
+                                @Html.TextBox("fator7Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator8"></label>
+                                @Html.TextBox("fator8Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator9"></label>
+                                @Html.TextBox("fator9Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator10"></label>
+                                @Html.TextBox("fator10Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator11"></label>
+                                @Html.TextBox("fator11Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2">
+                        <form role="form">
+                            <div class="form-group">
+                                <label id="fator12"></label>
+                                @Html.TextBox("fator12Add", null, new { @class = "form-control decimal", @type = "number", @min = "0", @step = "0.01" })
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <hr />
+                <p>Link para a portario do ministério da previdência social</p>
+                @Html.TextBox("linkPrevidenciaAdd", null, new { @class = "form-control" })
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button id="salvarRMI" type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Styles {
+<environment names="Development">
+    <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+    <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+</environment>
+<environment names="Staging,Production">
+    <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+    <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+</environment>
+}
+@section Scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/footable/dist/footable.all.min.js"></script>
+        <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+    </environment>
+    <script type="text/javascript">
+
+        $('#addRMI').click(function () {
+            var m = ['01','02','03','04','05','06','07','08','09','10','11','12']
+            var d = new Date();
+            $('#dataAdd').val(m[d.getMonth()] + "/" + d.getFullYear());
+            changeDataFatores(d.getMonth(), d.getFullYear());
+        });
+
+        function changeDataFatores(mes, ano) {
+            var m = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+            document.getElementById('fator1').innerText = 'Em ' + m[(mes - 1) < 0 ? 12 + (mes - 1) : (mes - 1)] + "/" + (((mes - 1) < 0) ? ano-1 : ano);
+            document.getElementById('fator2').innerText = 'Em ' + m[(mes - 2) < 0 ? 12 + (mes - 2) : (mes - 2)] + "/" + ((mes - 2) < 0 ? ano - 1 : ano);
+            document.getElementById('fator3').innerText = 'Em ' + m[(mes - 3) < 0 ? 12 + (mes - 3) : (mes - 3)] + "/" + ((mes - 3) < 0 ? ano - 1 : ano);
+            document.getElementById('fator4').innerText = 'Em ' + m[(mes - 4) < 0 ? 12 + (mes - 4) : (mes - 4)] + "/" + ((mes - 4) < 0 ? ano - 1 : ano);
+            document.getElementById('fator5').innerText = 'Em ' + m[(mes - 5) < 0 ? 12 + (mes - 5) : (mes - 5)] + "/" + ((mes - 5) < 0 ? ano - 1 : ano);
+            document.getElementById('fator6').innerText = 'Em ' + m[(mes - 6) < 0 ? 12 + (mes - 6) : (mes - 6)] + "/" + ((mes - 6) < 0 ? ano - 1 : ano);
+            document.getElementById('fator7').innerText = 'Em ' + m[(mes - 7) < 0 ? 12 + (mes - 7) : (mes - 7)] + "/" + ((mes - 7) < 0 ? ano - 1 : ano);
+            document.getElementById('fator8').innerText = 'Em ' + m[(mes - 8) < 0 ? 12 + (mes - 8) : (mes - 8)] + "/" + ((mes - 8) < 0 ? ano - 1 : ano);
+            document.getElementById('fator9').innerText = 'Em ' + m[(mes - 9) < 0 ? 12 + (mes - 9) : (mes - 9)] + "/" + ((mes - 9) < 0 ? ano - 1 : ano);
+            document.getElementById('fator10').innerText = 'Em ' + m[(mes - 10) < 0 ? 12 + (mes - 10) : (mes - 10)] + "/" + ((mes - 10) < 0 ? ano - 1 : ano);
+            document.getElementById('fator11').innerText = 'Em ' + m[(mes - 11) < 0 ? 12 + (mes - 11) : (mes - 11)] + "/" + ((mes - 11) < 0 ? ano - 1 : ano);
+            document.getElementById('fator12').innerText = 'Em ' + m[(mes - 12) < 0 ? 12 + (mes - 12) : (mes - 12)] + "/" + ((mes - 12) < 0 ? ano - 1 : ano);
+        }
+
+        function editarRMI(reajusteId, data, tetoContribuicao, tetoRmi, menorValorTeto, maiorValorTeto) {
+            $('#reajusteId').val(reajusteId);
+            $.ajax({
+            url: '@Url.Action("GetReajusteAjax", "ReajustesRMI", new { })',
+            type: "Post",
+            cache: false,
+            dataType: "json",
+            data: {
+                reajusteId: $('#reajusteId').val()
+            },
+            beforeSend: function () {
+
+            },
+            success: function (items) {
+                console.log('sucesso GetReajusteAjax');
+                $('#reajusteId').val(items.ReajusteRMIID);
+                $('#dataAdd').val(items.Data);
+                $('#reajusteTotalAdd').val(items.ReajusteTotal);
+                $('#fator1Add').val(items.Fator1);
+                $('#fator2Add').val(items.Fator2);
+                $('#fator3Add').val(items.Fator3);
+                $('#fator4Add').val(items.Fator4);
+                $('#fator5Add').val(items.Fator5);
+                $('#fator6Add').val(items.Fator6);
+                $('#fator7Add').val(items.Fator7);
+                $('#fator8Add').val(items.Fator8);
+                $('#fator9Add').val(items.Fator9);
+                $('#fator10Add').val(items.Fator10);
+                $('#fator11Add').val(items.Fator11);
+                $('#fator12Add').val(items.Fator12);
+                $('#linkPrevidenciaAdd').val(items.linkPrevidencia);
+                $('#modalReajuste').modal('show');
+
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+        }
+
+        $(document).ready(function () {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+        });
+
+        $('.datetimepicker').datepicker({
+            viewMode: "months",
+            minViewMode: "months",
+            format: 'mm/yyyy',
+            language: 'pt-BR',
+            todayHighlight: true,
+            autoclose: true
+        });
+
+        $('#salvarRMI').click(function () {
+            console.log($('#dataAdd').val());
+            $.ajax({
+                url: '@Url.Action("SaveReajusteAjax", "ReajustesRMI", new { })',
+                type: "Post",
+                cache: false,
+                dataType: "json",
+                data: {
+                    reajusteId:$('#reajusteId').val(),
+                    data: $('#dataAdd').val(),
+                    reajusteTotal: $('#reajusteTotalAdd').val(),
+                    fator1: $('#fator1Add').val(),
+                    fator2: $('#fator2Add').val(),
+                    fator3: $('#fator3Add').val(),
+                    fator4: $('#fator4Add').val(),
+                    fator5: $('#fator5Add').val(),
+                    fator6: $('#fator6Add').val(),
+                    fator7: $('#fator7Add').val(),
+                    fator8: $('#fator8Add').val(),
+                    fator9: $('#fator9Add').val(),
+                    fator10: $('#fator10Add').val(),
+                    fator11: $('#fator11Add').val(),
+                    fator12: $('#fator12Add').val(),
+                    link: $('#linkPrevidenciaAdd').val()
+                },
+                beforeSend: function () {
+
+                },
+                success: function (items) {
+                    console.log('sucesso');
+                    $('#modalLimite').modal('hide');
+                    window.location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+
+    </script>
+}
+
+

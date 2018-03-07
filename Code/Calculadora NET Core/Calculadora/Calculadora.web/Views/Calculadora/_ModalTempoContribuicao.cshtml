@@ -1,0 +1,64 @@
+﻿<div class="modal fade" id="modalAddTempoContribuicao">
+    <div class="modal-dialog" style="width:500px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Adicionar Período de Contribuição</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group" id="dataAdmissaoModal">
+                                <label>Data Admissão</label>
+                                <div class="input-group date datetimepicker">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @Html.TextBox("dataAdmissaoAdd", null, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group" id="dataDemissaoModal">
+                                <label>Data Demissão</label>
+                                <div class="input-group date datetimepicker">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @Html.TextBox("dataDemissaoAdd", null, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group" id="valorModal">
+                                @Html.CheckBox("atividadeAdd", null, new { @class = "form-control" })
+                                <label>Atividade é insalubre, perigosa ou penosa?</label>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group" id="valorModal">
+                                <label>Profissão</label>
+                                <div class="input-group" style="width:100%">
+                                    @Html.TextBox("profissaoAdd", null, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group" id="valorModal">
+                                <label>Empregador</label>
+                                <div class="input-group" style="width:100%">
+                                    @Html.TextBox("empregadorAdd", null, new { @class = "form-control decimal" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button id="salvarTempoContribuicao" type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

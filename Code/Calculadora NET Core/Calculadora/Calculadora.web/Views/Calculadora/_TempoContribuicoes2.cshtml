@@ -1,0 +1,112 @@
+﻿@model Calculadora.Domain.Models.CalculadoraViewModel
+
+<div class="ibox float-e-margins valoresIC">
+    <div class="ibox-title">
+        <h5>Tempo de Contribuição</h5>
+        <div class="ibox-tools">
+            <button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalAddTempoContribuicao">
+                <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+            </button>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="footable table table-stripped toggle-arrow-tiny">
+                <thead>
+                    <tr>
+                        <th hidden>IdSimulacao</th>
+                        <th hidden>IdTempoContribuicao</th>
+                        <th>Data Admissão</th>
+                        <th>Data Demissão</th>
+                        <th>Atividade é insalubre, perigosa ou penosa?</th>
+                        <th>Profissão</th>
+                        <th>Empregador</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        @if (Model.TempoContribuicoes != null)
+                        {
+                            @foreach (var item in Model.TempoContribuicoes)
+                            {
+                                <tr>
+                                    <td hidden>@Html.DisplayFor(modelItem => item.TempoContribuicaoID)</td>
+                                    <td hidden>@Html.DisplayFor(modelItem => item.SimulacaoID)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DataAdmissao)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DataDemissao)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AtividadeIPP)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Profissao)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Empregador)</td>
+                                    <td>
+                                        @Html.ActionLink("Editar", "EditIC", new { id = item.TempoContribuicaoID }, new { @class = "btn btn-white btn-sm" })
+                                        @Html.ActionLink("Apagar", "Delete", new { id = item.TempoContribuicaoID }, new { @class = "btn btn-white btn-sm" })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+            <br />
+
+
+
+        </div>
+
+    </div>
+</div>
+
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+    </environment>
+}
+@section Scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/footable/dist/footable.all.min.js"></script>
+    </environment>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+            $('.decimal').keyup(function () {
+                var val = $(this).val();
+                if (isNaN(val)) {
+                    val = val.replace(/[^0-9\.]/g, '');
+                    if (val.split('.').length > 2)
+                        val = val.replace(/\.+$/, "");
+                }
+                $(this).val(val);
+            });
+            //$('.datetimepicker').datepicker({
+            //    //viewMode: "months",
+            //    //minViewMode: "months",
+            //    format: 'dd/mm/yyyy',
+            //    language: 'pt-BR',
+            //    todayHighlight: true,
+            //    autoclose: true
+            //});
+            //$('#modalAddTempoContribuicao').on('shown.bs.modal', function () {
+            //    $('.input-group.date').datepicker({
+            //        format: "dd/mm/yyyy",
+            //        startDate: "01-01-2015",
+            //        endDate: "01-01-2020",
+            //        todayBtn: "linked",
+            //        autoclose: true,
+            //        todayHighlight: true,
+            //        container: '#modalAddTempoContribuicao modal-body'
+            //    });
+            //});
+
+        });
+
+    </script>
+}
