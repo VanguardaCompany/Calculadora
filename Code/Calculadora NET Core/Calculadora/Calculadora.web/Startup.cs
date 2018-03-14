@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ReflectionIT.Mvc.Paging;
 
 using Calculadora.DAL;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,7 @@ namespace Calculadora.web
                         options.UseSqlServer(connection)
             );
             services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddPaging();
 
             services.AddSession();
         }

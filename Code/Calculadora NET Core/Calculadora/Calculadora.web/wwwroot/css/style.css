@@ -8607,3 +8607,33 @@ body.md-skin {
 .excel-link:hover i {
     -webkit-transform: scale(1.2);
 }
+
+#wizard .steps {
+    background-image: url('../images/steps-linha.png');
+    background-repeat:  repeat-y;
+    background-position: center;
+}
+#wizard .steps ul li a {
+    margin-bottom: 50px;
+    text-align:center;
+}
+#wizard > .steps > ul > .last a {
+    margin-bottom:0;
+}
+
+/*
+#wizard .steps ul {
+
+}
+#wizard .steps ul li{
+    width:100%;
+}
+
+#wizard .content {
+    display: inline-block;
+    width: 74%;
+}
+#wizard hr {
+    transform: rotate(90deg);
+    width: 100px;
+}*/

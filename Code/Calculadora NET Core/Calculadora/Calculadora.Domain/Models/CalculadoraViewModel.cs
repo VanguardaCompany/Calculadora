@@ -8,6 +8,7 @@ namespace Calculadora.Domain.Models
 {
     public class CalculadoraViewModel
     {
+        //public ICollection<Cliente> Clientes { get; set; }
         public ICollection<Cliente> Clientes { get; set; }
         public Cliente ClienteSelecionado { get; set; }
         public int ClienteSelecionadoID { get; set; }

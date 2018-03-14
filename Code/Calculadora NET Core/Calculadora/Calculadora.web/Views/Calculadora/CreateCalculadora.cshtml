@@ -18,12 +18,13 @@
                             <h1>Selecione o Cliente</h1>
                             <div class="step-content">
 
-                                @Html.DropDownListFor(m => m.ClienteSelecionado, Model.Clientes.Select(cliente => new SelectListItem()
-                                {
+                                @*@Html.DropDownListFor(m => m.ClienteSelecionado, Model.Clientes.Select(cliente => new SelectListItem()
+                                    {
                                     Text = cliente.Nome,
                                     Value = cliente.PessoaID.ToString()
-                                }), "Selecionar...", htmlAttributes: new { @class = "form-control", @id = "clienteSelecionado", onchange = "getSimulacoes(this.value)" })
-
+                                    }), "Selecionar...", htmlAttributes: new { @class = "form-control", @id = "clienteSelecionado", onchange = "getSimulacoes(this.value)" })*@
+                                @Html.Partial("_SelectCliente", Model.Clientes)
+                                
                             </div>
                             <h1>Selecione a Simulação</h1>
                             <div class="step-content">
@@ -79,82 +80,82 @@
     </div>
 </form>
 
-    @Html.Partial("_ModalTempoContribuicao")
+@Html.Partial("_ModalTempoContribuicao")
 
-    <div class="modal inmodal" id="modalContribuicao" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" style="width:500px">
-            <div class="modal-content animated bounceInRight">
-                <div class="modal-header" style="padding:15px 20px ">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" style="text-align:left;font-size:16px">Adicionar tempo de contribuição</h3>
-                </div>
-                <div class="modal-body ">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group" id="data_inicio">
-                                <label>Início</label>
-                                <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group" id="data_fim">
-                                <label>Fim</label>
-                                <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Tipo</label>
-                                <select class="form-control m-b" name="account">
-                                    <option>Período normal</option>
-                                    <option>Período especial</option>
-                                    <option>Período dobrado</option>
-                                    <option>Licença (não considerado no cálculo)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Fator</label>
-                                <form role="form" class="form-inline">
-                                    <div class="input-group" style="width:100%">
-                                        <input type="text" class="form-control" value="1,00">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-white"><i class="fa fa-search"></i></button>
-                                        </span>
-
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group"><label>Empresa</label> <input type="text" class="form-control"></div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group"><label>Cargo</label> <input type="text" class="form-control"></div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="checkbox i-checks">
-                                <label>
-                                    <input type="checkbox" checked>
-                                    <i></i> Considerar no cálculo da carência
-                                </label>
+<div class="modal inmodal" id="modalContribuicao" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width:500px">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header" style="padding:15px 20px ">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" style="text-align:left;font-size:16px">Adicionar tempo de contribuição</h3>
+            </div>
+            <div class="modal-body ">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group" id="data_inicio">
+                            <label>Início</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-group" id="data_fim">
+                            <label>Fim</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select class="form-control m-b" name="account">
+                                <option>Período normal</option>
+                                <option>Período especial</option>
+                                <option>Período dobrado</option>
+                                <option>Licença (não considerado no cálculo)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Fator</label>
+                            <form role="form" class="form-inline">
+                                <div class="input-group" style="width:100%">
+                                    <input type="text" class="form-control" value="1,00">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-white"><i class="fa fa-search"></i></button>
+                                    </span>
 
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group"><label>Empresa</label> <input type="text" class="form-control"></div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group"><label>Cargo</label> <input type="text" class="form-control"></div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="checkbox i-checks">
+                            <label>
+                                <input type="checkbox" checked>
+                                <i></i> Considerar no cálculo da carência
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Salvar</button>
-                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Salvar</button>
             </div>
         </div>
     </div>
+</div>
 
 
 
@@ -184,7 +185,8 @@
         <script src="~/lib/dataTables/datatables.min.js"></script>
         <script src="~/lib/dualListbox/jquery.bootstrap-duallistbox.js"></script>
         <script src="~/lib/ionRangeSlider/ion.rangeSlider.min.js"></script>
-        @*<script src="~/lib/validate/jquery.validate.min.js"></script>*@
+        @*
+            <script src="~/lib/validate/jquery.validate.min.js"></script>*@
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/iCheck/icheck.min.js"></script>
@@ -193,7 +195,8 @@
         <script src="~/lib/dataTables/datatables.min.js"></script>
         <script src="~/lib/dualListbox/jquery.bootstrap-duallistbox.js"></script>
         <script src="~/lib/ionRangeSlider/ion.rangeSlider.min.js"></script>
-        @*<script src="~/lib/validate/jquery.validate.min.js"></script>*@
+        @*
+            <script src="~/lib/validate/jquery.validate.min.js"></script>*@
     </environment>
     <script type="text/javascript">
 
@@ -205,236 +208,153 @@
             language: 'pt-BR',
             todayHighlight: true,
             autoclose: true
-            });
-        //$('#dataDemissaoModal .input-group .date').datepicker({
-        //    format: 'dd/mm/yyyy',
-        //    language: 'pt-BR',
-        //    todayHighlight: true,
-        //    autoclose: true
-        //});
+        });
 
-    //var selected = [];
-    //var settings = {
-    //    labels: {
-    //        current: "Passo atual:",
-    //        pagination: "Paginação",
-    //        finish: "Realizar Cálculo",
-    //        next: "Próximo",
-    //        previous: "Anterior",
-    //        loading: "Carregando ..."
-    //    }
-    //};
-
-    //$("#Form").steps({
-    //        bodyTag: "fieldset",
-    //        onStepChanging: function (event, currentIndex, newIndex) {
-    //            // Always allow going backward even if the current step contains invalid fields!
-    //            if (currentIndex > newIndex) {
-    //                return true;
-    //            }
-
-    //            // Forbid suppressing "Warning" step if the user is to young
-    //            if (newIndex === 3 && Number($("#age").val()) < 18) {
-    //                return false;
-    //            }
-
-    //            var form = $(this);
-
-    //            // Clean up if user went backward before
-    //            if (currentIndex < newIndex) {
-    //                // To remove error styles
-    //                $(".body:eq(" + newIndex + ") label.error", form).remove();
-    //                $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
-    //            }
-
-    //            // Disable validation on fields that are disabled or hidden.
-    //            form.validate().settings.ignore = ":disabled,:hidden";
-
-    //            // Start validation; Prevent going forward if false
-    //            return form.valid();
-    //        },
-    //        onStepChanged: function (event, currentIndex, priorIndex) {
-    //            // Suppress (skip) "Warning" step if the user is old enough.
-    //            if (currentIndex === 2 && Number($("#age").val()) >= 18) {
-    //                $(this).steps("next");
-    //            }
-
-    //            // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
-    //            if (currentIndex === 2 && priorIndex === 3) {
-    //                $(this).steps("previous");
-    //            }
-    //        },
-    //        onFinishing: function (event, currentIndex) {
-    //            var form = $(this);
-
-    //            // Disable validation on fields that are disabled.
-    //            // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
-    //            form.validate().settings.ignore = ":disabled";
-
-    //            // Start validation; Prevent form submission if false
-    //            return form.valid();
-    //        },
-    //        onFinished: function (event, currentIndex) {
-    //            var form = $(this);
-
-    //            // Submit form input
-    //            form.submit();
-    //        }
-    //    }).validate({
-    //        errorPlacement: function (error, element) {
-    //            element.before(error);
-    //    },
-    //        rules: {
-    //            confirm: {
-    //                equalTo: "#password"
-    //            }
-    //        }
-    //});
-    $('.dual_select').bootstrapDualListbox({
-        selectorMinimalHeight: 210,
-        showFilterInputs: false,
-        infoText: false,
-        filterTextClear: false,
-        selectedListLabel: "Benefícios selecionados  ",
-        nonSelectedListLabel: "Lista de benefícios  ",
-        moveAllLabel: "Selecionar todos",
-        removeAllLabel: "Retirar os selecionados",
-        //moveOnSelect: false,
-        preserveSelectionOnMove: 'all'
-    });
+        $('.dual_select').bootstrapDualListbox({
+            selectorMinimalHeight: 210,
+            showFilterInputs: false,
+            infoText: false,
+            filterTextClear: false,
+            selectedListLabel: "Benefícios selecionados  ",
+            nonSelectedListLabel: "Lista de benefícios  ",
+            moveAllLabel: "Selecionar todos",
+            removeAllLabel: "Retirar os selecionados",
+            //moveOnSelect: false,
+            preserveSelectionOnMove: 'all'
+        });
 
 
-    $('.dataTables-example').DataTable({
+        $('.dataTables-example').DataTable({
             "bFilter": false,
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado",
-            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sInfoThousands": ".",
-            "sLengthMenu": "_MENU_ resultados por página",
-            "sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...",
-            "sZeroRecords": "Nenhum registro encontrado",
-            "sSearch": "Pesquisar",
-            "oPaginate": {
-                "sNext": "Próximo",
-                "sPrevious": "Anterior",
-                "sFirst": "Primeiro",
-                "sLast": "Último"
-            },
-            "oAria": {
-                "sSortAscending": ": Ordenar colunas de forma ascendente",
-                "sSortDescending": ": Ordenar colunas de forma descendente"
-            }
-        },
-        pageLength: 5,
-        responsive: true,
-        //dom: '<"html5buttons"B>lTfgitp',
-        dom: '<"html5buttons"B>ftipr',
-        buttons: [
-            //{ extend: 'copy'},
-            //{extend: 'csv'},
-            //{extend: 'excel', title: 'ExampleFile'},
-            //{extend: 'pdf', title: 'ExampleFile'}
-
-            /*{extend: 'print',
-                 customize: function (win){
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-
-                        $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
+            "language": {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
                 }
-            }*/
-        ]
+            },
+            pageLength: 5,
+            responsive: true,
+            //dom: '<"html5buttons"B>lTfgitp',
+            dom: '<"html5buttons"B>ftipr',
+            buttons: [
+                //{ extend: 'copy'},
+                //{extend: 'csv'},
+                //{extend: 'excel', title: 'ExampleFile'},
+                //{extend: 'pdf', title: 'ExampleFile'}
 
-    });
+                /*{extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
 
-    $('#data_inicio .input-group.date').datepicker({
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                }*/
+            ]
+
+        });
+
+        $('#data_inicio .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
         });
         $('#data_fim .input-group.date').datepicker({
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
         });
         $('.i-checks').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-    });
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
 
-    $("#ionrange_1").ionRangeSlider({
-        values: [
-            "Jan-1973", "Feb-1973", "Mar-1973",
-            "Abr-1973", "Mai-1973", "Jun-1973",
-            "Jul-1973", "Ago-1973", "Set-1973",
-            "Out-1973", "Nov-1973", "Dez-1973",
-            "Jan-1974", "Feb-1974", "Mar-1974",
-            "Abr-1974", "Mai-1974", "Jun-1974",
-            "Jul-1974", "Ago-1974", "Set-1974",
-            "Out-1974", "Nov-1974", "Dez-1974"
-        ],
-        type: 'double',
-        hasGrid: true,
-        from: 0,
-        to: 20
-    });
-    $("#ionrange_2").ionRangeSlider({
-        values: [
-            "Jan-1973", "Feb-1973", "Mar-1973",
-            "Abr-1973", "Mai-1973", "Jun-1973",
-            "Jul-1973", "Ago-1973", "Set-1973",
-            "Out-1973", "Nov-1973", "Dez-1973",
-            "Jan-1974", "Feb-1974", "Mar-1974",
-            "Abr-1974", "Mai-1974", "Jun-1974",
-            "Jul-1974", "Ago-1974", "Set-1974",
-            "Out-1974", "Nov-1974", "Dez-1974"
-        ],
-        type: 'double',
-        hasGrid: true,
-        from: 6,
-        to: 9
-    });
-    $("#ionrange_3").ionRangeSlider({
-        values: [
-            "Jan-1973", "Feb-1973", "Mar-1973",
-            "Abr-1973", "Mai-1973", "Jun-1973",
-            "Jul-1973", "Ago-1973", "Set-1973",
-            "Out-1973", "Nov-1973", "Dez-1973",
-            "Jan-1974", "Feb-1974", "Mar-1974",
-            "Abr-1974", "Mai-1974", "Jun-1974",
-            "Jul-1974", "Ago-1974", "Set-1974",
-            "Out-1974", "Nov-1974", "Dez-1974"
-        ],
-        type: 'double',
-        hasGrid: true,
-        from: 10,
-        to: 15
-    });
-    $('#ionrange_4').ionRangeSlider({
-        values: [
-            "Jan-1973", "Feb-1973", "Mar-1973",
-            "Abr-1973", "Mai-1973", "Jun-1973",
-            "Jul-1973", "Ago-1973", "Set-1973",
-            "Out-1973", "Nov-1973", "Dez-1973",
-            "Jan-1974", "Feb-1974", "Mar-1974",
-            "Abr-1974", "Mai-1974", "Jun-1974",
-            "Jul-1974", "Ago-1974", "Set-1974",
-            "Out-1974", "Nov-1974", "Dez-1974"
-        ],
-        type: 'double',
-        hasGrid: true,
-        from: 16,
-        to: 22
+        $("#ionrange_1").ionRangeSlider({
+            values: [
+                "Jan-1973", "Feb-1973", "Mar-1973",
+                "Abr-1973", "Mai-1973", "Jun-1973",
+                "Jul-1973", "Ago-1973", "Set-1973",
+                "Out-1973", "Nov-1973", "Dez-1973",
+                "Jan-1974", "Feb-1974", "Mar-1974",
+                "Abr-1974", "Mai-1974", "Jun-1974",
+                "Jul-1974", "Ago-1974", "Set-1974",
+                "Out-1974", "Nov-1974", "Dez-1974"
+            ],
+            type: 'double',
+            hasGrid: true,
+            from: 0,
+            to: 20
+        });
+        $("#ionrange_2").ionRangeSlider({
+            values: [
+                "Jan-1973", "Feb-1973", "Mar-1973",
+                "Abr-1973", "Mai-1973", "Jun-1973",
+                "Jul-1973", "Ago-1973", "Set-1973",
+                "Out-1973", "Nov-1973", "Dez-1973",
+                "Jan-1974", "Feb-1974", "Mar-1974",
+                "Abr-1974", "Mai-1974", "Jun-1974",
+                "Jul-1974", "Ago-1974", "Set-1974",
+                "Out-1974", "Nov-1974", "Dez-1974"
+            ],
+            type: 'double',
+            hasGrid: true,
+            from: 6,
+            to: 9
+        });
+        $("#ionrange_3").ionRangeSlider({
+            values: [
+                "Jan-1973", "Feb-1973", "Mar-1973",
+                "Abr-1973", "Mai-1973", "Jun-1973",
+                "Jul-1973", "Ago-1973", "Set-1973",
+                "Out-1973", "Nov-1973", "Dez-1973",
+                "Jan-1974", "Feb-1974", "Mar-1974",
+                "Abr-1974", "Mai-1974", "Jun-1974",
+                "Jul-1974", "Ago-1974", "Set-1974",
+                "Out-1974", "Nov-1974", "Dez-1974"
+            ],
+            type: 'double',
+            hasGrid: true,
+            from: 10,
+            to: 15
+        });
+        $('#ionrange_4').ionRangeSlider({
+            values: [
+                "Jan-1973", "Feb-1973", "Mar-1973",
+                "Abr-1973", "Mai-1973", "Jun-1973",
+                "Jul-1973", "Ago-1973", "Set-1973",
+                "Out-1973", "Nov-1973", "Dez-1973",
+                "Jan-1974", "Feb-1974", "Mar-1974",
+                "Abr-1974", "Mai-1974", "Jun-1974",
+                "Jul-1974", "Ago-1974", "Set-1974",
+                "Out-1974", "Nov-1974", "Dez-1974"
+            ],
+            type: 'double',
+            hasGrid: true,
+            from: 16,
+            to: 22
         });
 
         /*******************************************************************************************************/
@@ -444,6 +364,8 @@
 
 
         $("#wizard").steps({
+            transitionEffect: "slideLeft",
+            stepsOrientation: "vertical",
             labels: {
                 current: "Passo atual:",
                 pagination: "Paginação",
@@ -459,162 +381,186 @@
                 form.submit();
                 /**/
                 /**/
+                /**/
+                /**/
                 //var url = '@Url.Action("Result", "Calculadora", null)';
-                /**/
-                /**/
-                //window.location = window.location.host + url;
-            },
-            onStepChanging: function (event, currentIndex, newIndex) {
-                if (newIndex === 1 && $('#clienteSelecionado').val()>0) {
-                    return true;
-                }
-                if (newIndex === 2) {
-                    if ($('#simulacaoSelecionada').val() > 0) {
-                        return true;
-                    }
-                    else {
-                        var r = setSimulacao($('#simulacaoSelecionada').val());
-                        if (r) {
-                            return getTempoContribuicoesNovo();
-                        } else {
-                            return false;
-                        }
-                    }
+    /**/
+    /**/
+    /**/
+    /**/
+    //window.location = window.location.host + url;
+},
+onStepChanging: function (event, currentIndex, newIndex) {
+    if (newIndex === 1 && $('#clienteSelecionado').val() > 0) {
+        return true;
+    }
+    if (newIndex === 2) {
+        if ($('#simulacaoSelecionada').val() > 0) {
+            return true;
+        }
+        else {
+            var r = setSimulacao($('#simulacaoSelecionada').val());
+            if (r) {
+                return getTempoContribuicoesNovo();
+            } else {
+                return false;
+            }
+        }
 
-                }
-                else if (newIndex === 3) { return true; }
+    }
+    else if (newIndex === 3) { return true; }
+}
+});
+$('#modalAddTempoContribuicao').on('shown.bs.modal', function () {
+$('.input-group.date').datepicker({
+    format: "dd/mm/yyyy",
+    startDate: "01-01-2015",
+    endDate: "01-01-2020",
+    todayBtn: "linked",
+    autoclose: true,
+    todayHighlight: true,
+    container: '#modalAddTempoContribuicao modal-body'
+});
+});
+$('#salvarTempoContribuicao').click(function () {
+console.log($('#dataAdmissaoAdd').val());
+$.ajax({
+    /**/
+    /**/
+    url: '@Url.Action("SetTempoContribuicao", "Calculadora", new { })',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    data: {
+        DataAdmissao: $('#dataAdmissaoAdd').val(),
+        DataDemissao: $('#dataDemissaoAdd').val(),
+        AtividadeIPP: $('#atividadeAdd').val(),
+        Profissao: $('#profissaoAdd').val(),
+        Empregador: $('#empregadorAdd').val()
+    },
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-2').html('');
+        $('#wizard-p-2').html(data);
+        $('#modalAddTempoContribuicao').modal('hide');
+    },
+    error: function (xhr, status, error) {
+        alert('erro SetTempoContribuicao');
+    }
+});
+});
+});
+
+function proximaEtapa() {
+$('#wizard').steps('next');
+}
+function getSimulacoes(idCliente) {
+$.ajax({
+/**/
+/**/
+url: '@Url.Action("GetSimulacoes", "Calculadora", new { })',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    data: { idCliente: idCliente },
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-1').html(data); // HTML DOM replace
+        $("#wizard").steps("next");
+    },
+    error: function (xhr, status, error) {
+        alert('erro getSimulacoes');
+    }
+});
+}
+function getTempoContribuicoes() {
+var r = setSimulacao($('#simulacaoSelecionada').val());
+//var r = true;
+if (r) {
+    var sw;
+    $.ajax({
+        /**/
+        /**/
+        url: '@Url.Action("GetTempoContribuicoes", "Calculadora")',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    async: false,
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-2').html(data); // HTML DOM replace
+        $("#wizard").steps("next");
+        sw = true;
+    },
+    error: function (xhr, status, error) {
+        alert('erro getTempoContribuicoes');
+        sw = false;
+    }
+});
+return sw;
+} else {
+return false;
+}
+
+}
+    function getTempoContribuicoesNovo() {
+        var r = setSimulacao($('#simulacaoSelecionada').val());
+        //var r = true;
+        if (r) {
+        var sw;
+        $.ajax({
+            /**/
+            /**/
+            url: '@Url.Action("GetTempoContribuicoes", "Calculadora")',
+            /**/
+            /**/
+            type: "POST",
+            cache: false,
+            dataType: "html",
+            async: false,
+            success: function (data, textStatus, XMLHttpRequest) {
+                $('#wizard-p-2').html(data); // HTML DOM replace
+                //$("#wizard").steps("next");
+                sw = true;
+            },
+            error: function (xhr, status, error) {
+                alert('erro getTempoContribuicoes');
+                sw = false;
             }
         });
-        $('#modalAddTempoContribuicao').on('shown.bs.modal', function () {
-                $('.input-group.date').datepicker({
-                    format: "dd/mm/yyyy",
-                    startDate: "01-01-2015",
-                    endDate: "01-01-2020",
-                    todayBtn: "linked",
-                    autoclose: true,
-                    todayHighlight: true,
-                    container: '#modalAddTempoContribuicao modal-body'
-                });
-            });
-            $('#salvarTempoContribuicao').click(function () {
-                console.log($('#dataAdmissaoAdd').val());
-                $.ajax({
-                    url: '@Url.Action("SetTempoContribuicao", "Calculadora", new { })',
-                    type: "POST",
-                    cache: false,
-                    dataType: "html",
-                    data: {
-                        DataAdmissao: $('#dataAdmissaoAdd').val(),
-                        DataDemissao: $('#dataDemissaoAdd').val(),
-                        AtividadeIPP: $('#atividadeAdd').val(),
-                        Profissao: $('#profissaoAdd').val(),
-                        Empregador: $('#empregadorAdd').val()
-                    },
-                    success: function (data, textStatus, XMLHttpRequest) {
-                        $('#wizard-p-2').html(''); 
-                        $('#wizard-p-2').html(data); 
-                        $('#modalAddTempoContribuicao').modal('hide');
-                    },
-                    error: function (xhr, status, error) {
-                        alert('erro SetTempoContribuicao');
-                    }
-                });
-            });
-    });
+        return sw;
+        } else {
+        return false;
+        }
 
-        function proximaEtapa() {
-            $('#wizard').steps('next');
-        }
-        function getSimulacoes(idCliente) {
-            $.ajax({
-                url: '@Url.Action("GetSimulacoes", "Calculadora", new { })',
-                type: "POST",
-                cache: false,
-                dataType: "html",
-                data: { idCliente: idCliente },
-                success: function (data, textStatus, XMLHttpRequest) {
-                    $('#wizard-p-1').html(data); // HTML DOM replace
-                    $("#wizard").steps("next");
-                },
-                error: function (xhr, status, error) {
-                    alert('erro getSimulacoes');
-                }
-            });
-        }
-        function getTempoContribuicoes() {
-            var r = setSimulacao($('#simulacaoSelecionada').val());
-                //var r = true;
-                if (r) {
-                    var sw;
-                $.ajax({
-                    url: '@Url.Action("GetTempoContribuicoes", "Calculadora")',
-                    type: "POST",
-                    cache: false,
-                    dataType: "html",
-                    async: false,
-                    success: function (data, textStatus, XMLHttpRequest) {
-                        $('#wizard-p-2').html(data); // HTML DOM replace
-                        $("#wizard").steps("next");
-                        sw = true;
-                    },
-                    error: function (xhr, status, error) {
-                        alert('erro getTempoContribuicoes');
-                        sw = false;
-                    }
-                });
-                return sw;
-            } else {
-                return false;
+    }
+    function setSimulacao(idSimulacao) {
+        var sw;
+        var resp = $.ajax({
+        /**/
+        /**/
+        url: '@Url.Action("SetSimulacaoAjax", "Calculadora", new { })',
+            /**/
+            /**/
+            type: "POST",
+            cache: false,
+            dataType: "Json",
+            async: false,
+            data: { idSimulacao: idSimulacao },
+            success: function (data, textStatus, XMLHttpRequest) {
+                sw = true;
+            },
+            error: function (xhr, status, error) {
+                alert('erro setSimulacao');
+                sw = false;
             }
-
-        }
-        function getTempoContribuicoesNovo() {
-            var r = setSimulacao($('#simulacaoSelecionada').val());
-                //var r = true;
-                if (r) {
-                    var sw;
-                $.ajax({
-                    url: '@Url.Action("GetTempoContribuicoes", "Calculadora")',
-                    type: "POST",
-                    cache: false,
-                    dataType: "html",
-                    async: false,
-                    success: function (data, textStatus, XMLHttpRequest) {
-                        $('#wizard-p-2').html(data); // HTML DOM replace
-                        //$("#wizard").steps("next");
-                        sw = true;
-                    },
-                    error: function (xhr, status, error) {
-                        alert('erro getTempoContribuicoes');
-                        sw = false;
-                    }
-                });
-                return sw;
-            } else {
-                return false;
-            }
-
-        }
-        function setSimulacao(idSimulacao) {
-            var sw;
-            var resp = $.ajax({
-                url: '@Url.Action("SetSimulacaoAjax", "Calculadora", new { })',
-                type: "POST",
-                cache: false,
-                dataType: "Json",
-                async: false,
-                data: { idSimulacao: idSimulacao },
-                success: function (data, textStatus, XMLHttpRequest) {
-                    sw =  true;
-                },
-                error: function (xhr, status, error) {
-                    alert('erro setSimulacao');
-                    sw =  false;
-                }
-            });
-            return sw;
-            //return resp.responseJSON;
-        }
+        });
+        return sw;
+        //return resp.responseJSON;
+    }
     </script>
 }
 

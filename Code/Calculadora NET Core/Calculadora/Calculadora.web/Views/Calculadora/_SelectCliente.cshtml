@@ -1,0 +1,165 @@
+﻿@using PagedList.Core.Mvc
+@using PagedList.Core
+@model PagedList.Core.IPagedList<Calculadora.DAL.Models.Cliente>
+
+
+@{
+    ViewBag.Title = "Clientes";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Clientes</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="home.html">Home</a>
+            </li>
+            <li>
+                <a>Cadastro</a>
+            </li>
+            <li class="active">
+                <strong>Clientes</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Clientes</h5>
+                    <div class="ibox-tools">
+                        <button onclick="window.location.href='@Url.Action("CreateCliente","Clientes")'" class="btn btn-xs btn-success"
+                                type="button">
+                            <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="ibox-filter">
+                        @using (Html.BeginForm("IndexCliente", "Clientes", FormMethod.Get, new { @class = "form-inline" }))
+                        {
+                            <div class="form-group">
+                                <div class="input-group">
+                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-white" data-toggle="popover" data-placement="auto top" data-content="Filtrar clientes"><i class="fa fa-search"></i></button>
+                                    </span>
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="footable table table-stripped toggle-arrow-tiny">
+                            <thead>
+                                <tr>
+                                    <th width="15%">@Html.ActionLink("C.P.F.", "DetailsCliente", new { sortOrder = ViewBag.NomeIndiceParm, currentFilter = ViewBag.CurrentFilter })</th>
+                                    <th width="50%">Nome</th>
+                                    <th width="15%">Telefone</th>
+                                    <th width="20%"></th>
+                                    <th data-hide="all">E-mail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Cpf)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Telefone1)</td>
+                                        <td>
+                                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("EditCliente", "Clientes", new { id = item.PessoaID})'">
+                                                <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
+                                            </button>
+                                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("DeleteCliente", "Clientes", new { id = item.PessoaID})'">
+                                                <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
+                                            </button>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                        <br />
+                        <div id='Paging' style="text-align:center">
+                            @if (Model.HasPreviousPage)
+                            {
+                                @Html.ActionLink("<<", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                                @Html.ActionLink("<", "IndexCliente", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("<<", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                                @Html.ActionLink("<", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                            }
+
+                            Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+
+                            @*<pager class="pager-container" list="@Model"
+                                options="@PagedListRenderOptions.TwitterBootstrapPager"
+                                asp-action="Index" asp-controller="Review" />*@
+
+                            @if (Model.HasNextPage)
+                            {
+                                @Html.ActionLink(">", "IndexCliente", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                                @Html.ActionLink(">>", "IndexCliente", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(">", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                                @Html.ActionLink(">>", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                            }
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+    </environment>
+}
+@section Scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/footable/dist/footable.all.min.js"></script>
+    </environment>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.footable').footable();
+        });
+
+    </script>
+}
+
+
+
+
+
