@@ -55,8 +55,5 @@ namespace Calculadora.DAL.Models
         public string Contato { get; set; }
 
         public string Telefone { get; set; }
-
-
-
     }
 }

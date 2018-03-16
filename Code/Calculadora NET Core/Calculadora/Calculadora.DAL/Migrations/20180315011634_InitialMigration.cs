@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace Calculadora.DAL.Migrations
 {
-    public partial class InitialCreate4 : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Enderecos",
+                name: "Endereco",
                 columns: table => new
                 {
                     EnderecoID = table.Column<int>(nullable: false)
@@ -30,23 +30,7 @@ namespace Calculadora.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enderecos", x => x.EnderecoID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Escritorios",
-                columns: table => new
-                {
-                    EscritorioID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Endereco = table.Column<string>(nullable: true),
-                    Nome = table.Column<string>(nullable: true),
-                    Registro = table.Column<string>(nullable: true),
-                    Telefone = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Escritorios", x => x.EscritorioID);
+                    table.PrimaryKey("PK_Endereco", x => x.EnderecoID);
                 });
 
             migrationBuilder.CreateTable(
@@ -129,9 +113,52 @@ namespace Calculadora.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ValoresIndiceCorrecao",
+                columns: table => new
+                {
+                    Data = table.Column<DateTime>(nullable: false),
+                    IndiceCorrecaoID = table.Column<int>(nullable: false),
+                    Valor = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ValoresIndiceCorrecao", x => new { x.Data, x.IndiceCorrecaoID });
+                    table.ForeignKey(
+                        name: "FK_ValoresIndiceCorrecao_IndicesCorrecao_IndiceCorrecaoID",
+                        column: x => x.IndiceCorrecaoID,
+                        principalTable: "IndicesCorrecao",
+                        principalColumn: "IndiceCorrecaoID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Escritorios",
+                columns: table => new
+                {
+                    EscritorioID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EnderecoID = table.Column<int>(nullable: false),
+                    Nome = table.Column<string>(nullable: true),
+                    ProprietarioID = table.Column<int>(nullable: false),
+                    Registro = table.Column<string>(nullable: true),
+                    Telefone = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Escritorios", x => x.EscritorioID);
+                    table.ForeignKey(
+                        name: "FK_Escritorios_Endereco_EnderecoID",
+                        column: x => x.EnderecoID,
+                        principalTable: "Endereco",
+                        principalColumn: "EnderecoID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pessoas",
                 columns: table => new
                 {
+                    EscritorioID = table.Column<int>(nullable: true),
                     InscricaoINSS = table.Column<string>(nullable: true),
                     Nit = table.Column<string>(nullable: true),
                     PessoaID = table.Column<int>(nullable: false)
@@ -141,7 +168,6 @@ namespace Calculadora.DAL.Migrations
                     DocumentoIdentificacao = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     EnderecoID = table.Column<int>(nullable: false),
-                    EscritorioID = table.Column<int>(nullable: false),
                     EstadoCivil = table.Column<int>(nullable: false),
                     HomePage = table.Column<string>(nullable: true),
                     Nascimento = table.Column<DateTime>(nullable: false),
@@ -161,42 +187,72 @@ namespace Calculadora.DAL.Migrations
                 {
                     table.PrimaryKey("PK_Pessoas", x => x.PessoaID);
                     table.ForeignKey(
-                        name: "FK_Pessoas_Enderecos_EnderecoID",
-                        column: x => x.EnderecoID,
-                        principalTable: "Enderecos",
-                        principalColumn: "EnderecoID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Pessoas_Escritorios_EscritorioID",
                         column: x => x.EscritorioID,
                         principalTable: "Escritorios",
                         principalColumn: "EscritorioID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Pessoas_Endereco_EnderecoID",
+                        column: x => x.EnderecoID,
+                        principalTable: "Endereco",
+                        principalColumn: "EnderecoID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ValoresIndiceCorrecao",
+                name: "Simulacoes",
                 columns: table => new
                 {
-                    Data = table.Column<DateTime>(nullable: false),
-                    IndiceCorrecaoID = table.Column<int>(nullable: false),
-                    Valor = table.Column<double>(nullable: false)
+                    SimulacaoID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ClientePessoaID = table.Column<int>(nullable: true),
+                    Data = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ValoresIndiceCorrecao", x => new { x.Data, x.IndiceCorrecaoID });
+                    table.PrimaryKey("PK_Simulacoes", x => x.SimulacaoID);
                     table.ForeignKey(
-                        name: "FK_ValoresIndiceCorrecao_IndicesCorrecao_IndiceCorrecaoID",
-                        column: x => x.IndiceCorrecaoID,
-                        principalTable: "IndicesCorrecao",
-                        principalColumn: "IndiceCorrecaoID",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Simulacoes_Pessoas_ClientePessoaID",
+                        column: x => x.ClientePessoaID,
+                        principalTable: "Pessoas",
+                        principalColumn: "PessoaID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TempoContribuicoes",
+                columns: table => new
+                {
+                    TempoContribuicaoID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AtividadeIPP = table.Column<bool>(nullable: false),
+                    DataAdmissao = table.Column<DateTime>(nullable: false),
+                    DataDemissao = table.Column<DateTime>(nullable: false),
+                    Empregador = table.Column<string>(nullable: true),
+                    Profissao = table.Column<string>(nullable: true),
+                    SimulacaoID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TempoContribuicoes", x => x.TempoContribuicaoID);
+                    table.ForeignKey(
+                        name: "FK_TempoContribuicoes_Simulacoes_SimulacaoID",
+                        column: x => x.SimulacaoID,
+                        principalTable: "Simulacoes",
+                        principalColumn: "SimulacaoID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pessoas_EnderecoID",
-                table: "Pessoas",
+                name: "IX_Escritorios_EnderecoID",
+                table: "Escritorios",
                 column: "EnderecoID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Escritorios_ProprietarioID",
+                table: "Escritorios",
+                column: "ProprietarioID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pessoas_EscritorioID",
@@ -204,13 +260,48 @@ namespace Calculadora.DAL.Migrations
                 column: "EscritorioID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Pessoas_EnderecoID",
+                table: "Pessoas",
+                column: "EnderecoID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Simulacoes_ClientePessoaID",
+                table: "Simulacoes",
+                column: "ClientePessoaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TempoContribuicoes_SimulacaoID",
+                table: "TempoContribuicoes",
+                column: "SimulacaoID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ValoresIndiceCorrecao_IndiceCorrecaoID",
                 table: "ValoresIndiceCorrecao",
                 column: "IndiceCorrecaoID");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Escritorios_Pessoas_ProprietarioID",
+                table: "Escritorios",
+                column: "ProprietarioID",
+                principalTable: "Pessoas",
+                principalColumn: "PessoaID",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Escritorios_Endereco_EnderecoID",
+                table: "Escritorios");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Pessoas_Endereco_EnderecoID",
+                table: "Pessoas");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Escritorios_Pessoas_ProprietarioID",
+                table: "Escritorios");
+
             migrationBuilder.DropTable(
                 name: "ExpectativasVida");
 
@@ -218,36 +309,28 @@ namespace Calculadora.DAL.Migrations
                 name: "Limites");
 
             migrationBuilder.DropTable(
-                name: "Pessoas");
+                name: "ReajusteRMIs");
 
             migrationBuilder.DropTable(
-                name: "ReajusteRMIs");
+                name: "TempoContribuicoes");
 
             migrationBuilder.DropTable(
                 name: "ValoresIndiceCorrecao");
 
             migrationBuilder.DropTable(
-                name: "Enderecos");
-
-            migrationBuilder.DropTable(
-                name: "Escritorios");
+                name: "Simulacoes");
 
             migrationBuilder.DropTable(
                 name: "IndicesCorrecao");
 
-            migrationBuilder.CreateTable(
-                name: "Authors",
-                columns: table => new
-                {
-                    AuthorId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName1 = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Authors", x => x.AuthorId);
-                });
+            migrationBuilder.DropTable(
+                name: "Endereco");
+
+            migrationBuilder.DropTable(
+                name: "Pessoas");
+
+            migrationBuilder.DropTable(
+                name: "Escritorios");
         }
     }
 }

@@ -103,12 +103,9 @@ namespace Calculadora.DAL.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Nascimento { get; set; }
 
-        //public int EnderecoID { get; set; }
+        public int EnderecoID { get; set; }
         //[ForeignKey("EnderecoID")]
-        //public Endereco Endereco { get; set; }
+        public virtual Endereco Endereco { get; set; }
 
-        //public int EscritorioID { get; set; }
-        //[ForeignKey("EscritorioID")]
-        //public virtual Escritorio Escritorio { get; set; }
     }
 }

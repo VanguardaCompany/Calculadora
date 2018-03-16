@@ -25,7 +25,7 @@ namespace Calculadora.web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = @"Server=VM-DESENV\VANGUARDA;Database=ReportServer$VANGUARDA;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connection = @"Server=VM-DESENV\VANGUARDA;Database=Vanguarda;Trusted_Connection=True;MultipleActiveResultSets=true";
             services.AddDbContext<VanguardaContext>(options =>
                         options.UseSqlServer(connection)
             );

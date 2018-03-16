@@ -53,7 +53,7 @@ namespace Calculadora.DAL.Migrations
 
                     b.HasKey("EnderecoID");
 
-                    b.ToTable("Enderecos");
+                    b.ToTable("Endereco");
                 });
 
             modelBuilder.Entity("Calculadora.DAL.Models.Escritorio", b =>
@@ -61,15 +61,21 @@ namespace Calculadora.DAL.Migrations
                     b.Property<int>("EscritorioID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Endereco");
+                    b.Property<int>("EnderecoID");
 
                     b.Property<string>("Nome");
+
+                    b.Property<int>("ProprietarioID");
 
                     b.Property<string>("Registro");
 
                     b.Property<string>("Telefone");
 
                     b.HasKey("EscritorioID");
+
+                    b.HasIndex("EnderecoID");
+
+                    b.HasIndex("ProprietarioID");
 
                     b.ToTable("Escritorios");
                 });
@@ -154,7 +160,7 @@ namespace Calculadora.DAL.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<int?>("EscritorioID");
+                    b.Property<int>("EnderecoID");
 
                     b.Property<int>("EstadoCivil");
 
@@ -188,7 +194,7 @@ namespace Calculadora.DAL.Migrations
 
                     b.HasKey("PessoaID");
 
-                    b.HasIndex("EscritorioID");
+                    b.HasIndex("EnderecoID");
 
                     b.ToTable("Pessoas");
 
@@ -294,20 +300,38 @@ namespace Calculadora.DAL.Migrations
                 {
                     b.HasBaseType("Calculadora.DAL.Models.Pessoa");
 
+                    b.Property<int>("EscritorioID");
+
                     b.Property<string>("InscricaoINSS");
 
                     b.Property<string>("Nit");
+
+                    b.HasIndex("EscritorioID");
 
                     b.ToTable("Cliente");
 
                     b.HasDiscriminator().HasValue("Cliente");
                 });
 
+            modelBuilder.Entity("Calculadora.DAL.Models.Escritorio", b =>
+                {
+                    b.HasOne("Calculadora.DAL.Models.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Calculadora.DAL.Models.Pessoa", "Proprietario")
+                        .WithMany()
+                        .HasForeignKey("ProprietarioID")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Calculadora.DAL.Models.Pessoa", b =>
                 {
-                    b.HasOne("Calculadora.DAL.Models.Escritorio")
-                        .WithMany("Pessoas")
-                        .HasForeignKey("EscritorioID");
+                    b.HasOne("Calculadora.DAL.Models.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Calculadora.DAL.Models.Simulacao", b =>
@@ -322,7 +346,7 @@ namespace Calculadora.DAL.Migrations
                     b.HasOne("Calculadora.DAL.Models.Simulacao", "Simulacao")
                         .WithMany("TempoContribuicoes")
                         .HasForeignKey("SimulacaoID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Calculadora.DAL.Models.ValorIndiceCorrecao", b =>
@@ -330,7 +354,15 @@ namespace Calculadora.DAL.Migrations
                     b.HasOne("Calculadora.DAL.Models.IndiceCorrecao", "IndiceCorrecao")
                         .WithMany("Valores")
                         .HasForeignKey("IndiceCorrecaoID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Calculadora.DAL.Models.Cliente", b =>
+                {
+                    b.HasOne("Calculadora.DAL.Models.Escritorio", "Escritorio")
+                        .WithMany("Clientes")
+                        .HasForeignKey("EscritorioID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }
