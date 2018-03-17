@@ -90,10 +90,10 @@ namespace Calculadora.Web.Controllers
                     //return RedirectToAction(nameof(Index));
                     return RedirectToAction("IndexCliente");
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
-                    throw;
+                    throw e;
                 }
                
             }

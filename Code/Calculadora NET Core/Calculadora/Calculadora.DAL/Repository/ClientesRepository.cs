@@ -80,7 +80,7 @@ namespace Calculadora.DAL.Repository
         {
             try
             {
-                //db.Entry(cliente.Endereco).State = EntityState.Modified;
+                db.Entry(cliente.Endereco).State = EntityState.Modified;
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
             }
