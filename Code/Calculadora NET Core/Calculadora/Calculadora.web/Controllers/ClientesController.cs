@@ -81,13 +81,16 @@ namespace Calculadora.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateCliente(Cliente cliente)
         {
+            if (clienteBusiness.ExisteCPF(cliente.Cpf))
+            {
+                ModelState.AddModelError("Cpf", "C.P.F. já cadastrado no sistema.");
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-
                     clienteBusiness.SetCliente(cliente);
-                    //return RedirectToAction(nameof(Index));
                     return RedirectToAction("IndexCliente");
                 }
                 catch (Exception e)

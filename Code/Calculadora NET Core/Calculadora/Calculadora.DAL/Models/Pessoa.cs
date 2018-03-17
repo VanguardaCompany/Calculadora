@@ -98,6 +98,7 @@ namespace Calculadora.DAL.Models
         public string Telefone3 { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório")]
+        [CustomValidationCPF(ErrorMessage = "CPF inválido")]
         public string Cpf { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]

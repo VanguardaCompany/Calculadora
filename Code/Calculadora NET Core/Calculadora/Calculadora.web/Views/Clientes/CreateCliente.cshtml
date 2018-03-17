@@ -89,8 +89,8 @@
                                     <label>Data de Nascimento</label>
                                     <div class="input-group date datetimepicker">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        @Html.TextBoxFor(m => m.Nascimento, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(m => m.Nascimento, "", new { @class = "text-danger" })
+                                        @Html.TextBoxFor(m => m.Nascimento, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Nascimento,"", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -114,12 +114,11 @@
                                     <label>C.P.F.</label>
                                     <div class="input-group">
                                         @Html.TextBoxFor(m => m.Cpf, new { @id = "cpf", data_inputmask = "'mask':'999.999.999-99'", @class = "form-control", @placeholder = "___.___.___-__" })
-                                        @Html.ValidationMessageFor(m => m.Nome, "", new { @class = "text-danger" })
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-white" data-toggle="popover" data-placement="auto top" data-content="Link para a Receita Federal."><i class="fa fa-search"></i></button>
                                         </span>
-
                                     </div>
+                                    @Html.ValidationMessageFor(m => m.Cpf, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>

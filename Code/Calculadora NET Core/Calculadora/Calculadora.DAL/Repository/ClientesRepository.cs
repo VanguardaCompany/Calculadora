@@ -90,5 +90,12 @@ namespace Calculadora.DAL.Repository
                 throw;
             }
         }
+
+        public bool ExisteCPF(string cpf)
+        {
+            if (db.Pessoas.Where(p => p.Cpf == cpf).Count() > 0) return true;
+            else return false;
+            
+        }
     }
 }

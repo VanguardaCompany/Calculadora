@@ -79,5 +79,18 @@ namespace Calculadora.Domain.Business
                 throw;
             }
         }
+
+        public bool ExisteCPF(string cpf)
+        {
+            try
+            {
+                return clientesRepository.ExisteCPF(cpf);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
