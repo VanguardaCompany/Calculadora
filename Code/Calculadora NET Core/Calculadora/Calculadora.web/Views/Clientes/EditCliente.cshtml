@@ -90,7 +90,7 @@
                                     <label>Data de Nascimento</label>
                                     <div class="input-group date datetimepicker">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        @Html.TextBoxFor(m => m.Nascimento, new { @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.Nascimento, "{0:dd/MM/yyyy}", new { @class = "form-control" })
                                     </div>
                                 </div>
                             </div>

@@ -107,13 +107,13 @@
                                 @Html.ActionLink("<<", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
                                 @Html.ActionLink("<", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
                             }
-                            
+
                             Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
-                            
-                            
+
+
                             @*<pager class="pager-container" list="@Model"
-                                   options="@PagedListRenderOptions.TwitterBootstrapPager"
-                                   asp-action="Index" asp-controller="Review" />*@
+                                options="@PagedListRenderOptions.TwitterBootstrapPager"
+                                asp-action="Index" asp-controller="Review" />*@
                             @if (Model.HasNextPage)
                             {
                                 @Html.ActionLink(">", "IndexCliente", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
@@ -144,6 +144,8 @@
     <environment names="Staging,Production">
         <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
     </environment>
+    
+    
 }
 @section Scripts {
     <environment names="Development,Staging,Production">
