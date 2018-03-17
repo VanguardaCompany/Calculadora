@@ -328,20 +328,22 @@
         <script src="~/lib_bower/sweetalert/dist/sweetalert-dev.js"></script>
         <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
         <script src="~/lib_bower/toastr/toastr.js"></script>
+        <script src="~/lib/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/iCheck/icheck.min.js"></script>
         <script src="~/lib_bower/sweetalert/dist/sweetalert.min.js"></script>
         <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
         <script src="~/lib_bower/toastr/toastr.min.js"></script>
+        <script src="~/lib/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
     </environment>
     @*@Scripts.Render("~/inputmask/inputmask")*@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" });
-            //$("#cep").inputmask("mask", { "mask": "99.999-999" });
-            //$(".telefone").inputmask("mask", { "mask": "(99)99999-9999" });
+            $('#cpf').mask('000.000.000-00', { reverse: true });
+            $('#cep').mask('00.000-000');
+            $('.telefone').mask('(00) 00000-0000');
 
 
 
