@@ -16,7 +16,7 @@ namespace Calculadora.DAL
         public DbSet<Limite> Limites { get; set; }
         public DbSet<IndiceCorrecao> IndicesCorrecao { get; set; }
         public DbSet<ValorIndiceCorrecao> ValoresIndiceCorrecao { get; set; }
-        //public DbSet<Endereco> Enderecos { get; set; }
+        public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<ReajusteRMI> ReajusteRMIs { get; set; }
         public DbSet<Simulacao> Simulacoes { get; set; }
         public DbSet<TempoContribuicao> TempoContribuicoes { get; set; }

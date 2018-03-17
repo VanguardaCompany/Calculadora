@@ -53,7 +53,8 @@ namespace Calculadora.DAL.Repository
             {
                 return null;
             }
-            //cliente.Endereco = db.Enderecos.Find(cliente.EnderecoID);
+            cliente.Endereco = db.Enderecos.Find(cliente.EnderecoID);
+            cliente.Escritorio = db.Escritorios.Find(cliente.EscritorioID);
 
             return cliente;
         }
@@ -63,7 +64,8 @@ namespace Calculadora.DAL.Repository
             try
             {
                 //db.Enderecos.Add(cliente.Endereco);
-                //cliente.EscritorioID = 1;
+                cliente.EnderecoID = 3;
+                cliente.EscritorioID = 1;
                 db.Pessoas.Add(cliente);
                 db.SaveChanges();
             }

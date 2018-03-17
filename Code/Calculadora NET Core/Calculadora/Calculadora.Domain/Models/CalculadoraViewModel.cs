@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Calculadora.DAL.Models;
+using PagedList.Core;
 
 namespace Calculadora.Domain.Models
 {
     public class CalculadoraViewModel
     {
         //public ICollection<Cliente> Clientes { get; set; }
-        public ICollection<Cliente> Clientes { get; set; }
+        public IPagedList<Cliente> Clientes { get; set; }
         public Cliente ClienteSelecionado { get; set; }
         public int ClienteSelecionadoID { get; set; }
         public ICollection<SimulacaoViewModel> Simulacoes { get; set; }

@@ -53,7 +53,7 @@ namespace Calculadora.DAL.Migrations
 
                     b.HasKey("EnderecoID");
 
-                    b.ToTable("Endereco");
+                    b.ToTable("Enderecos");
                 });
 
             modelBuilder.Entity("Calculadora.DAL.Models.Escritorio", b =>

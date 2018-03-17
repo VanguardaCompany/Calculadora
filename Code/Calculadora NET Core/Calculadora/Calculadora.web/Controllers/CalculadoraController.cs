@@ -10,6 +10,8 @@ using Calculadora.DAL.Models;
 using Calculadora.Domain.Models;
 using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
+using PagedList.Core;
+using PagedList.Core.Mvc;
 
 namespace Calculadora.Web.Controllers
 {
@@ -43,7 +45,7 @@ namespace Calculadora.Web.Controllers
         public ActionResult CreateCalculadora()
         {
             CalculadoraViewModel model = new CalculadoraViewModel();
-            model.Clientes = clienteBusiness.GetAllClientes().ToList();
+            model.Clientes = clienteBusiness.GetAllClientes().ToPagedList(1, 3);
             
             SetSessionCalculadoraViewModel(model);
 
