@@ -186,9 +186,9 @@ namespace Calculadora.DAL.Migrations
 
                     b.Property<int>("TipoTelefone1");
 
-                    b.Property<int>("TipoTelefone2");
+                    b.Property<int?>("TipoTelefone2");
 
-                    b.Property<int>("TipoTelefone3");
+                    b.Property<int?>("TipoTelefone3");
 
                     b.Property<int>("Tratamento");
 

@@ -97,6 +97,13 @@ namespace Calculadora.Web.Controllers
                 }
                
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                                       .Where(y => y.Count > 0)
+                                       .ToList();
+            }
+
 
             //ViewBag.EscritorioID = new SelectList(db.Escritorios, "EscritorioID", "Nome", cliente.EscritorioID);
             return View();

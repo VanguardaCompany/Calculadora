@@ -86,9 +86,9 @@ namespace Calculadora.DAL.Models
         [Required(ErrorMessage = "Campo obrigatório")]
         public EnumTipoTelefone TipoTelefone1 { get; set; }
 
-        public EnumTipoTelefone TipoTelefone2 { get; set; }
+        public EnumTipoTelefone? TipoTelefone2 { get; set; }
 
-        public EnumTipoTelefone TipoTelefone3 { get; set; }
+        public EnumTipoTelefone? TipoTelefone3 { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório")]
         public string Telefone1 { get; set; }

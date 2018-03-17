@@ -20,3 +20,14 @@ C:\Users\rerum\Documents\GitHub\Calculadora\Code\Calculadora NET Core\Calculador
 C:\Users\rerum\Documents\GitHub\Calculadora\Code\Calculadora NET Core\Calculadora2\Calculadora.DAL\obj\Debug\netcoreapp2.0\Calculadora.DAL.AssemblyInfo.cs
 C:\Users\rerum\Documents\GitHub\Calculadora\Code\Calculadora NET Core\Calculadora2\Calculadora.DAL\obj\Debug\netcoreapp2.0\Calculadora.DAL.dll
 C:\Users\rerum\Documents\GitHub\Calculadora\Code\Calculadora NET Core\Calculadora2\Calculadora.DAL\obj\Debug\netcoreapp2.0\Calculadora.DAL.pdb
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\bin\Debug\netcoreapp2.0\Calculadora.DAL.deps.json
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\bin\Debug\netcoreapp2.0\Calculadora.DAL.runtimeconfig.json
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\bin\Debug\netcoreapp2.0\Calculadora.DAL.runtimeconfig.dev.json
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\bin\Debug\netcoreapp2.0\Calculadora.DAL.dll
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\bin\Debug\netcoreapp2.0\Calculadora.DAL.pdb
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\obj\Debug\netcoreapp2.0\Calculadora.DAL.csprojResolveAssemblyReference.cache
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\obj\Debug\netcoreapp2.0\Calculadora.DAL.csproj.CoreCompileInputs.cache
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\obj\Debug\netcoreapp2.0\Calculadora.DAL.AssemblyInfoInputs.cache
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\obj\Debug\netcoreapp2.0\Calculadora.DAL.AssemblyInfo.cs
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\obj\Debug\netcoreapp2.0\Calculadora.DAL.dll
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.DAL\obj\Debug\netcoreapp2.0\Calculadora.DAL.pdb

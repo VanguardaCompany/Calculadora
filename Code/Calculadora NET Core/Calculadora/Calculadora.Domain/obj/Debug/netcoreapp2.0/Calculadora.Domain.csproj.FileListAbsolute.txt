@@ -24,3 +24,16 @@ C:\Users\rerum\Documents\GitHub\Calculadora\Code\Calculadora NET Core\Calculador
 C:\Users\rerum\Documents\GitHub\Calculadora\Code\Calculadora NET Core\Calculadora2\Calculadora.Domain\obj\Debug\netcoreapp2.0\Calculadora.Domain.AssemblyInfo.cs
 C:\Users\rerum\Documents\GitHub\Calculadora\Code\Calculadora NET Core\Calculadora2\Calculadora.Domain\obj\Debug\netcoreapp2.0\Calculadora.Domain.dll
 C:\Users\rerum\Documents\GitHub\Calculadora\Code\Calculadora NET Core\Calculadora2\Calculadora.Domain\obj\Debug\netcoreapp2.0\Calculadora.Domain.pdb
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\bin\Debug\netcoreapp2.0\Calculadora.Domain.deps.json
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\bin\Debug\netcoreapp2.0\Calculadora.Domain.runtimeconfig.json
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\bin\Debug\netcoreapp2.0\Calculadora.Domain.runtimeconfig.dev.json
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\bin\Debug\netcoreapp2.0\Calculadora.Domain.dll
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\bin\Debug\netcoreapp2.0\Calculadora.Domain.pdb
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\bin\Debug\netcoreapp2.0\Calculadora.DAL.dll
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\bin\Debug\netcoreapp2.0\Calculadora.DAL.pdb
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\obj\Debug\netcoreapp2.0\Calculadora.Domain.csprojResolveAssemblyReference.cache
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\obj\Debug\netcoreapp2.0\Calculadora.Domain.csproj.CoreCompileInputs.cache
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\obj\Debug\netcoreapp2.0\Calculadora.Domain.AssemblyInfoInputs.cache
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\obj\Debug\netcoreapp2.0\Calculadora.Domain.AssemblyInfo.cs
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\obj\Debug\netcoreapp2.0\Calculadora.Domain.dll
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.Domain\obj\Debug\netcoreapp2.0\Calculadora.Domain.pdb

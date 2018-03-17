@@ -64,8 +64,8 @@ namespace Calculadora.DAL.Repository
             try
             {
                 //db.Enderecos.Add(cliente.Endereco);
-                cliente.EnderecoID = 3;
-                cliente.EscritorioID = 1;
+                //cliente.EnderecoID = 3;
+                cliente.EscritorioID = 4;
                 db.Pessoas.Add(cliente);
                 db.SaveChanges();
             }
