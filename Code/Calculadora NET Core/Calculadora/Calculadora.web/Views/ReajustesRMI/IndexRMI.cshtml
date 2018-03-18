@@ -34,14 +34,14 @@
                 <div class="ibox-title">
                     <h5>Tabela de Reajustes R.M.I.</h5>
                     <div class="ibox-tools">
-                        <button id="addRMI" class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalReajuste"><strong><i class="fa fa-plus btn-icon"></i>Adicionar</strong></button>
-                        @*Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs" })*@
+                        <button id="addRMI" class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalReajuste">
+                            <strong><i class="fa fa-plus btn-icon" style="margin-right:6px;"></i>Adicionar</strong>
+                        </button>
                     </div>
                 </div>
                 <div class="ibox-content">
                     <form role="form" class="form-inline"></form>
 
-                    <hr />
 
                     <div class="table-responsive">
                         <table class="footable table table-stripped toggle-arrow-tiny">
@@ -74,6 +74,40 @@
                             </tbody>
 
                         </table>
+                        <br />
+
+
+                        <div id='Paging' style="text-align:center">
+                            @if (Model.HasPreviousPage)
+                            {
+                                @Html.ActionLink("<<", "IndexRMI", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                                @Html.ActionLink("<", "IndexRMI", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("<<", "IndexRMI", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                                @Html.ActionLink("<", "IndexRMI", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                            }
+
+                            Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+
+                            @*<pager class="pager-container" list="@Model"
+                                options="@PagedListRenderOptions.TwitterBootstrapPager"
+                                asp-action="Index" asp-controller="Review" />*@
+                            @if (Model.HasNextPage)
+                            {
+                                @Html.ActionLink(">", "IndexRMI", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                                @Html.ActionLink(">>", "IndexRMI", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(">", "IndexRMI", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                                @Html.ActionLink(">>", "IndexRMI", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                            }
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -227,14 +261,14 @@
 
 
 @section Styles {
-<environment names="Development">
-    <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
-    <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
-</environment>
-<environment names="Staging,Production">
-    <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
-    <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
-</environment>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+        <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+        <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+    </environment>
 }
 @section Scripts {
     <environment names="Development,Staging,Production">
@@ -279,24 +313,24 @@
             beforeSend: function () {
 
             },
-            success: function (items) {
+            success: function (sucess, error, reajuste) {
                 console.log('sucesso GetReajusteAjax');
-                $('#reajusteId').val(items.ReajusteRMIID);
-                $('#dataAdd').val(items.Data);
-                $('#reajusteTotalAdd').val(items.ReajusteTotal);
-                $('#fator1Add').val(items.Fator1);
-                $('#fator2Add').val(items.Fator2);
-                $('#fator3Add').val(items.Fator3);
-                $('#fator4Add').val(items.Fator4);
-                $('#fator5Add').val(items.Fator5);
-                $('#fator6Add').val(items.Fator6);
-                $('#fator7Add').val(items.Fator7);
-                $('#fator8Add').val(items.Fator8);
-                $('#fator9Add').val(items.Fator9);
-                $('#fator10Add').val(items.Fator10);
-                $('#fator11Add').val(items.Fator11);
-                $('#fator12Add').val(items.Fator12);
-                $('#linkPrevidenciaAdd').val(items.linkPrevidencia);
+                $('#reajusteId').val(reajuste.responseJSON.reajuste.reajusteRMIID);
+                $('#dataAdd').val(reajuste.responseJSON.reajuste.data);
+                $('#reajusteTotalAdd').val(reajuste.responseJSON.reajuste.reajusteTotal);
+                $('#fator1Add').val(reajuste.responseJSON.reajuste.fator1);
+                $('#fator2Add').val(reajuste.responseJSON.reajuste.fator2);
+                $('#fator3Add').val(reajuste.responseJSON.reajuste.fator3);
+                $('#fator4Add').val(reajuste.responseJSON.reajuste.fator4);
+                $('#fator5Add').val(reajuste.responseJSON.reajuste.fator5);
+                $('#fator6Add').val(reajuste.responseJSON.reajuste.fator6);
+                $('#fator7Add').val(reajuste.responseJSON.reajuste.fator7);
+                $('#fator8Add').val(reajuste.responseJSON.reajuste.fator8);
+                $('#fator9Add').val(reajuste.responseJSON.reajuste.fator9);
+                $('#fator10Add').val(reajuste.responseJSON.reajuste.fator10);
+                $('#fator11Add').val(reajuste.responseJSON.reajuste.fator11);
+                $('#fator12Add').val(reajuste.responseJSON.reajuste.fator12);
+                $('#linkPrevidenciaAdd').val(reajuste.responseJSON.reajuste.linkPrevidencia);
                 $('#modalReajuste').modal('show');
 
             },

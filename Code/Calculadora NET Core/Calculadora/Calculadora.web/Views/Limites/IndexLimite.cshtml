@@ -41,14 +41,11 @@
                         <button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalLimite">
                             <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
                         </button>
-
                     </div>
                 </div>
                 <div class="ibox-content">
 
                     <form role="form" class="form-inline"></form>
-
-                    <hr />
 
                     <div class="table-responsive">
                         <table class="footable table table-stripped toggle-arrow-tiny">
@@ -83,47 +80,40 @@
                                             <button class="btn btn-xs btn-default" type="button" onclick="location.href='@Url.Action("DeleteLimite", "Limites",new { limiteId = Html.DisplayFor(modelItem => item.LimiteID) })'">
                                                 <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
                                             </button>
-                                            @*@Html.ActionLink("Apagar", "DeleteLimite", new { id = item.LimiteID }, new { @class = "btn btn-white btn-sm" })*@
                                         </td>
                                     </tr>
                                 }
 
                             </tbody>
                         </table>
+
                         <br />
-                        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
-                        <div>
-                            Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-                            of @Model.PageCount
-
+                        <div id='Paging' style="text-align:center">
                             @if (Model.HasPreviousPage)
                             {
-                                @Html.ActionLink("<<", "IndexLimite", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
-                                @Html.Raw(" ");
-                                @Html.ActionLink("< Anterior", "IndexLimite", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+                                @Html.ActionLink("<<", "IndexLimite", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                                @Html.ActionLink("<", "IndexLimite", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
                             }
                             else
                             {
-                                @:<<
-                                @Html.Raw(" ");
-                                @:< Anterior
+                                @Html.ActionLink("<<", "IndexLimite", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                                @Html.ActionLink("<", "IndexLimite", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
                             }
+
+                            Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
                             @if (Model.HasNextPage)
                             {
-                                @Html.ActionLink("Próxima >", "IndexLimite", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
-                                @Html.Raw(" ");
-                                @Html.ActionLink(">>", "IndexLimite", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+                                @Html.ActionLink(">", "IndexLimite", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                                @Html.ActionLink(">>", "IndexLimite", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
                             }
                             else
                             {
-                                @:Próxima >
-                                @Html.Raw(" ")
-                                @:>>
+                                @Html.ActionLink(">", "IndexLimite", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                                @Html.ActionLink(">>", "IndexLimite", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
                             }
                         </div>
-
 
                     </div>
 
