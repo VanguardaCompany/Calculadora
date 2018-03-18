@@ -47,7 +47,7 @@
                         @using (Html.BeginForm("IndexIC", "IndicesCorrecao", FormMethod.Get, new { @class = "form-inline" }))
                         {
 
-                            <div class="form-group col-lg-12" style="padding:0; text-align:center;">
+                            <div class="form-group col-lg-12" style="padding:0; text-align:center; margin-bottom:20px;">
                                 <div class="col-lg-4" style="padding:0">
                                     <div class="checkbox m-r-xs col-lg-4" style="padding:0;margin:0">
                                         @Html.CheckBox("PercentagemFilter", (bool)ViewBag.PercentagemFilter, new { @id = "checkbox1", @class = "form-control toggle", onclick = "this.form.submit();" })
@@ -142,7 +142,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Periodicidade)</td>
                                         <td>@Html.DisplayFor(modelItem => item.DataInicio)</td>
                                         <td>@Html.DisplayFor(modelItem => item.DataFim)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.UltimoValor)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Valores.LastOrDefault().Valor)</td>
                                         <td>
                                             <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("EditIC", "IndicesCorrecao", new { id = item.IndiceCorrecaoID})'">
                                                 <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
@@ -158,38 +158,93 @@
                             </tbody>
                         </table>
                         <br />
-                        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
-
-
-
-                        <div>
-                            Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-                            of @Model.PageCount
-
+                        <div id='Paging' style="text-align:center">
                             @if (Model.HasPreviousPage)
                             {
-                                @Html.ActionLink("<<", "IndexIC", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, percentagemFilter = (bool)ViewBag.PercentagemFilter, valorFilter = (bool)ViewBag.ValorFilter, aniversarioFilter = true, somatorioFilter = (bool)ViewBag.SomatorioFilter, mensaisFilter = (bool)ViewBag.MensaisFilter, diariosFilter = (bool)ViewBag.DiariosFilter, atualizadosFilter = (bool)ViewBag.AtualizadosFilter, desatualizadosFilter = (bool)ViewBag.DesatualizadosFilter, extintosFilter = (bool)ViewBag.ExtintosFilter })
-                                @Html.Raw(" ");
-                                @Html.ActionLink("< Anterior", "IndexIC", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, percentagemFilter = (bool)ViewBag.PercentagemFilter, valorFilter = (bool)ViewBag.ValorFilter, aniversarioFilter = true, somatorioFilter = (bool)ViewBag.SomatorioFilter, mensaisFilter = (bool)ViewBag.MensaisFilter, diariosFilter = (bool)ViewBag.DiariosFilter, atualizadosFilter = (bool)ViewBag.AtualizadosFilter, desatualizadosFilter = (bool)ViewBag.DesatualizadosFilter, extintosFilter = (bool)ViewBag.ExtintosFilter })
+                                @Html.ActionLink("<<", "IndexIC", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                                @Html.ActionLink("<", "IndexIC", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
                             }
                             else
                             {
-                                @:<<
-                                @Html.Raw(" ");
-                                @:< Anterior
+                                @Html.ActionLink("<<", "IndexIC", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                                @Html.ActionLink("<", "IndexIC", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
                             }
 
+                            Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+
+                            @*<pager class="pager-container" list="@Model"
+                                options="@PagedListRenderOptions.TwitterBootstrapPager"
+                                asp-action="Index" asp-controller="Review" />*@
                             @if (Model.HasNextPage)
                             {
-                                @Html.ActionLink("Próxima >", "IndexIC", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, percentagemFilter = (bool)ViewBag.PercentagemFilter, valorFilter = (bool)ViewBag.ValorFilter, aniversarioFilter = true, somatorioFilter = (bool)ViewBag.SomatorioFilter, mensaisFilter = (bool)ViewBag.MensaisFilter, diariosFilter = (bool)ViewBag.DiariosFilter, atualizadosFilter = (bool)ViewBag.AtualizadosFilter, desatualizadosFilter = (bool)ViewBag.DesatualizadosFilter, extintosFilter = (bool)ViewBag.ExtintosFilter })
-                                @Html.Raw(" ");
-                                @Html.ActionLink(">>", "IndexIC", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, percentagemFilter = (bool)ViewBag.PercentagemFilter, valorFilter = (bool)ViewBag.ValorFilter, aniversarioFilter = true, somatorioFilter = (bool)ViewBag.SomatorioFilter, mensaisFilter = (bool)ViewBag.MensaisFilter, diariosFilter = (bool)ViewBag.DiariosFilter, atualizadosFilter = (bool)ViewBag.AtualizadosFilter, desatualizadosFilter = (bool)ViewBag.DesatualizadosFilter, extintosFilter = (bool)ViewBag.ExtintosFilter })
+                                @Html.ActionLink(">", "IndexIC",
+                                                   new
+                                                   {
+                                                       page = Model.PageNumber + 1,
+                                                       sortOrder = ViewBag.CurrentSort,
+                                                       currentFilter = ViewBag.CurrentFilter,
+                                                       percentagemFilter = ViewBag.PercentagemFilter,
+                                                       valorFilter = ViewBag.ValorFilter,
+                                                       aniversarioFilter = ViewBag.AniversarioFilter,
+                                                       somatorioFilter = ViewBag.SomatorioFilter,
+                                                       mensaisFilter = ViewBag.MensaisFilter,
+                                                       diariosFilter = ViewBag.DiariosFilter,
+                                                       atualizadosFilter = ViewBag.AtualizadosFilter,
+                                                       desatualizadosFilter = ViewBag.DesatualizadosFilter,
+                                                       extintosFilter = ViewBag.ExtintosFilter
+                                                   }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                                @Html.ActionLink(">>", "IndexIC",
+                                                   new
+                                                   {
+                                                       page = Model.PageCount,
+                                                       sortOrder = ViewBag.CurrentSort,
+                                                       currentFilter = ViewBag.CurrentFilter,
+                                                       percentagemFilter = ViewBag.PercentagemFilter,
+                                                       valorFilter = ViewBag.ValorFilter,
+                                                       aniversarioFilter = ViewBag.AniversarioFilter,
+                                                       somatorioFilter = ViewBag.SomatorioFilter,
+                                                       mensaisFilter = ViewBag.MensaisFilter,
+                                                       diariosFilter = ViewBag.DiariosFilter,
+                                                       atualizadosFilter = ViewBag.AtualizadosFilter,
+                                                       desatualizadosFilter = ViewBag.DesatualizadosFilter,
+                                                       extintosFilter = ViewBag.ExtintosFilter
+                                                   }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
                             }
                             else
                             {
-                                @:Próxima >
-                                @Html.Raw(" ")
-                                @:>>
+                                @Html.ActionLink(">", "IndexIC",
+                                              new
+                                              {
+                                                  page = 1,
+                                                  sortOrder = ViewBag.CurrentSort,
+                                                  currentFilter = ViewBag.CurrentFilter,
+                                                  percentagemFilter = ViewBag.PercentagemFilter,
+                                                  valorFilter = ViewBag.ValorFilter,
+                                                  aniversarioFilter = ViewBag.AniversarioFilter,
+                                                  somatorioFilter = ViewBag.SomatorioFilter,
+                                                  mensaisFilter = ViewBag.MensaisFilter,
+                                                  diariosFilter = ViewBag.DiariosFilter,
+                                                  atualizadosFilter = ViewBag.AtualizadosFilter,
+                                                  desatualizadosFilter = ViewBag.DesatualizadosFilter,
+                                                  extintosFilter = ViewBag.ExtintosFilter
+                                              }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                                @Html.ActionLink(">>", "IndexIC",
+                                              new
+                                              {
+                                                  page = 1,
+                                                  sortOrder = ViewBag.CurrentSort,
+                                                  currentFilter = ViewBag.CurrentFilter,
+                                                  percentagemFilter = ViewBag.PercentagemFilter,
+                                                  valorFilter = ViewBag.ValorFilter,
+                                                  aniversarioFilter = ViewBag.AniversarioFilter,
+                                                  somatorioFilter = ViewBag.SomatorioFilter,
+                                                  mensaisFilter = ViewBag.MensaisFilter,
+                                                  diariosFilter = ViewBag.DiariosFilter,
+                                                  atualizadosFilter = ViewBag.AtualizadosFilter,
+                                                  desatualizadosFilter = ViewBag.DesatualizadosFilter,
+                                                  extintosFilter = ViewBag.ExtintosFilter
+                                              }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
                             }
                         </div>
 
@@ -201,7 +256,13 @@
         </div>
     </div>
 </div>
-
+<style>
+    input[type='checkbox'] {
+        display: block !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+</style>
 
 
 @section Styles {
@@ -211,6 +272,7 @@
     <environment names="Staging,Production">
         <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
     </environment>
+
 }
 @section Scripts {
     <environment names="Development,Staging,Production">

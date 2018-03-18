@@ -26,8 +26,12 @@
                             <td>@Html.DisplayFor(modelItem => item.Data)</td>
                             <td>@Html.DisplayFor(modelItem => item.Valor)</td>
                             <td>
-                                @Html.ActionLink("Editar", "EditIC", new { id = item.IndiceCorrecaoID }, new { @class = "btn btn-white btn-sm" })
-                                @Html.ActionLink("Apagar", "Delete", new { id = item.IndiceCorrecaoID }, new { @class = "btn btn-white btn-sm" })
+                                <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("EditIC", "IndicesCorrecao", new { id = item.IndiceCorrecaoID})'">
+                                    <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
+                                </button>
+                                <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("Delete", "IndicesCorrecao", new { id = item.IndiceCorrecaoID})'">
+                                    <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
+                                </button>
                             </td>
                         </tr>
                     }

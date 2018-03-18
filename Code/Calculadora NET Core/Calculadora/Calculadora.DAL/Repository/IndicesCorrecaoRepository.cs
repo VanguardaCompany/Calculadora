@@ -38,7 +38,7 @@ namespace Calculadora.DAL.Repository
                                        //&& atualizadosFilter ? s.Tipo == EnumTipoIC.Valor : true
                                        //&& desatualizadosFilter ? s.Tipo == EnumTipoIC.Valor : true
                                        //&& extintosFilter ? s.Tipo == EnumTipoIC.Valor : true
-                                       ));
+                                       )).Include(v=>v.Valores);
 
             switch (sortOrder)
             {
@@ -56,7 +56,7 @@ namespace Calculadora.DAL.Repository
 
         public IndiceCorrecao GetIndiceId(int? id)
         {
-            IndiceCorrecao indice = db.IndicesCorrecao.Find(id);
+            IndiceCorrecao indice = db.IndicesCorrecao.Include(v=>v.Valores).Where(i=>i.IndiceCorrecaoID==id).FirstOrDefault();
             if (indice == null)
             {
                 return null;

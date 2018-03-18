@@ -153,12 +153,12 @@ namespace Calculadora.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditIC([Bind("IndiceCorrecaoID,Nome,Periodicidade,Tipo,DataInicio,DataFim,UltimoValor,Descricao,Estado,Extinto,Atualizado")] IndiceCorrecao indiceCorrecao)
+        public ActionResult EditIC(IndiceCorrecao indiceCorrecao)
         {
             if (ModelState.IsValid)
             {
                 indiceBusiness.UpdateIndice(indiceCorrecao);
-                return RedirectToAction("IndexIC");
+                return RedirectToAction("IndexIC", new { percentagemFilter = true, valorFilter = true, aniversarioFilter = true, somatorioFilter = true, mensaisFilter = true, diariosFilter = true, atualizadosFilter = true, desatualizadosFilter = true, extintosFilter = true });
             }
             return View(indiceCorrecao);
         }

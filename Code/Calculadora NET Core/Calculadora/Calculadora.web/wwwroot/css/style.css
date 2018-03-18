@@ -8637,3 +8637,8 @@ body.md-skin {
     transform: rotate(90deg);
     width: 100px;
 }*/
+.footable-row-detail-cell {
+    border-top: none !important;
+    padding-top:0 !important;
+    padding-bottom: 30px !important;
+}

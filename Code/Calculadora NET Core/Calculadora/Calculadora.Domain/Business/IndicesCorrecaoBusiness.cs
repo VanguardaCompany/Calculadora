@@ -19,7 +19,9 @@ namespace Calculadora.Domain.Business
         {
             try
             {
-                return indicesRepository.GetIndices(sortOrder, percentagemFilter, valorFilter, aniversarioFilter, somatorioFilter, mensaisFilter, diariosFilter, atualizadosFilter, desatualizadosFilter, extintosFilter, searchString, page);
+                IQueryable<IndiceCorrecao>  indices = indicesRepository.GetIndices(sortOrder, percentagemFilter, valorFilter, aniversarioFilter, somatorioFilter, mensaisFilter, diariosFilter, atualizadosFilter, desatualizadosFilter, extintosFilter, searchString, page);
+
+                return indices;
             }
             catch (Exception)
             {
