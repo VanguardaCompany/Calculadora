@@ -39,7 +39,7 @@ namespace Calculadora.DAL.Migrations
 
                     b.Property<string>("Estado");
 
-                    b.Property<int>("Local");
+                    b.Property<int?>("Local");
 
                     b.Property<int>("Logradouro");
 
@@ -49,9 +49,15 @@ namespace Calculadora.DAL.Migrations
 
                     b.Property<string>("Pais");
 
+                    b.Property<int>("PessoaID");
+
                     b.Property<string>("Telefone");
 
+                    b.Property<int>("TipoEndereco");
+
                     b.HasKey("EnderecoID");
+
+                    b.HasIndex("PessoaID");
 
                     b.ToTable("Enderecos");
                 });
@@ -160,8 +166,6 @@ namespace Calculadora.DAL.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<int>("EnderecoID");
-
                     b.Property<int>("EstadoCivil");
 
                     b.Property<string>("HomePage");
@@ -193,8 +197,6 @@ namespace Calculadora.DAL.Migrations
                     b.Property<int>("Tratamento");
 
                     b.HasKey("PessoaID");
-
-                    b.HasIndex("EnderecoID");
 
                     b.ToTable("Pessoas");
 
@@ -313,6 +315,14 @@ namespace Calculadora.DAL.Migrations
                     b.HasDiscriminator().HasValue("Cliente");
                 });
 
+            modelBuilder.Entity("Calculadora.DAL.Models.Endereco", b =>
+                {
+                    b.HasOne("Calculadora.DAL.Models.Pessoa", "Pessoa")
+                        .WithMany("Enderecos")
+                        .HasForeignKey("PessoaID")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Calculadora.DAL.Models.Escritorio", b =>
                 {
                     b.HasOne("Calculadora.DAL.Models.Endereco", "Endereco")
@@ -323,14 +333,6 @@ namespace Calculadora.DAL.Migrations
                     b.HasOne("Calculadora.DAL.Models.Pessoa", "Proprietario")
                         .WithMany()
                         .HasForeignKey("ProprietarioID")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Calculadora.DAL.Models.Pessoa", b =>
-                {
-                    b.HasOne("Calculadora.DAL.Models.Endereco", "Endereco")
-                        .WithMany()
-                        .HasForeignKey("EnderecoID")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

@@ -17,6 +17,16 @@ namespace Calculadora.DAL.Models
         Secretaria = 4
     }
 
+    public enum TipoEndereco
+    {
+        [Display(Name = "Correspondência")]
+        Correspondencia = 1,
+        [Display(Name = "Cobrança")]
+        Cobranca = 2,
+        [Display(Name = "Faturamento")]
+        Faturamento = 3
+    }
+
     public enum EnumLogradouro
     {
         [Display(Name = "Rua")]
@@ -32,9 +42,11 @@ namespace Calculadora.DAL.Models
         [Key]
         public int EnderecoID { get; set; }
 
-        public EnumLocal Local { get; set; }
+        public EnumLocal? Local { get; set; }
 
         public EnumLogradouro Logradouro { get; set; }
+
+        public TipoEndereco TipoEndereco { get; set; }
 
         public string NomeLogradouro { get; set; }
 
@@ -55,5 +67,9 @@ namespace Calculadora.DAL.Models
         public string Contato { get; set; }
 
         public string Telefone { get; set; }
+
+        public int PessoaID { get; set; }
+        //[ForeignKey("EscritorioID")]
+        public virtual Pessoa Pessoa { get; set; }
     }
 }

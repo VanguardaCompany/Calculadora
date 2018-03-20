@@ -92,5 +92,18 @@ namespace Calculadora.Domain.Business
                 throw;
             }
         }
+
+        public void DeleteCliente(int id)
+        {
+            try
+            {
+                clientesRepository.DeleteCliente(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

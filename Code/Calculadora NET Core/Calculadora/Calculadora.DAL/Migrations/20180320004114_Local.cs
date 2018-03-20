@@ -5,34 +5,10 @@ using System.Collections.Generic;
 
 namespace Calculadora.DAL.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Local : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Endereco",
-                columns: table => new
-                {
-                    EnderecoID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Bairro = table.Column<string>(nullable: true),
-                    Cep = table.Column<string>(nullable: true),
-                    Cidade = table.Column<string>(nullable: true),
-                    Complemento = table.Column<string>(nullable: true),
-                    Contato = table.Column<string>(nullable: true),
-                    Estado = table.Column<string>(nullable: true),
-                    Local = table.Column<int>(nullable: false),
-                    Logradouro = table.Column<int>(nullable: false),
-                    NomeLogradouro = table.Column<string>(nullable: true),
-                    Numero = table.Column<string>(nullable: true),
-                    Pais = table.Column<string>(nullable: true),
-                    Telefone = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Endereco", x => x.EnderecoID);
-                });
-
             migrationBuilder.CreateTable(
                 name: "ExpectativasVida",
                 columns: table => new
@@ -146,12 +122,6 @@ namespace Calculadora.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Escritorios", x => x.EscritorioID);
-                    table.ForeignKey(
-                        name: "FK_Escritorios_Endereco_EnderecoID",
-                        column: x => x.EnderecoID,
-                        principalTable: "Endereco",
-                        principalColumn: "EnderecoID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -167,7 +137,6 @@ namespace Calculadora.DAL.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     DocumentoIdentificacao = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: true),
-                    EnderecoID = table.Column<int>(nullable: false),
                     EstadoCivil = table.Column<int>(nullable: false),
                     HomePage = table.Column<string>(nullable: true),
                     Nascimento = table.Column<DateTime>(nullable: false),
@@ -179,8 +148,8 @@ namespace Calculadora.DAL.Migrations
                     Telefone2 = table.Column<string>(nullable: true),
                     Telefone3 = table.Column<string>(nullable: true),
                     TipoTelefone1 = table.Column<int>(nullable: false),
-                    TipoTelefone2 = table.Column<int>(nullable: false),
-                    TipoTelefone3 = table.Column<int>(nullable: false),
+                    TipoTelefone2 = table.Column<int>(nullable: true),
+                    TipoTelefone3 = table.Column<int>(nullable: true),
                     Tratamento = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -192,11 +161,37 @@ namespace Calculadora.DAL.Migrations
                         principalTable: "Escritorios",
                         principalColumn: "EscritorioID",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Enderecos",
+                columns: table => new
+                {
+                    EnderecoID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Bairro = table.Column<string>(nullable: true),
+                    Cep = table.Column<string>(nullable: true),
+                    Cidade = table.Column<string>(nullable: true),
+                    Complemento = table.Column<string>(nullable: true),
+                    Contato = table.Column<string>(nullable: true),
+                    Estado = table.Column<string>(nullable: true),
+                    Local = table.Column<int>(nullable: true),
+                    Logradouro = table.Column<int>(nullable: false),
+                    NomeLogradouro = table.Column<string>(nullable: true),
+                    Numero = table.Column<string>(nullable: true),
+                    Pais = table.Column<string>(nullable: true),
+                    PessoaID = table.Column<int>(nullable: false),
+                    Telefone = table.Column<string>(nullable: true),
+                    TipoEndereco = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enderecos", x => x.EnderecoID);
                     table.ForeignKey(
-                        name: "FK_Pessoas_Endereco_EnderecoID",
-                        column: x => x.EnderecoID,
-                        principalTable: "Endereco",
-                        principalColumn: "EnderecoID",
+                        name: "FK_Enderecos_Pessoas_PessoaID",
+                        column: x => x.PessoaID,
+                        principalTable: "Pessoas",
+                        principalColumn: "PessoaID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -245,6 +240,11 @@ namespace Calculadora.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Enderecos_PessoaID",
+                table: "Enderecos",
+                column: "PessoaID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Escritorios_EnderecoID",
                 table: "Escritorios",
                 column: "EnderecoID");
@@ -258,11 +258,6 @@ namespace Calculadora.DAL.Migrations
                 name: "IX_Pessoas_EscritorioID",
                 table: "Pessoas",
                 column: "EscritorioID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pessoas_EnderecoID",
-                table: "Pessoas",
-                column: "EnderecoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Simulacoes_ClientePessoaID",
@@ -286,17 +281,21 @@ namespace Calculadora.DAL.Migrations
                 principalTable: "Pessoas",
                 principalColumn: "PessoaID",
                 onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Escritorios_Enderecos_EnderecoID",
+                table: "Escritorios",
+                column: "EnderecoID",
+                principalTable: "Enderecos",
+                principalColumn: "EnderecoID",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Escritorios_Endereco_EnderecoID",
-                table: "Escritorios");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Pessoas_Endereco_EnderecoID",
-                table: "Pessoas");
+                name: "FK_Enderecos_Pessoas_PessoaID",
+                table: "Enderecos");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Escritorios_Pessoas_ProprietarioID",
@@ -324,13 +323,13 @@ namespace Calculadora.DAL.Migrations
                 name: "IndicesCorrecao");
 
             migrationBuilder.DropTable(
-                name: "Endereco");
-
-            migrationBuilder.DropTable(
                 name: "Pessoas");
 
             migrationBuilder.DropTable(
                 name: "Escritorios");
+
+            migrationBuilder.DropTable(
+                name: "Enderecos");
         }
     }
 }

@@ -98,15 +98,16 @@ namespace Calculadora.DAL.Models
         public string Telefone3 { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório")]
-        [CustomValidationCPF(ErrorMessage = "CPF inválido")]
         public string Cpf { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Nascimento { get; set; }
 
-        public int EnderecoID { get; set; }
-        //[ForeignKey("EnderecoID")]
-        public virtual Endereco Endereco { get; set; }
+        //public int EnderecoID { get; set; }
+        ////[ForeignKey("EnderecoID")]
+        //public virtual Endereco Endereco { get; set; }
+
+        public virtual List<Endereco> Enderecos { get; set; } = new List<Endereco>();
 
     }
 }

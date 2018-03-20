@@ -125,10 +125,10 @@ namespace Calculadora.Web.Controllers
             {
                 return StatusCode(StatusCodes.Status404NotFound);// HttpNotFound();
             }
-            
+
             //ViewBag.EscritorioID = new SelectList(db.Escritorios, "EscritorioID", "Nome", cliente.EscritorioID);
             return View(cliente);
-            
+
         }
 
         // POST: Clientes/Edit/5
@@ -147,32 +147,11 @@ namespace Calculadora.Web.Controllers
             return View(cliente);
         }
 
-        // GET: Clientes/Delete/5
-        public ActionResult DeleteCliente(int? id)
-        {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Cliente cliente = (Cliente)db.Pessoas.Find(id);
-            //if (cliente == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(cliente);
-            return View();
-        }
-
         // POST: Clientes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteCliente(int id)
         {
-            //Cliente cliente = (Cliente)db.Pessoas.Find(id);
-            //db.Pessoas.Remove(cliente);
-            //db.SaveChanges();
-            //return RedirectToAction("Index");
-            return View();
+            clienteBusiness.DeleteCliente(id);
+            return RedirectToAction("IndexCliente");
         }
 
         protected override void Dispose(bool disposing)

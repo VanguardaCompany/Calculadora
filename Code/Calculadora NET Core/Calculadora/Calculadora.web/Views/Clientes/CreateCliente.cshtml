@@ -1,8 +1,43 @@
 ﻿@model Calculadora.DAL.Models.Cliente
 @using Calculadora.DAL.Models
 @{
-    ViewBag.Title = "CreateCliente";
+    ViewBag.Title = "Criar Cliente";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var index = -1;
+    int ObterIdEnderecoPorTipo(TipoEndereco tipo)
+    {
+        if (Model != null)
+        {
+            index = -1;
+            if (Model.Enderecos != null && Model.Enderecos.Count > 0)
+            {
+                for (int i = 0; i < Model.Enderecos.Count; i++)
+                {
+                    if (Model.Enderecos[i].TipoEndereco == tipo)
+                    {
+                        index = i;
+                    }
+                }
+
+                if (index < 0)
+                {
+                    Model.Enderecos.Add(new Endereco() { TipoEndereco = tipo });
+                    index = Model.Enderecos.Count - 1;
+                }
+            }
+            else
+            {
+                Model.Enderecos = new List<Endereco>();
+                Model.Enderecos.Add(new Endereco() { TipoEndereco = tipo });
+                index = 0;
+            }
+        }
+
+        return index;
+    }
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -44,7 +79,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             @Html.HiddenFor(m => m.PessoaID)
-                            @Html.HiddenFor(m => m.EnderecoID)
+                            @*@Html.HiddenFor(m => m.EnderecoID)*@
                             @Html.HiddenFor(m => m.EscritorioID)
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -90,7 +125,7 @@
                                     <div class="input-group date datetimepicker">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         @Html.TextBoxFor(m => m.Nascimento, "{0:dd/MM/yyyy}", new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(m => m.Nascimento,"", new { @class = "text-danger" })
+                                        @Html.ValidationMessageFor(m => m.Nascimento, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -190,26 +225,30 @@
                                         <li class=""><a data-toggle="tab" href="#tab-2">Endereço de Cobrança</a></li>
                                         <li class=""><a data-toggle="tab" href="#tab-3">Endereço de Faturamento</a></li>
                                     </ul>
+
                                     <div class="tab-content">
                                         <div id="tab-1" class="tab-pane active">
                                             <div class="panel-body">
                                                 <div class="row">
-                                                    @Html.HiddenFor(m => m.Endereco)
-                                                    @*@Html.HiddenFor(m => m.Endereco.EnderecoID)*@
+                                                    @{//insere a posição do endereço na lista na variavel de indice.
+                                                        index = ObterIdEnderecoPorTipo(TipoEndereco.Correspondencia);
+                                                    }
+                                                    @Html.HiddenFor(m => m.Enderecos[index].TipoEndereco)
+                                                    @Html.HiddenFor(m => m.Enderecos[index].EnderecoID)
                                                     <div class="col-lg-2">
                                                         <div class="form-group">
                                                             <label>Localização</label>
-                                                            @Html.DropDownListFor(m => m.Endereco.Local, Html.GetEnumSelectList<EnumLocal>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
-                                                            @Html.ValidationMessageFor(m => m.Endereco.Local, "", new { @class = "text-danger" })
+                                                            @Html.DropDownListFor(m => m.Enderecos[index].Local, Html.GetEnumSelectList<EnumLocal>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(m => m.Enderecos[index].Local, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2">
                                                         <div class="form-group">
                                                             <label>CEP</label>
                                                             <div class="input-group">
-                                                                @Html.TextBoxFor(m => m.Endereco.Cep, new { @class = "form-control", @placeholder = "___.___-___", @id = "cep" })
+                                                                @Html.TextBoxFor(m => m.Enderecos[index].Cep, new { @class = "form-control", @placeholder = "___.___-___", @id = "cep1" })
                                                                 <span class="input-group-btn">
-                                                                    <button id="btnBuscarCep" type="button" class="btn btn-white" data-toggle="popover" data-placement="auto top" data-content="Buscar seu endereço."><i class="fa fa-search"></i></button>
+                                                                    <button id="btnBuscarCep" onclick="buscarCEP('1')" type="button" class="btn btn-white" data-toggle="popover" data-placement="auto top" data-content="Buscar seu endereço."><i class="fa fa-search"></i></button>
                                                                 </span>
 
                                                             </div>
@@ -218,7 +257,7 @@
                                                     <div class="col-lg-8">
                                                         <div class="form-group">
                                                             <label>Logradouro</label>
-                                                            @Html.TextBoxFor(m => m.Endereco.NomeLogradouro, new { @class = "form-control", @id = "logradouro" })
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].NomeLogradouro, new { @class = "form-control", @id = "logradouro1" })
                                                         </div>
                                                     </div>
 
@@ -227,37 +266,37 @@
                                                     <div class="col-lg-1">
                                                         <div class="form-group">
                                                             <label>Número</label>
-                                                            @Html.TextBoxFor(m => m.Endereco.Numero, new { @class = "form-control" })
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Numero, new { @class = "form-control" })
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2">
                                                         <div class="form-group">
                                                             <label>Complemento</label>
-                                                            @Html.TextBoxFor(m => m.Endereco.Complemento, new { @class = "form-control" })
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Complemento, new { @class = "form-control" })
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <div class="form-group">
                                                             <label>Bairro</label>
-                                                            @Html.TextBoxFor(m => m.Endereco.Bairro, new { @class = "form-control", @id = "bairro" })
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Bairro, new { @class = "form-control", @id = "bairro1" })
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <div class="form-group">
                                                             <label>Cidade</label>
-                                                            @Html.TextBoxFor(m => m.Endereco.Cidade, new { @class = "form-control", @id = "cidade" })
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Cidade, new { @class = "form-control", @id = "cidade1" })
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-1">
                                                         <div class="form-group">
                                                             <label>Estado</label>
-                                                            @Html.TextBoxFor(m => m.Endereco.Estado, new { @class = "form-control", @id = "estado" })
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Estado, new { @class = "form-control", @id = "estado1" })
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2" hidden>
                                                         <div class="form-group">
                                                             <label>País</label>
-                                                            @Html.TextBoxFor(m => m.Endereco.Pais, new { @class = "form-control", @id = "pais" })
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Pais, new { @class = "form-control", @id = "pais1" })
                                                         </div>
                                                     </div>
 
@@ -266,7 +305,7 @@
                                                     <div class="col-lg-4">
                                                         <div class="form-group">
                                                             <label>Pessoa para contato</label>
-                                                            @Html.TextBoxFor(m => m.Endereco.Contato, new { @class = "form-control" })
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Contato, new { @class = "form-control" })
                                                         </div>
                                                     </div>
                                                 </div>
@@ -275,16 +314,175 @@
                                         </div>
                                         <div id="tab-2" class="tab-pane">
                                             <div class="panel-body">
+                                                <div class="row">
+                                                    @{//insere a posição do endereço na lista na variavel de indice.
+                                                        index = ObterIdEnderecoPorTipo(TipoEndereco.Cobranca);
+                                                    }
+                                                    @Html.HiddenFor(m => m.Enderecos[index].TipoEndereco)
+                                                    @Html.HiddenFor(m => m.Enderecos[index].EnderecoID)
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Localização</label>
+                                                            @Html.DropDownListFor(m => m.Enderecos[index].Local, Html.GetEnumSelectList<EnumLocal>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(m => m.Enderecos[index].Local, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>CEP</label>
+                                                            <div class="input-group">
+                                                                @Html.TextBoxFor(m => m.Enderecos[index].Cep, new { @class = "form-control", @placeholder = "___.___-___", @id = "cep2" })
+                                                                <span class="input-group-btn">
+                                                                    <button id="btnBuscarCep" onclick="buscarCEP('2')" type="button" class="btn btn-white" data-toggle="popover" data-placement="auto top" data-content="Buscar seu endereço."><i class="fa fa-search"></i></button>
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <div class="form-group">
+                                                            <label>Logradouro</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].NomeLogradouro, new { @class = "form-control", @id = "logradouro2" })
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-1">
+                                                        <div class="form-group">
+                                                            <label>Número</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Numero, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Complemento</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Complemento, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Bairro</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Bairro, new { @class = "form-control", @id = "bairro2" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Cidade</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Cidade, new { @class = "form-control", @id = "cidade2" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <div class="form-group">
+                                                            <label>Estado</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Estado, new { @class = "form-control", @id = "estado2" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2" hidden>
+                                                        <div class="form-group">
+                                                            <label>País</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Pais, new { @class = "form-control", @id = "pais" })
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Pessoa para contato</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Contato, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                             </div>
                                         </div>
                                         <div id="tab-3" class="tab-pane">
                                             <div class="panel-body">
+                                                <div class="row">
+                                                    @{//insere a posição do endereço na lista na variavel de indice.
+                                                        index = ObterIdEnderecoPorTipo(TipoEndereco.Faturamento);
+                                                    }
+                                                    @Html.HiddenFor(m => m.Enderecos[index].TipoEndereco)
+                                                    @Html.HiddenFor(m => m.Enderecos[index].EnderecoID)
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Localização</label>
+                                                            @Html.DropDownListFor(m => m.Enderecos[index].Local, Html.GetEnumSelectList<EnumLocal>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(m => m.Enderecos[index].Local, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>CEP</label>
+                                                            <div class="input-group">
+                                                                @Html.TextBoxFor(m => m.Enderecos[index].Cep, new { @class = "form-control", @placeholder = "___.___-___", @id = "cep3" })
+                                                                <span class="input-group-btn">
+                                                                    <button id="btnBuscarCep" onclick="buscarCEP('3')" type="button" class="btn btn-white" data-toggle="popover" data-placement="auto top" data-content="Buscar seu endereço."><i class="fa fa-search"></i></button>
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <div class="form-group">
+                                                            <label>Logradouro</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].NomeLogradouro, new { @class = "form-control", @id = "logradouro3" })
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-1">
+                                                        <div class="form-group">
+                                                            <label>Número</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Numero, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label>Complemento</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Complemento, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Bairro</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Bairro, new { @class = "form-control", @id = "bairro3" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Cidade</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Cidade, new { @class = "form-control", @id = "cidade3" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <div class="form-group">
+                                                            <label>Estado</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Estado, new { @class = "form-control", @id = "estado3" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2" hidden>
+                                                        <div class="form-group">
+                                                            <label>País</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Pais, new { @class = "form-control", @id = "pais3" })
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Pessoa para contato</label>
+                                                            @Html.TextBoxFor(m => m.Enderecos[index].Contato, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                             </div>
                                         </div>
                                     </div>
-
 
                                 </div>
                             </div>
@@ -306,7 +504,7 @@
             </div>
         </div>
     </div>
-}
+                                                        }
 
 @section Styles {
     <environment names="Development">
@@ -340,12 +538,51 @@
     @*@Scripts.Render("~/inputmask/inputmask")*@
 
     <script type="text/javascript">
+
+        function buscarCEP(complemento) {
+            var cep = $("input[id='cep" + complemento + "']").val().replace(/\D/g, '');
+
+
+            if (cep != "") {
+                var validacep = /^[0-9]{8}$/;
+                if (validacep.test(cep)) {
+
+                    $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+                        if (!("erro" in dados)) {
+                            $("input[id='cep" + complemento + "']").val(cep);
+                            $("input[id='cidade" + complemento + "']").val(dados.localidade);
+                            $("input[id='logradouro" + complemento + "']").val(dados.logradouro);
+                            $("input[id='bairro" + complemento + "']").val(dados.bairro);
+                            $("input[id='estado" + complemento + "']").val(dados.uf);
+                            $("input[id='pais" + complemento + "']").val("Brasil");
+                            //$("#alertDiv").remove();
+                            //$("input[id='cep']").removeClass("input-validation-error");
+                        }
+                        else {
+                            showalertEndereco("CEP não encontrado.");
+                        }
+                    });
+                }
+                else {
+                    showalertEndereco("CEP inválido.");
+                }
+            }
+            else {
+                showalertEndereco("CEP vazio.");
+            }
+        }
+
+        function showalertEndereco(message) {
+            //$('#alertDiv').remove();
+            //$('#cep').addClass('input-validation-error form-control input-sm');
+            //$('#divCep').after("<div id=alertDiv class=field-validation-error text-danger>" + message + "</div>");
+
+        }
+
         $(document).ready(function () {
             $('#cpf').mask('000.000.000-00', { reverse: true });
             $('#cep').mask('00.000-000');
             $('.telefone').mask('(00) 00000-0000');
-
-
 
             document.getElementById('NumeroDocumentoIdentificacao').disabled = true;
 
@@ -371,45 +608,6 @@
                     document.getElementById('NumeroDocumentoIdentificacao').disabled = true;
                 }
             });
-
-            $("button[id='btnBuscarCep']").click(function () {
-                var cep = $("input[id='cep']").val().replace(/\D/g, '');
-
-
-                if (cep != "") {
-                    var validacep = /^[0-9]{8}$/;
-                    if (validacep.test(cep)) {
-
-                        $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
-                            if (!("erro" in dados)) {
-                                $("input[id='cep']").val(cep);
-                                $("input[id='cidade']").val(dados.localidade);
-                                $("input[id='logradouro']").val(dados.logradouro);
-                                $("input[id='bairro']").val(dados.bairro);
-                                $("input[id='estado']").val(dados.uf);
-                                $("input[id='pais']").val("Brasil");
-                                //$("#alertDiv").remove();
-                                //$("input[id='cep']").removeClass("input-validation-error");
-                            }
-                            else {
-                                showalertEndereco("CEP não encontrado.");
-                            }
-                        });
-                    }
-                    else {
-                        showalertEndereco("CEP inválido.");
-                    }
-                }
-                else {
-                    showalertEndereco("CEP vazio.");
-                }
-            });
-            function showalertEndereco(message) {
-                //$('#alertDiv').remove();
-                //$('#cep').addClass('input-validation-error form-control input-sm');
-                //$('#divCep').after("<div id=alertDiv class=field-validation-error text-danger>" + message + "</div>");
-
-            }
 
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',

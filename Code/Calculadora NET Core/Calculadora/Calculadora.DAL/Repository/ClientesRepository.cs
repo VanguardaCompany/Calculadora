@@ -17,7 +17,7 @@ namespace Calculadora.DAL.Repository
         public IQueryable<Cliente> GetClientes(string sortOrder, string currentFilter, string searchString, int? page)
         {
             IQueryable<Cliente> clientes = from s in db.Clientes
-                           select s;
+                                           select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 clientes = clientes.Where(s => s.Nome.Contains(searchString)
@@ -41,20 +41,20 @@ namespace Calculadora.DAL.Repository
         {
             IQueryable<Cliente> clientes = from s in db.Clientes
                                            select s;
-            
+
 
             return clientes;
         }
 
         public Cliente GetClienteId(int? id)
         {
-            Cliente cliente = (Cliente)db.Pessoas.Find(id);
-            if (cliente == null)
-            {
-                return null;
-            }
-            cliente.Endereco = db.Enderecos.Find(cliente.EnderecoID);
-            cliente.Escritorio = db.Escritorios.Find(cliente.EscritorioID);
+            Cliente cliente = (Cliente)db.Clientes.Include(e => e.Enderecos).Include(e => e.Escritorio).Where(c => c.PessoaID == id).FirstOrDefault();
+            //if (cliente == null)
+            //{
+            //    return null;
+            //}
+            //cliente.Enderecos.ToList()[0] = db.Enderecos.Find(cliente.Enderecos.ToList()[0].EnderecoID);
+            //cliente.Escritorio = db.Escritorios.Find(cliente.EscritorioID);
 
             return cliente;
         }
@@ -65,8 +65,29 @@ namespace Calculadora.DAL.Repository
             {
                 //db.Enderecos.Add(cliente.Endereco);
                 //cliente.EnderecoID = 3;
-                cliente.EscritorioID = 4;
+                cliente.EscritorioID = 3;
                 db.Pessoas.Add(cliente);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void DeleteCliente(int id)
+        {
+            try
+            {
+                Cliente cliente = GetClienteId(id);
+
+                foreach(Endereco end in cliente.Enderecos)
+                {
+                    db.Enderecos.Remove(end);
+                }
+
+                db.Clientes.Remove(cliente);
                 db.SaveChanges();
             }
             catch (Exception)
@@ -80,7 +101,14 @@ namespace Calculadora.DAL.Repository
         {
             try
             {
-                db.Entry(cliente.Endereco).State = EntityState.Modified;
+                //db.Entry(cliente.Enderecos).State = EntityState.Modified;
+
+                foreach (Endereco endereco in cliente.Enderecos)
+                {
+                    endereco.PessoaID = cliente.PessoaID;
+                    db.Entry(endereco).State = EntityState.Modified;
+                   // db.SaveChanges();
+                }
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
             }
@@ -95,7 +123,7 @@ namespace Calculadora.DAL.Repository
         {
             if (db.Pessoas.Where(p => p.Cpf == cpf).Count() > 0) return true;
             else return false;
-            
+
         }
     }
 }
