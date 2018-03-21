@@ -20,19 +20,16 @@
                 </div>
                 <div class="ibox-content">
                     <div class="ibox-filter">
-                        @using (Html.BeginForm("IndexCliente", "Clientes", FormMethod.Get, new { @class = "form-inline" }))
-                        {
-                            <div class="form-group">
-                                <div class="input-group">
-                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+                        <div class="form-group">
+                            <div class="input-group">
+                                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
 
-                                    <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-white" data-toggle="popover" data-placement="auto top" data-content="Filtrar clientes"><i class="fa fa-search"></i></button>
-                                    </span>
+                                <span class="input-group-btn">
+                                    <button type="button" id="btnSearchCliente" class="btn btn-white" onclick="filtrarClientes()"><i class="fa fa-search"></i></button>
+                                </span>
 
-                                </div>
                             </div>
-                        }
+                        </div>
                     </div>
 
                     <div class="table-responsive">
@@ -54,11 +51,14 @@
                                         <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Telefone1)</td>
                                         <td>
-                                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("EditCliente", "Clientes", new { id = item.PessoaID})'">
-                                                <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
-                                            </button>
-                                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("DeleteCliente", "Clientes", new { id = item.PessoaID})'">
-                                                <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
+                                            @*<button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("EditCliente", "Clientes", new { id = item.PessoaID})'">
+                                                    <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
+                                                </button>
+                                                <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("DeleteCliente", "Clientes", new { id = item.PessoaID})'">
+                                                    <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
+                                                </button>*@
+                                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="getSimulacoes(@item.PessoaID)">
+                                                <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Selecionar</strong>
                                             </button>
                                         </td>
                                         <td>@Html.DisplayFor(modelItem => item.Email)</td>
@@ -71,31 +71,26 @@
                         <div id='Paging' style="text-align:center">
                             @if (Model.HasPreviousPage)
                             {
-                                @Html.ActionLink("<<", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
-                                @Html.ActionLink("<", "IndexCliente", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                                <a onclick="mudarPaginaAjax(1,@ViewBag.CurrentFilter)" class="btn btn-success btn-xs btn-pagedlist"><<</a>
+                                <a onclick="mudarPaginaAjax(@Model.PageNumber - 1,@ViewBag.CurrentFilter)" class="btn btn-success btn-xs btn-pagedlist"><</a>
                             }
                             else
                             {
-                                @Html.ActionLink("<<", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
-                                @Html.ActionLink("<", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                                <a onclick="mudarPaginaAjax(1,@ViewBag.CurrentFilter)" class="btn btn-success btn-xs btn-pagedlist"><<</a>
+                                <a onclick="mudarPaginaAjax(1,@ViewBag.CurrentFilter)" class="btn btn-success btn-xs btn-pagedlist"><</a>
                             }
 
                             Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
-
-                            @*<pager class="pager-container" list="@Model"
-                                options="@PagedListRenderOptions.TwitterBootstrapPager"
-                                asp-action="Index" asp-controller="Review" />*@
-
                             @if (Model.HasNextPage)
                             {
-                                @Html.ActionLink(">", "IndexCliente", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
-                                @Html.ActionLink(">>", "IndexCliente", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-pagedlist" })
+                                <a onclick="mudarPaginaAjax(@Model.PageNumber + 1,@ViewBag.CurrentFilter)" class="btn btn-success btn-xs btn-pagedlist">></a>
+                                <a onclick="mudarPaginaAjax(@Model.PageCount,@ViewBag.CurrentFilter)" class="btn btn-success btn-xs btn-pagedlist">>></a>
                             }
                             else
                             {
-                                @Html.ActionLink(">", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
-                                @Html.ActionLink(">>", "IndexCliente", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-success btn-xs btn-disable btn-pagedlist", @onclick = "javascript:return false;" })
+                                <a onclick="mudarPaginaAjax(1,@ViewBag.CurrentFilter)" class="btn btn-success btn-xs btn-pagedlist">></a>
+                                <a onclick="mudarPaginaAjax(1,@ViewBag.CurrentFilter)" class="btn btn-success btn-xs btn-pagedlist">>></a>
                             }
                         </div>
 
@@ -115,24 +110,24 @@
 
 
 @*@section Styles {
-    <environment names="Development">
-        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
-    </environment>
-    <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
-    </environment>
-}
-@section Scripts {
-    <environment names="Development,Staging,Production">
-        <script src="~/lib/footable/dist/footable.all.min.js"></script>
-    </environment>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.footable').footable();
-        });
+        <environment names="Development">
+            <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+        </environment>
+        <environment names="Staging,Production">
+            <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+        </environment>
+    }
+    @section Scripts {
+        <environment names="Development,Staging,Production">
+            <script src="~/lib/footable/dist/footable.all.min.js"></script>
+        </environment>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.footable').footable();
+            });
 
-    </script>
-}*@
+        </script>
+    }*@
 
 
 

@@ -19,11 +19,12 @@
                             <div class="step-content">
 
                                 @*@Html.DropDownListFor(m => m.ClienteSelecionado, Model.Clientes.Select(cliente => new SelectListItem()
-                                {
-                                Text = cliente.Nome,
-                                Value = cliente.PessoaID.ToString()
-                                }), "Selecionar...", htmlAttributes: new { @class = "form-control", @id = "clienteSelecionado", onchange = "getSimulacoes(this.value)" })*@
-                                @Html.Partial("_SelectCliente", Model.Clientes)
+                                    {
+                                    Text = cliente.Nome,
+                                    Value = cliente.PessoaID.ToString()
+                                    }), "Selecionar...", htmlAttributes: new { @class = "form-control", @id = "clienteSelecionado", onchange = "getSimulacoes(this.value)" })*@
+                                @*@Html.Partial("_SelectCliente", Model.Clientes)*@
+                                @Html.Partial("_SelectCliente", (PagedList.Core.IPagedList<Calculadora.DAL.Models.Cliente>)@ViewBag.Clientes)
 
                             </div>
                             <h1>Selecione a Simulação</h1>
@@ -36,41 +37,41 @@
                             <div class="step-content">
                                 @if (Model.TempoContribuicoes != null)
                                 {
-                                @Html.Partial("_TempoContribuicoes", Model)
+                                    @Html.Partial("_TempoContribuicoes", Model)
                                 }
                             </div>
                             @*<h1>Selecione os Benefícios</h1>
-                            <div class="step-content">
-                                <div class="text-center">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="ibox">
-                                                <div class="ibox-title">
-                                                    <h5>Selecione os Benefícios</h5>
-                                                    <div class="ibox-tools">
+                                <div class="step-content">
+                                    <div class="text-center">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="ibox">
+                                                    <div class="ibox-title">
+                                                        <h5>Selecione os Benefícios</h5>
+                                                        <div class="ibox-tools">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="ibox-content">
-                                                    <form id="form2" action="#" class="wizard-big">
-                                                        <select class="form-control dual_select" multiple>
-                                                            <option value="1">Aposentadoria por tempo de contribuição</option>
-                                                            <option value="2">Aposentadoria por tempo de serviço de professor (até nível médio)</option>
-                                                            <option value="3">Aposentadoria por idade ou compulsória</option>
-                                                            <option value="4">Aposentadoria por invalidez</option>
-                                                            <option value="5">Auxílio doença</option>
-                                                            <option value="6">Pensão por morte</option>
-                                                            <option value="7">Auxílio Acidente</option>
-                                                            <option value="8">Aposentadoria Especial</option>
-                                                            <option value="9">Benefício assistêncial à pessoa idosa ou portadora de deficiência</option>
-                                                            <option value="10">Aposentadoria rural por idade</option>
-                                                        </select>
-                                                    </form>
+                                                    <div class="ibox-content">
+                                                        <form id="form2" action="#" class="wizard-big">
+                                                            <select class="form-control dual_select" multiple>
+                                                                <option value="1">Aposentadoria por tempo de contribuição</option>
+                                                                <option value="2">Aposentadoria por tempo de serviço de professor (até nível médio)</option>
+                                                                <option value="3">Aposentadoria por idade ou compulsória</option>
+                                                                <option value="4">Aposentadoria por invalidez</option>
+                                                                <option value="5">Auxílio doença</option>
+                                                                <option value="6">Pensão por morte</option>
+                                                                <option value="7">Auxílio Acidente</option>
+                                                                <option value="8">Aposentadoria Especial</option>
+                                                                <option value="9">Benefício assistêncial à pessoa idosa ou portadora de deficiência</option>
+                                                                <option value="10">Aposentadoria rural por idade</option>
+                                                            </select>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                         </div>
 
                     </div>
@@ -161,25 +162,25 @@
 
 
 @section Styles {
-<environment names="Development">
-    <link rel="stylesheet" href="~/lib/iCheck/custom.css" />
-    <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
-    <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
-    <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
-    <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
-</environment>
-<environment names="Staging,Production">
-    <link rel="stylesheet" href="~/lib/iCheck/custom.css" />
-    <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" />
-    <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
-    <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
-    <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.css" />
-    <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
-    <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
-</environment>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/iCheck/custom.css" />
+        <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+        <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
+        <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/iCheck/custom.css" />
+        <link rel="stylesheet" href="~/lib_bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" />
+        <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
+        <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
+        <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.css" />
+        <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+    </environment>
     @*@Styles.Render("~/plugins/duallistStyles")*@
 }
-@section Scripts {
+
 <environment names="Development">
     <script src="~/lib/iCheck/icheck.min.js"></script>
     <script src="~/lib_bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
@@ -189,7 +190,7 @@
     <script src="~/lib/ionRangeSlider/ion.rangeSlider.min.js"></script>
     <script src="~/lib/footable/dist/footable.all.min.js"></script>
     @*
-    <script src="~/lib/validate/jquery.validate.min.js"></script>*@
+        <script src="~/lib/validate/jquery.validate.min.js"></script>*@
 </environment>
 <environment names="Staging,Production">
     <script src="~/lib/iCheck/icheck.min.js"></script>
@@ -207,6 +208,8 @@
     $(document).ready(function () {
         $('.footable').footable();
         $('#body').addClass('mini-navbar');
+
+
 
         $('.datetimepicker').datepicker({
             format: 'dd/mm/yyyy',
@@ -227,7 +230,6 @@
             //moveOnSelect: false,
             preserveSelectionOnMove: 'all'
         });
-
 
         $('.dataTables-example').DataTable({
             "bFilter": false,
@@ -384,40 +386,29 @@
 
                 // Submit form input
                 form.submit();
-                /**/
-                /**/
-                /**/
-                /**/
-                /**/
                 //var url = '@Url.Action("Result", "Calculadora", null)';
-    /**/
-    /**/
-    /**/
-    /**/
-    /**/
-    //window.location = window.location.host + url;
-},
-onStepChanging: function (event, currentIndex, newIndex) {
-    if (newIndex === 1 && $('#clienteSelecionado').val() > 0) {
-        return true;
-    }
-    if (newIndex === 2) {
-        if ($('#simulacaoSelecionada').val() > 0) {
-            return true;
-        }
-        else {
-            var r = setSimulacao($('#simulacaoSelecionada').val());
-            if (r) {
-                return getTempoContribuicoesNovo();
-            } else {
-                return false;
+        },
+        onStepChanging: function (event, currentIndex, newIndex) {
+            if (newIndex === 1 && $('#clienteSelecionado').val() > 0) {
+                return true;
             }
-        }
+            if (newIndex === 2) {
+                if ($('#simulacaoSelecionada').val() > 0) {
+                    return true;
+                }
+                else {
+                    var r = setSimulacao($('#simulacaoSelecionada').val());
+                    if (r) {
+                        return getTempoContribuicoesNovo();
+                    } else {
+                        return false;
+                    }
+                }
 
-    }
-    else if (newIndex === 3) { return true; }
-}
-});
+            }
+            else if (newIndex === 3) { return true; }
+        }
+        });
 $('#modalAddTempoContribuicao').on('shown.bs.modal', function () {
 $('.input-group.date').datepicker({
     format: "dd/mm/yyyy",
@@ -429,76 +420,102 @@ $('.input-group.date').datepicker({
     container: '#modalAddTempoContribuicao modal-body'
 });
 });
-$('#salvarTempoContribuicao').click(function () {
-console.log($('#dataAdmissaoAdd').val());
-$.ajax({
-    /**/
-    /**/
-    /**/
-    url: '@Url.Action("SetTempoContribuicao", "Calculadora", new { })',
-    /**/
-    /**/
-    /**/
-    type: "POST",
-    cache: false,
-    dataType: "html",
-    data: {
-        DataAdmissao: $('#dataAdmissaoAdd').val(),
-        DataDemissao: $('#dataDemissaoAdd').val(),
-        AtividadeIPP: $('#atividadeAdd').val(),
-        Profissao: $('#profissaoAdd').val(),
-        Empregador: $('#empregadorAdd').val()
-    },
-    success: function (data, textStatus, XMLHttpRequest) {
-        $('#wizard-p-2').html('');
-        $('#wizard-p-2').html(data);
-        $('#modalAddTempoContribuicao').modal('hide');
-    },
-    error: function (xhr, status, error) {
-        alert('erro SetTempoContribuicao');
-    }
-});
-});
+        $('#salvarTempoContribuicao').click(function () {
+            console.log($('#dataAdmissaoAdd').val());
+            $.ajax({
+                url: '@Url.Action("SetTempoContribuicao", "Calculadora", new { })',
+                type: "POST",
+                cache: false,
+                dataType: "html",
+                data: {
+                    DataAdmissao: $('#dataAdmissaoAdd').val(),
+                    DataDemissao: $('#dataDemissaoAdd').val(),
+                    AtividadeIPP: $('#atividadeAdd').val(),
+                    Profissao: $('#profissaoAdd').val(),
+                    Empregador: $('#empregadorAdd').val()
+                },
+                success: function (data, textStatus, XMLHttpRequest) {
+                    $('#wizard-p-2').html('');
+                    $('#wizard-p-2').html(data);
+                    $('#modalAddTempoContribuicao').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    alert('erro SetTempoContribuicao');
+                }
+            });
+        });
+
 });
 
-function proximaEtapa() {
-$('#wizard').steps('next');
-}
-function getSimulacoes(idCliente) {
-$.ajax({
-/**/
-/**/
-/**/
-url: '@Url.Action("GetSimulacoes", "Calculadora", new { })',
-    /**/
-    /**/
-    /**/
-    type: "POST",
-    cache: false,
-    dataType: "html",
-    data: { idCliente: idCliente },
-    success: function (data, textStatus, XMLHttpRequest) {
-        $('#wizard-p-1').html(data); // HTML DOM replace
-        $("#wizard").steps("next");
-    },
-    error: function (xhr, status, error) {
-        alert('erro getSimulacoes');
+    function filtrarClientes() {
+        console.log('#btnSearchCliente: ' + $('#SearchString').val());
+            $.ajax({
+                url: '@Url.Action("GetClientesAjax", "Calculadora")',
+                type: "POST",
+                cache: false,
+                dataType: "html",
+                data: {
+                    page: 1,
+                    searchString: $('#SearchString').val()
+                },
+                success: function (data, textStatus, XMLHttpRequest) {
+                    $('#wizard-p-0').html('');
+                    $('#wizard-p-0').html(data);
+                },
+                error: function (xhr, status, error) {
+                    alert('erro btnSearchCliente');
+                }
+            });
     }
-});
-}
+
+    function mudarPaginaAjax(pagina) {
+        console.log('mudarPagina: ' + pagina);
+            $.ajax({
+                url: '@Url.Action("GetClientesAjax", "Calculadora")',
+                type: "POST",
+                cache: false,
+                dataType: "html",
+                data: {
+                    page: pagina,
+                    searchString: $('#SearchString').val()
+                },
+                success: function (data, textStatus, XMLHttpRequest) {
+                    $('#wizard-p-0').html('');
+                    $('#wizard-p-0').html(data);
+                },
+                error: function (xhr, status, error) {
+                    alert('erro mudarPagina');
+                }
+            });
+    }
+
+    function proximaEtapa() {
+        $('#wizard').steps('next');
+    }
+
+    function getSimulacoes(idCliente) {
+        $.ajax({
+        url: '@Url.Action("GetSimulacoes", "Calculadora", new { })',
+            type: "POST",
+            cache: false,
+            dataType: "html",
+            data: { idCliente: idCliente },
+            success: function (data, textStatus, XMLHttpRequest) {
+                $('#wizard-p-1').html(data); // HTML DOM replace
+                $("#wizard").steps("next");
+            },
+            error: function (xhr, status, error) {
+                alert('erro getSimulacoes');
+            }
+        });
+    }
 function getTempoContribuicoes() {
 var r = setSimulacao($('#simulacaoSelecionada').val());
 //var r = true;
 if (r) {
     var sw;
     $.ajax({
-        /**/
-        /**/
-        /**/
         url: '@Url.Action("GetTempoContribuicoes", "Calculadora")',
-    /**/
-    /**/
-    /**/
     type: "POST",
     cache: false,
     dataType: "html",
@@ -579,5 +596,5 @@ return sw;
 //return resp.responseJSON;
 }
 </script>
-}
+
 
