@@ -45,8 +45,9 @@ namespace Calculadora.Web.Controllers
         public ActionResult CreateCalculadora()
         {
             CalculadoraViewModel model = new CalculadoraViewModel();
-            model.Clientes = clienteBusiness.GetAllClientes().ToPagedList(1, 3);
-            
+            model.Clientes = clienteBusiness.GetAllClientes().ToList();
+            ViewBag.Clientes = model.Clientes.AsQueryable().ToPagedList(1, 3);
+
             SetSessionCalculadoraViewModel(model);
 
             return View(model);
@@ -67,7 +68,7 @@ namespace Calculadora.Web.Controllers
                 return View();
             }
         }
-        
+
         [HttpPost]
         public PartialViewResult GetSimulacoes(int idCliente)
         {
@@ -97,11 +98,11 @@ namespace Calculadora.Web.Controllers
                 }
                 else
                 {
-                    
+
                     simulacaoVM.Data = DateTime.Now;
                     simulacaoVM.Cliente = model.ClienteSelecionado;
                 }
-                
+
                 //calculadoraBusiness.SetSimulacao(ViewModelToSimulacao(simulacaoVM));
                 model.SimulacaoSelecionada = simulacaoVM;
 
@@ -114,13 +115,13 @@ namespace Calculadora.Web.Controllers
 
                 throw;
             }
-            
+
 
             return Json(erro);
         }
 
         [HttpPost]
-        public PartialViewResult GetTempoContribuicoes( )
+        public PartialViewResult GetTempoContribuicoes()
         {
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
 
@@ -131,7 +132,7 @@ namespace Calculadora.Web.Controllers
             }
             else
             {
-                
+
             }
 
 
@@ -166,6 +167,34 @@ namespace Calculadora.Web.Controllers
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
             model = calculadoraBusiness.RealizaCalculo(model);
             return View(model);
+        }
+
+        [HttpPost]
+        public PartialViewResult GetClientesAjax(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            try
+            {
+                CalculadoraViewModel model = GetSessionCalculadoraViewModel();
+
+                ViewBag.CurrentSort = sortOrder;
+
+                ViewBag.CurrentFilter = searchString;
+
+                if (page == null) page = 1;
+                model.Clientes = clienteBusiness.GetClientes(sortOrder, currentFilter, searchString, page).ToList();
+                ViewBag.Clientes = model.Clientes.AsQueryable().ToPagedList((int)page, 3);
+
+                SetSessionCalculadoraViewModel(model);
+                return PartialView("_SelectCliente", ViewBag.Clientes);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+
         }
 
         #region Session

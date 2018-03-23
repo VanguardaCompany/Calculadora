@@ -11,9 +11,9 @@ namespace Calculadora.DAL.Models
 
         public string Nit { get; set; }
 
-        public int EscritorioID { get; set; }
+        public int? EscritorioID { get; set; }
         //[ForeignKey("EscritorioID")]
         public virtual Escritorio Escritorio { get; set; }
     }
-    
+
 }

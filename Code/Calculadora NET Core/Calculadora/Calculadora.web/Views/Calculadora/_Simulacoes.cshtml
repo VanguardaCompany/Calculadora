@@ -1,5 +1,6 @@
 ﻿@model Calculadora.Domain.Models.CalculadoraViewModel
 
+@Html.HiddenFor(m => m.ClienteSelecionado.PessoaID, new { @id = "ClienteSelecionadoID" })
 @if (Model.Simulacoes != null && Model.Simulacoes.Count > 0)
 {
     @Html.DropDownListFor(m => m.SimulacaoSelecionada, Model.Simulacoes.Select(s => new SelectListItem()
