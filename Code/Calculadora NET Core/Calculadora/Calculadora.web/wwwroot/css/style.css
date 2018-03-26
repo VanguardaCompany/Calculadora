@@ -3312,7 +3312,7 @@ a.forum-item-title {
     margin-left: 60px;
     background: white;
     border-radius: 0.25em;
-    padding: 1em;
+    padding: 0.5em 1em;
 }
 
     .vertical-timeline-content:after {
@@ -3365,7 +3365,7 @@ a.forum-item-title {
 @media only screen and (min-width: 1170px) {
     .center-orientation .vertical-timeline-content {
         margin-left: 0;
-        padding: 1.6em;
+        /*padding: 1.6em;*/
         width: 45%;
     }
 
@@ -10370,4 +10370,29 @@ body.md-skin {
 
 .wizard .ibox {
     margin-bottom: 0;
+}
+
+.timeline-button-edit {
+    position: absolute;
+    right: 35px;
+    top: 10px;
+}
+
+.timeline-button-delete {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.checkbox-horizontal > input[type='checkbox'] {
+    font-size: 10px;
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.checkbox-horizontal > label {
+    margin-bottom: 15px;
+    vertical-align: middle;
 }

@@ -4,7 +4,7 @@
     <div class="ibox-title">
         <h5>Tempo de Contribuição</h5>
         <div class="ibox-tools">
-            <button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalAddTempoContribuicao">
+            <button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalTempoContribuicao">
                 <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
             </button>
         </div>
@@ -39,8 +39,18 @@
                                     <td>@Html.DisplayFor(modelItem => item.Profissao)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Empregador)</td>
                                     <td>
-                                        @Html.ActionLink("Editar", "EditIC", new { id = item.TempoContribuicaoID }, new { @class = "btn btn-white btn-sm" })
-                                        @Html.ActionLink("Apagar", "Delete", new { id = item.TempoContribuicaoID }, new { @class = "btn btn-white btn-sm" })
+                                        <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" data-toggle="modal" data-target="#modalTempoContribuicao"
+                                                onclick="editTempoCntribuicaoModal(
+                                                @Html.DisplayFor(modelItem => item.TempoContribuicaoID), @Html.DisplayFor(modelItem => item.SimulacaoID),
+                                               '@Html.DisplayFor(modelItem => item.DataAdmissao)', '@Html.DisplayFor(modelItem => item.DataDemissao)',
+                                               '@item.AtividadeIPP','@Html.DisplayFor(modelItem => item.Profissao)',
+                                                '@Html.DisplayFor(modelItem => item.Empregador)'
+                                                )">
+                                            <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
+                                        </button>
+                                        <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="">
+                                            <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
+                                        </button>
                                     </td>
                                 </tr>
                             }
@@ -58,55 +68,3 @@
 
     </div>
 </div>
-
-@section Styles {
-    <environment names="Development">
-        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
-    </environment>
-    <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
-    </environment>
-}
-@section Scripts {
-    <environment names="Development,Staging,Production">
-        <script src="~/lib/footable/dist/footable.all.min.js"></script>
-    </environment>
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            $('.footable').footable();
-            $('.footable2').footable();
-
-            $('.decimal').keyup(function () {
-                var val = $(this).val();
-                if (isNaN(val)) {
-                    val = val.replace(/[^0-9\.]/g, '');
-                    if (val.split('.').length > 2)
-                        val = val.replace(/\.+$/, "");
-                }
-                $(this).val(val);
-            });
-            //$('.datetimepicker').datepicker({
-            //    //viewMode: "months",
-            //    //minViewMode: "months",
-            //    format: 'dd/mm/yyyy',
-            //    language: 'pt-BR',
-            //    todayHighlight: true,
-            //    autoclose: true
-            //});
-            //$('#modalAddTempoContribuicao').on('shown.bs.modal', function () {
-            //    $('.input-group.date').datepicker({
-            //        format: "dd/mm/yyyy",
-            //        startDate: "01-01-2015",
-            //        endDate: "01-01-2020",
-            //        todayBtn: "linked",
-            //        autoclose: true,
-            //        todayHighlight: true,
-            //        container: '#modalAddTempoContribuicao modal-body'
-            //    });
-            //});
-
-        });
-
-    </script>
-}

@@ -29,13 +29,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="form-group" id="valorModal">
-                                @Html.CheckBox("atividadeAdd", null, new { @class = "form-control" })
-                                <label>Atividade é insalubre, perigosa ou penosa?</label>
+                        <div class=" col-lg-12 checkbox-horizontal">
+                            @Html.CheckBox("atividadeAdd", new { @class = "form-control toggle" })
+                            <label for="atividadeAdd">
+                                Atividade é insalubre, perigosa ou penosa?
+                            </label>
 
-                            </div>
+
                         </div>
+                        @*<div class="col-lg-12">
+                                <div class="form-group" id="valorModal">
+                                    @Html.CheckBox("atividadeAdd", null, new { @class = "form-control" })
+                                    <label>Atividade é insalubre, perigosa ou penosa?</label>
+
+                                </div>
+                            </div>*@
                         <div class="col-lg-12">
                             <div class="form-group" id="valorModal">
                                 <label>Profissão</label>

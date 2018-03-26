@@ -17,13 +17,6 @@
                         <div id="wizard">
                             <h1>Selecione o Cliente</h1>
                             <div class="step-content">
-
-                                @*@Html.DropDownListFor(m => m.ClienteSelecionado, Model.Clientes.Select(cliente => new SelectListItem()
-                                    {
-                                    Text = cliente.Nome,
-                                    Value = cliente.PessoaID.ToString()
-                                    }), "Selecionar...", htmlAttributes: new { @class = "form-control", @id = "clienteSelecionado", onchange = "getSimulacoes(this.value)" })*@
-                                @*@Html.Partial("_SelectCliente", Model.Clientes)*@
                                 @Html.Partial("_SelectCliente", (PagedList.Core.IPagedList<Calculadora.DAL.Models.Cliente>)@ViewBag.Clientes)
 
                             </div>
@@ -596,6 +589,14 @@ function editTempoCntribuicaoModal(tempoContribuicaoID, simulacaoID, dataAdmissa
     else document.getElementById("atividadeAdd").checked = false;
     $('#profissaoAdd').val(profissaoAdd);
     $('#empregadorAdd').val(empregadorAdd);
+}
+function addTempoContribuicaoModal() {
+    $('#tempoContribuicaoID').val(0);
+    $('#dataAdmissaoAdd').val('');
+    $('#dataDemissaoAdd').val('');
+    document.getElementById("atividadeAdd").checked = false;
+    $('#profissaoAdd').val('');
+    $('#empregadorAdd').val('');
 }
 /**
 Fim Tempo Contribições **************************************************************************************************

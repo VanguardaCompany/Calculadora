@@ -1,70 +1,153 @@
 ﻿@model Calculadora.Domain.Models.CalculadoraViewModel
 
-<div class="ibox float-e-margins valoresIC">
+<div class="ibox float-e-margins">
     <div class="ibox-title">
         <h5>Tempo de Contribuição</h5>
         <div class="ibox-tools">
-            <button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalTempoContribuicao">
+            <button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalTempoContribuicao" onclick="addTempoContribuicaoModal()">
                 <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
             </button>
         </div>
     </div>
-    <div class="ibox-content">
-        <div class="table-responsive">
-            <table class="footable table table-stripped toggle-arrow-tiny">
-                <thead>
-                    <tr>
-                        <th hidden>IdSimulacao</th>
-                        <th hidden>IdTempoContribuicao</th>
-                        <th>Data Admissão</th>
-                        <th>Data Demissão</th>
-                        <th>Atividade é insalubre, perigosa ou penosa?</th>
-                        <th>Profissão</th>
-                        <th>Empregador</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        @if (Model.TempoContribuicoes != null)
-                        {
-                            @foreach (var item in Model.TempoContribuicoes)
-                            {
-                                <tr>
-                                    <td hidden>@Html.DisplayFor(modelItem => item.TempoContribuicaoID)</td>
-                                    <td hidden>@Html.DisplayFor(modelItem => item.SimulacaoID)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.DataAdmissao)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.DataDemissao)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.AtividadeIPP)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Profissao)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Empregador)</td>
-                                    <td>
-                                        <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" data-toggle="modal" data-target="#modalTempoContribuicao"
-                                                onclick="editTempoCntribuicaoModal(
+    @*<div class="ibox-content" id="ibox-content">
+            <img src="~/Images/tempocontribuicao.png" />
+        </div>*@
+    <div class="ibox-content" id="ibox-content">
+        <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
+            @{
+                @if (Model.TempoContribuicoes != null)
+                {
+                    int contador = 0;
+                    @foreach (var item in Model.TempoContribuicoes)
+                    {
+                        contador = contador + 1;
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon navy-bg">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+                            <div class="vertical-timeline-content">
+                                <h2 style="text-align:left;">@Html.DisplayFor(modelItem => item.Empregador)</h2>
+                                <button class="btn btn-xs btn-success timeline-button-edit" type="button" data-toggle="modal" data-target="#modalTempoContribuicao"
+                                        onclick="editTempoCntribuicaoModal(
                                                 @Html.DisplayFor(modelItem => item.TempoContribuicaoID), @Html.DisplayFor(modelItem => item.SimulacaoID),
-                                               '@Html.DisplayFor(modelItem => item.DataAdmissao)', '@Html.DisplayFor(modelItem => item.DataDemissao)',
+                                               '@Html.DisplayFor(modelItem => item.DataAdmissao, "{0:dd/MM/yyyy}")', '@Html.DisplayFor(modelItem => item.DataDemissao, "{0:dd/MM/yyyy}")',
                                                '@item.AtividadeIPP','@Html.DisplayFor(modelItem => item.Profissao)',
                                                 '@Html.DisplayFor(modelItem => item.Empregador)'
                                                 )">
-                                            <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
-                                        </button>
-                                        <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="">
-                                            <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
-                                        </button>
-                                    </td>
-                                </tr>
-                            }
-                        }
+                                    <strong><i class="fa fa-edit"></i></strong>
+                                </button>
+                                <button onclick="window.location.href='@Url.Action("Create", "PessoaFisica")'" class="btn btn-xs btn-success timeline-button-delete"
+                                        type="button" data-toggle="modal" data-target="#myModal">
+                                    <strong><i class="fa fa-remove"></i></strong>
+                                </button>
+                                <div style="text-align:left">
+                                    <p style="margin-bottom:0;margin-top:5px;"><strong>Início:</strong> @Html.DisplayFor(modelItem => item.DataAdmissao, "{0:dd/MM/yyyy}")</p>
+                                    <p style="margin-bottom:0;margin-top:0px;"><strong>Fim:</strong> @Html.DisplayFor(modelItem => item.DataDemissao, "{0:dd/MM/yyyy}")</p>
+                                    <p style="margin-bottom:10px;margin-top:0px;"> <strong>Tipo: </strong> Período Especial</p>
+                                </div>
+                                @if (contador % 2 == 0)
+                                {
+                                    <span class="vertical-date" style="text-align:right">
+                                        @Html.DisplayFor(modelItem => item.DataAdmissao, "{0:yyyy}") <br />
+                                        <small>@Html.DisplayFor(modelItem => item.DataAdmissao, "{0:MMM}")</small>
+                                    </span>
+
+                                }
+                                else
+                                {
+                                    <span class="vertical-date" style="text-align:left">
+                                        @Html.DisplayFor(modelItem => item.DataAdmissao, "{0:yyyy}") <br />
+                                        <small>@Html.DisplayFor(modelItem => item.DataAdmissao, "{0:MMM}")</small>
+                                    </span>
+
+                                }
+
+                            </div>
+                        </div>
                     }
+                }
+            }
+            @*<div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon blue-bg">
+                        <i class="fa fa-briefcase"></i>
+                    </div>
+                    <div class="vertical-timeline-content">
+                        <h2 style="text-align:left;">CONMEDH</h2>
 
+                        <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-edit"
+                                type="button" data-toggle="modal" data-target="#myModal">
+                            <strong><i class="fa fa-edit"></i></strong>
+                        </button>
+                        <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-delete"
+                                type="button" data-toggle="modal" data-target="#myModal">
+                            <strong><i class="fa fa-remove"></i></strong>
+                        </button>
+                        <div style="text-align:left">
+                            <p style="margin-bottom:0;margin-top:5px;"><strong>Início:</strong> 01/02/1973</p>
+                            <p style="margin-bottom:0;margin-top:0px;"><strong>Fim:</strong> 13/03/1978</p>
+                            <p style="margin-bottom:10px;margin-top:0px;"> <strong>Tipo: </strong> Período Especial</p>
+                        </div>
+                        <span class="vertical-date" style="text-align:right">
+                            1973 <br />
+                            <small>Fevereiro</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon navy-bg">
+                        <i class="fa fa-briefcase"></i>
+                    </div>
+                    <div class="vertical-timeline-content">
+                        <h2 style="text-align:left;">CONMEDH</h2>
 
-                </tbody>
-            </table>
-            <br />
+                        <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-edit"
+                                type="button" data-toggle="modal" data-target="#myModal">
+                            <strong><i class="fa fa-edit"></i></strong>
+                        </button>
+                        <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-delete"
+                                type="button" data-toggle="modal" data-target="#myModal">
+                            <strong><i class="fa fa-remove"></i></strong>
+                        </button>
+                        <div style="text-align:left">
+                            <p style="margin-bottom:0;margin-top:5px;"><strong>Início:</strong> 01/02/1973</p>
+                            <p style="margin-bottom:0;margin-top:0px;"><strong>Fim:</strong> 13/03/1978</p>
+                            <p style="margin-bottom:10px;margin-top:0px;"> <strong>Tipo: </strong> Período Especial</p>
+                        </div>
+                        <span class="vertical-date" style="text-align:left">
+                            1973 <br />
+                            <small>Fevereiro</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon blue-bg">
+                        <i class="fa fa-briefcase"></i>
+                    </div>
+                    <div class="vertical-timeline-content">
+                        <h2 style="text-align:left;">CONMEDH</h2>
 
-
-
+                        <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-edit"
+                                type="button" data-toggle="modal" data-target="#myModal">
+                            <strong><i class="fa fa-edit"></i></strong>
+                        </button>
+                        <button onclick="window.location.href='@Url.Action("Create","PessoaFisica")'" class="btn btn-xs btn-success timeline-button-delete"
+                                type="button" data-toggle="modal" data-target="#myModal">
+                            <strong><i class="fa fa-remove"></i></strong>
+                        </button>
+                        <div style="text-align:left">
+                            <p style="margin-bottom:0;margin-top:5px;"><strong>Início:</strong> 01/02/1973</p>
+                            <p style="margin-bottom:0;margin-top:0px;"><strong>Fim:</strong> 13/03/1978</p>
+                            <p style="margin-bottom:10px;margin-top:0px;"> <strong>Tipo: </strong> Período Especial</p>
+                        </div>
+                        <span class="vertical-date" style="text-align:right">
+                            1973 <br />
+                            <small>Fevereiro</small>
+                        </span>
+                    </div>
+                </div>*@
         </div>
-
     </div>
+    @*<div class="ibox-content" id="ibox-content">
+            <img src="~/Images/tempocontribuicao.png" />
+        </div>*@
 </div>
