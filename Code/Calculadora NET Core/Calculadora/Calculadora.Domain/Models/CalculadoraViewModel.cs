@@ -9,8 +9,7 @@ namespace Calculadora.Domain.Models
 {
     public class CalculadoraViewModel
     {
-        //public ICollection<Cliente> Clientes { get; set; }
-        public IPagedList<Cliente> Clientes { get; set; }
+        public ICollection<Cliente> Clientes { get; set; }
         public Cliente ClienteSelecionado { get; set; }
         public int ClienteSelecionadoID { get; set; }
         public ICollection<SimulacaoViewModel> Simulacoes { get; set; }
@@ -53,13 +52,23 @@ namespace Calculadora.Domain.Models
         /// Data em que se aposentará por Idade
         /// </summary>
         public DateTime DataAposentadoriaIdade { get; set; }
-        
+
 
         public int Anos { get; set; }
         public int Meses { get; set; }
         public int Dias { get; set; }
 
         public virtual ICollection<TempoContribuicaoViewModel> TempoContribuicoes { get; set; }
+
+        public Simulacao SimulacaoToModel(SimulacaoViewModel model)
+        {
+            Simulacao s = new Simulacao();
+
+            s.Data = model.Data;
+            s.SimulacaoID = model.SimulacaoID;
+            s.ClienteID = model.Cliente.PessoaID;
+            return s;
+        }
     }
     public class TempoContribuicaoViewModel
     {
@@ -86,5 +95,19 @@ namespace Calculadora.Domain.Models
 
         //public Simulacao Simulacao { get; set; }
         public int SimulacaoID { get; set; }
+
+        public TempoContribuicao TempoContribuicaoToModel(TempoContribuicaoViewModel model)
+        {
+            TempoContribuicao tc = new TempoContribuicao();
+
+            tc.AtividadeIPP = model.AtividadeIPP;
+            tc.DataAdmissao = model.DataAdmissao;
+            tc.DataDemissao = model.DataDemissao;
+            tc.Profissao = model.Profissao;
+            tc.Empregador = model.Empregador;
+            tc.SimulacaoID = model.SimulacaoID;
+            tc.TempoContribuicaoID = model.TempoContribuicaoID;
+            return tc;
+        }
     }
 }

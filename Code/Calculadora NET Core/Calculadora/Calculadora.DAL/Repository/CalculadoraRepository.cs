@@ -29,7 +29,7 @@ namespace Calculadora.DAL.Repository
 
                 throw;
             }
-            
+
         }
 
         public Simulacao GetSimulacaoId(int idSimulacao)
@@ -45,10 +45,10 @@ namespace Calculadora.DAL.Repository
 
                 throw;
             }
-            
+
         }
 
-        public  void SetSimulacao(Simulacao simulacao)
+        public void AddSimulacao(Simulacao simulacao)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace Calculadora.DAL.Repository
 
                 throw;
             }
-            
+
         }
 
         public TempoContribuicao GetTempoContribuicaoId(int idTempoContribuicao)
@@ -94,7 +94,7 @@ namespace Calculadora.DAL.Repository
 
                 throw;
             }
-            
+
         }
 
         public void SetTempoContribuicao(TempoContribuicao tempoContribuicao)
@@ -102,6 +102,34 @@ namespace Calculadora.DAL.Repository
             try
             {
                 db.TempoContribuicoes.Add(tempoContribuicao);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        public void AddTempoContribuicao(TempoContribuicao tempoContribuicao)
+        {
+            try
+            {
+                db.TempoContribuicoes.Add(tempoContribuicao);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        public void UpdateTempoContribuicao(TempoContribuicao tempoContribuicao)
+        {
+            try
+            {
+                db.TempoContribuicoes.Update(tempoContribuicao);
                 db.SaveChanges();
             }
             catch (Exception e)

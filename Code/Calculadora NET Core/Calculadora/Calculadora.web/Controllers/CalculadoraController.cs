@@ -121,7 +121,34 @@ namespace Calculadora.Web.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult GetTempoContribuicoes()
+        public PartialViewResult AddSimulacaoAjax()
+        {
+            try
+            {
+                CalculadoraViewModel model = GetSessionCalculadoraViewModel();
+
+                SimulacaoViewModel simulacaoVM = new SimulacaoViewModel();
+
+                simulacaoVM.Data = DateTime.Now;
+                simulacaoVM.Cliente = model.ClienteSelecionado;
+                model.SimulacaoSelecionada = simulacaoVM;
+
+                calculadoraBusiness.AddSimulacao(simulacaoVM.SimulacaoToModel(simulacaoVM));
+
+                SetSessionCalculadoraViewModel(model);
+
+                return PartialView("_Simulacoes", model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [HttpPost]
+        public PartialViewResult GetTempoContribuicoesAjax()
         {
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
 
@@ -143,20 +170,29 @@ namespace Calculadora.Web.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult SetTempoContribuicao(TempoContribuicaoViewModel tempoContribuicao)
+        public ActionResult SaveTempoContribuicaoAjax(TempoContribuicaoViewModel tempoContribuicaoVM)
         {
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
+
+            string success = "true";
+
             if (!ModelState.IsValid)
             {
-
+                success = "false";
             }
             else
             {
-                tempoContribuicao.SimulacaoID = model.SimulacaoSelecionada.SimulacaoID;
-                model.TempoContribuicoes.Add(tempoContribuicao);
+                tempoContribuicaoVM.SimulacaoID = model.SimulacaoSelecionada.SimulacaoID;
+
+                model.TempoContribuicoes = new List<TempoContribuicaoViewModel>();
+                model.TempoContribuicoes.Add(tempoContribuicaoVM);
+
+                if (tempoContribuicaoVM.TempoContribuicaoID > 0) calculadoraBusiness.UpdateTempoContribuicao(tempoContribuicaoVM.TempoContribuicaoToModel(tempoContribuicaoVM));
+                else calculadoraBusiness.AddTempoContribuicao(tempoContribuicaoVM.TempoContribuicaoToModel(tempoContribuicaoVM));
+
                 SetSessionCalculadoraViewModel(model);
             }
-            return PartialView("_TempoContribuicoes", model);
+            return Json(new { success });
         }
 
         // POST: Calculadora/ResultCalculadora

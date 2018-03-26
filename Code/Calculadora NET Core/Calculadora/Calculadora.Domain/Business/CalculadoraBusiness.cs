@@ -42,11 +42,11 @@ namespace Calculadora.Domain.Business
             }
         }
 
-        public void SetSimulacao(Simulacao simulacao)
+        public void AddSimulacao(Simulacao simulacao)
         {
             try
             {
-                calculadoraRepository.SetSimulacao(simulacao);
+                calculadoraRepository.AddSimulacao(simulacao);
             }
             catch (Exception)
             {
@@ -68,6 +68,32 @@ namespace Calculadora.Domain.Business
             }
         }
 
+        public void AddTempoContribuicao(TempoContribuicao tempoContribuicao)
+        {
+            try
+            {
+                calculadoraRepository.AddTempoContribuicao(tempoContribuicao);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void UpdateTempoContribuicao(TempoContribuicao tempoContribuicao)
+        {
+            try
+            {
+                calculadoraRepository.UpdateTempoContribuicao(tempoContribuicao);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         /// <summary>
         /// Recebe a data de ínicio do cálculo, o tempo de contribuição e devolve a data em que completará 35 anos de tempo de contribuição.
         /// </summary>
@@ -76,7 +102,8 @@ namespace Calculadora.Domain.Business
         /// <param name="mesese"></param>
         /// <param name="dias"></param>
         /// <returns></returns>
-        public static DateTime DataCompletaTempoContribuicao(DateTime data, int anos, int meses, int dias) {
+        public static DateTime DataCompletaTempoContribuicao(DateTime data, int anos, int meses, int dias)
+        {
             if (35 > anos)
             {
                 data = data.AddYears(35);
@@ -98,7 +125,7 @@ namespace Calculadora.Domain.Business
             {
                 Simulacao simulacao = calculadoraRepository.GetSimulacaoId(idSimulacao);
                 SimulacaoViewModel simulacaoVM = SimulacaoToViewModel(simulacao);
-                int anos=0, meses=0, dias=0;
+                int anos = 0, meses = 0, dias = 0;
                 simulacaoVM.Anos = 0;
                 simulacaoVM.Meses = 0;
                 simulacaoVM.Dias = 0;
@@ -111,7 +138,7 @@ namespace Calculadora.Domain.Business
                 }
                 simulacaoVM.TempoTotalContribuicao = TempoPorExtenso(simulacaoVM.Anos, simulacaoVM.Meses, simulacaoVM.Dias);
 
-                simulacaoVM.DataCompletaTempoContribuicao = DataCompletaTempoContribuicao(DateTime.Now,simulacaoVM.Anos, simulacaoVM.Meses, simulacaoVM.Dias);
+                simulacaoVM.DataCompletaTempoContribuicao = DataCompletaTempoContribuicao(DateTime.Now, simulacaoVM.Anos, simulacaoVM.Meses, simulacaoVM.Dias);
 
                 return simulacaoVM;
             }
@@ -131,7 +158,7 @@ namespace Calculadora.Domain.Business
             try
             {
                 int anos = 0, meses = 0, dias = 0;
-                decimal anosTotal=0;
+                decimal anosTotal = 0;
                 model.SimulacaoSelecionada.Anos = 0;
                 model.SimulacaoSelecionada.Meses = 0;
                 model.SimulacaoSelecionada.Dias = 0;
@@ -147,7 +174,7 @@ namespace Calculadora.Domain.Business
 
                 model.SimulacaoSelecionada.DataCompletaTempoContribuicao = DataCompletaTempoContribuicao(DateTime.Now, model.SimulacaoSelecionada.Anos, model.SimulacaoSelecionada.Meses, model.SimulacaoSelecionada.Dias);
 
-                model.SimulacaoSelecionada.PorcentagemTempoContribuicao = Math.Round((anosTotal*100)/35,0);
+                model.SimulacaoSelecionada.PorcentagemTempoContribuicao = Math.Round((anosTotal * 100) / 35, 0);
 
                 return model;
             }

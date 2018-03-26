@@ -1,15 +1,71 @@
-﻿@model Calculadora.Domain.Models.CalculadoraViewModel
+﻿@*@model Calculadora.Domain.Models.CalculadoraViewModel
+
+    @Html.HiddenFor(m => m.ClienteSelecionado.PessoaID, new { @id = "ClienteSelecionadoID" })
+    @if (Model.Simulacoes != null && Model.Simulacoes.Count > 0)
+    {
+        @Html.DropDownListFor(m => m.SimulacaoSelecionada, Model.Simulacoes.Select(s => new SelectListItem()
+        {
+            Text = s.Data.ToString(),
+            Value = s.SimulacaoID.ToString()
+        }), "Nova Simulação...", htmlAttributes: new { @class = "form-control", @id = "simulacaoSelecionada", onchange = "getTempoContribuicoes()" })
+    }
+    else
+    {
+        @Html.Label("Este cliente ainda não tem simulações")
+    }*@
+
+@model Calculadora.Domain.Models.CalculadoraViewModel
 
 @Html.HiddenFor(m => m.ClienteSelecionado.PessoaID, new { @id = "ClienteSelecionadoID" })
-@if (Model.Simulacoes != null && Model.Simulacoes.Count > 0)
-{
-    @Html.DropDownListFor(m => m.SimulacaoSelecionada, Model.Simulacoes.Select(s => new SelectListItem()
-    {
-        Text = s.Data.ToString(),
-        Value = s.SimulacaoID.ToString()
-    }), "Nova Simulação...", htmlAttributes: new { @class = "form-control", @id = "simulacaoSelecionada", onchange = "getTempoContribuicoes()" })
-}
-else
-{
-    @Html.Label("Este cliente ainda não tem simulações")
-}
+@Html.HiddenFor(m => m.SimulacaoSelecionada.SimulacaoID, new { @id = "simulacaoSelecionadaID" })
+
+<div class="ibox float-e-margins valoresIC">
+    <div class="ibox-title">
+        <h5>Simulações</h5>
+        <div class="ibox-tools">
+            @*<button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalAddSimulacao">
+                    <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+                </button>*@
+            <button class="btn btn-xs btn-success" type="button" onclick="addSimulacao()">
+                <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+            </button>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="footable table table-stripped toggle-arrow-tiny">
+                <thead>
+                    <tr>
+                        <th hidden>IdSimulacao</th>
+                        <th hidden>IdClientePessoa</th>
+                        <th>Data</th>
+                        <th width="20%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        @if (Model.Simulacoes != null)
+                        {
+                            @foreach (var item in Model.Simulacoes)
+                            {
+                                <tr>
+                                    <td hidden>@Html.DisplayFor(modelItem => item.SimulacaoID)</td>
+                                    <td hidden>@Html.DisplayFor(modelItem => item.Cliente.PessoaID)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Data)</td>
+                                    <td>
+                                        <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="selecionaSimulacao(@item.SimulacaoID)">
+                                            <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Selecionar</strong>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

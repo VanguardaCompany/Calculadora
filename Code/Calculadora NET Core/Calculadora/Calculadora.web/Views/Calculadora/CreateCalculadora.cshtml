@@ -83,81 +83,6 @@
 
 @Html.Partial("_ModalTempoContribuicao")
 
-<div class="modal inmodal" id="modalContribuicao" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" style="width:500px">
-        <div class="modal-content animated bounceInRight">
-            <div class="modal-header" style="padding:15px 20px ">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h3 class="modal-title" style="text-align:left;font-size:16px">Adicionar tempo de contribuição</h3>
-            </div>
-            <div class="modal-body ">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group" id="data_inicio">
-                            <label>Início</label>
-                            <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group" id="data_fim">
-                            <label>Fim</label>
-                            <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Tipo</label>
-                            <select class="form-control m-b" name="account">
-                                <option>Período normal</option>
-                                <option>Período especial</option>
-                                <option>Período dobrado</option>
-                                <option>Licença (não considerado no cálculo)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Fator</label>
-                            <form role="form" class="form-inline">
-                                <div class="input-group" style="width:100%">
-                                    <input type="text" class="form-control" value="1,00">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-white"><i class="fa fa-search"></i></button>
-                                    </span>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="form-group"><label>Empresa</label> <input type="text" class="form-control"></div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="form-group"><label>Cargo</label> <input type="text" class="form-control"></div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="checkbox i-checks">
-                            <label>
-                                <input type="checkbox" checked>
-                                <i></i> Considerar no cálculo da carência
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Salvar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 
 
@@ -178,7 +103,6 @@
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
         <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
     </environment>
-    @*@Styles.Render("~/plugins/duallistStyles")*@
 }
 
 <environment names="Development">
@@ -386,29 +310,31 @@
 
                 // Submit form input
                 form.submit();
+                /**/
                 //var url = '@Url.Action("Result", "Calculadora", null)';
-        },
-        onStepChanging: function (event, currentIndex, newIndex) {
-            if (newIndex === 1 && $('#ClienteSelecionadoID').val() > 0) {
-                return true;
-            }
-            if (newIndex === 2) {
-                if ($('#simulacaoSelecionada').val() > 0) {
-                    return true;
-                }
-                else {
-                    var r = setSimulacao($('#simulacaoSelecionada').val());
-                    if (r) {
-                        return getTempoContribuicoesNovo();
-                    } else {
-                        return false;
-                    }
-                }
-
-            }
-            else if (newIndex === 3) { return true; }
+    /**/
+},
+onStepChanging: function (event, currentIndex, newIndex) {
+    if (newIndex === 1 && $('#ClienteSelecionadoID').val() > 0) {
+        return true;
+    }
+    if (newIndex === 2) {
+        if ($('#simulacaoSelecionadaID').val() > 0) {
+            return true;
         }
-        });
+        else {
+            //var r = setSimulacao($('#simulacaoSelecionada').val());
+            //if (r) {
+            //    return getTempoContribuicoesNovo();
+            //} else {
+            return false;
+            //}
+        }
+
+    }
+    else if (newIndex === 3) { return true; }
+}
+});
 $('#modalAddTempoContribuicao').on('shown.bs.modal', function () {
 $('.input-group.date').datepicker({
     format: "dd/mm/yyyy",
@@ -420,102 +346,152 @@ $('.input-group.date').datepicker({
     container: '#modalAddTempoContribuicao modal-body'
 });
 });
-        $('#salvarTempoContribuicao').click(function () {
-            console.log($('#dataAdmissaoAdd').val());
-            $.ajax({
-                url: '@Url.Action("SetTempoContribuicao", "Calculadora", new { })',
-                type: "POST",
-                cache: false,
-                dataType: "html",
-                data: {
-                    DataAdmissao: $('#dataAdmissaoAdd').val(),
-                    DataDemissao: $('#dataDemissaoAdd').val(),
-                    AtividadeIPP: $('#atividadeAdd').val(),
-                    Profissao: $('#profissaoAdd').val(),
-                    Empregador: $('#empregadorAdd').val()
-                },
-                success: function (data, textStatus, XMLHttpRequest) {
-                    $('#wizard-p-2').html('');
-                    $('#wizard-p-2').html(data);
-                    $('#modalAddTempoContribuicao').modal('hide');
-                },
-                error: function (xhr, status, error) {
-                    alert('erro SetTempoContribuicao');
-                }
-            });
-        });
+
 
 });
 
-    function filtrarClientes() {
-        console.log('#btnSearchCliente: ' + $('#SearchString').val());
-            $.ajax({
-                url: '@Url.Action("GetClientesAjax", "Calculadora")',
-                type: "POST",
-                cache: false,
-                dataType: "html",
-                data: {
-                    page: 1,
-                    searchString: $('#SearchString').val()
-                },
-                success: function (data, textStatus, XMLHttpRequest) {
-                    $('#wizard-p-0').html('');
-                    $('#wizard-p-0').html(data);
-                },
-                error: function (xhr, status, error) {
-                    alert('erro btnSearchCliente');
-                }
-            });
+function filtrarClientes() {
+console.log('#btnSearchCliente: ' + $('#SearchString').val());
+$.ajax({
+/**/
+url: '@Url.Action("GetClientesAjax", "Calculadora")',
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    data: {
+        page: 1,
+        searchString: $('#SearchString').val()
+    },
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-0').html('');
+        $('#wizard-p-0').html(data);
+    },
+    error: function (xhr, status, error) {
+        alert('erro btnSearchCliente');
     }
+});
+}
 
-    function mudarPaginaAjax(pagina) {
-        console.log('mudarPagina: ' + pagina);
-            $.ajax({
-                url: '@Url.Action("GetClientesAjax", "Calculadora")',
-                type: "POST",
-                cache: false,
-                dataType: "html",
-                data: {
-                    page: pagina,
-                    searchString: $('#SearchString').val()
-                },
-                success: function (data, textStatus, XMLHttpRequest) {
-                    $('#wizard-p-0').html('');
-                    $('#wizard-p-0').html(data);
-                },
-                error: function (xhr, status, error) {
-                    alert('erro mudarPagina');
-                }
-            });
+function mudarPaginaAjax(pagina) {
+console.log('mudarPagina: ' + pagina);
+$.ajax({
+    /**/
+    url: '@Url.Action("GetClientesAjax", "Calculadora")',
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    data: {
+        page: pagina,
+        searchString: $('#SearchString').val()
+    },
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-0').html('');
+        $('#wizard-p-0').html(data);
+    },
+    error: function (xhr, status, error) {
+        alert('erro mudarPagina');
     }
+});
+}
 
-    function proximaEtapa() {
-        $('#wizard').steps('next');
-    }
+function proximaEtapa() {
+$('#wizard').steps('next');
+}
 
-    function getSimulacoes(idCliente) {
-        $.ajax({
-        url: '@Url.Action("GetSimulacoes", "Calculadora", new { })',
-            type: "POST",
-            cache: false,
-            dataType: "html",
-            data: { idCliente: idCliente },
-            success: function (data, textStatus, XMLHttpRequest) {
-                $('#wizard-p-1').html(data); // HTML DOM replace
-                $("#wizard").steps("next");
-            },
-            error: function (xhr, status, error) {
-                alert('erro getSimulacoes');
-            }
-        });
+/**
+Inicio Simulação **************************************************************************************************
+*/
+
+function getSimulacoes(idCliente) {
+$('#ClienteSelecionadoID').val(idCliente);
+$.ajax({
+    /**/
+    url: '@Url.Action("GetSimulacoes", "Calculadora", new { })',
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    data: { idCliente: idCliente },
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-1').html(data); // HTML DOM replace
+        $("#wizard").steps("next");
+    },
+    error: function (xhr, status, error) {
+        alert('erro getSimulacoes');
     }
-function getTempoContribuicoes() {
-var r = setSimulacao($('#simulacaoSelecionada').val());
-//var r = true;
-if (r) {
-    var sw;
-    $.ajax({
-        url: '@Url.Action("GetTempoContribuicoes", "Calculadora")',
+});
+}
+
+function selecionaSimulacao(idSimulacao) {
+if (setSimulacao(idSimulacao)) {
+    getTempoContribuicoesAjax();
+    //$("#wizard").steps("next");
+}
+}
+
+function setSimulacao(idSimulacao) {
+var sw;
+$('#simulacaoSelecionadaID').val(idSimulacao);
+var resp = $.ajax({
+    /**/
+    url: '@Url.Action("SetSimulacaoAjax", "Calculadora", new { })',
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "Json",
+    async: false,
+    data: { idSimulacao: idSimulacao },
+    success: function (data, textStatus, XMLHttpRequest) {
+        sw = true;
+    },
+    error: function (xhr, status, error) {
+        alert('erro setSimulacao');
+        sw = false;
+    }
+});
+return sw;
+}
+
+function addSimulacao() {
+var sw;
+var resp = $.ajax({
+    /**/
+    url: '@Url.Action("AddSimulacaoAjax", "Calculadora", new { })',
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    async: false,
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-1').html(data); // HTML DOM replace
+        $("#wizard").steps("next");
+        sw = true;
+    },
+    error: function (xhr, status, error) {
+        alert('erro addSimulacao');
+        sw = false;
+    }
+});
+return sw;
+}
+/**
+Fim Simulação **************************************************************************************************
+*/
+
+
+/**
+Inicio Tempo contribuições **************************************************************************************************
+*/
+
+function getTempoContribuicoesAjax() {
+
+var sw;
+$.ajax({
+    /**/
+    url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
+    /**/
     type: "POST",
     cache: false,
     dataType: "html",
@@ -531,23 +507,15 @@ if (r) {
     }
 });
 return sw;
-} else {
-return false;
-}
-
 }
 function getTempoContribuicoesNovo() {
 var r = setSimulacao($('#simulacaoSelecionada').val());
 //var r = true;
 if (r) {
-var sw;
-$.ajax({
-    /**/
-    /**/
-    /**/
-    url: '@Url.Action("GetTempoContribuicoes", "Calculadora")',
-    /**/
-    /**/
+    var sw;
+    $.ajax({
+        /**/
+        url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
     /**/
     type: "POST",
     cache: false,
@@ -567,34 +535,72 @@ return sw;
 } else {
 return false;
 }
-
 }
-function setSimulacao(idSimulacao) {
-var sw;
-var resp = $.ajax({
+
+function saveTempoContribuicaoAjax() {
+console.log($('#dataAdmissaoAdd').val());
+$.ajax({
 /**/
-/**/
-/**/
-url: '@Url.Action("SetSimulacaoAjax", "Calculadora", new { })',
-    /**/
-    /**/
+url: '@Url.Action("SaveTempoContribuicaoAjax", "Calculadora", new { })',
     /**/
     type: "POST",
     cache: false,
-    dataType: "Json",
-    async: false,
-    data: { idSimulacao: idSimulacao },
-    success: function (data, textStatus, XMLHttpRequest) {
-        sw = true;
+    dataType: "json",
+    data: {
+        TempoContribuicaoID: $('#tempoContribuicaoID').val(),
+        DataAdmissao: $('#dataAdmissaoAdd').val(),
+        DataDemissao: $('#dataDemissaoAdd').val(),
+        AtividadeIPP: $('#atividadeAdd').val(),
+        Profissao: $('#profissaoAdd').val(),
+        Empregador: $('#empregadorAdd').val()
+    },
+    success: function (success, data) {
+        if (success.success == "true") {
+            $.ajax({
+
+                url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
+
+                type: "POST",
+                cache: false,
+                dataType: "html",
+                async: false,
+                success: function (data, textStatus, XMLHttpRequest) {
+                    $('#wizard-p-2').html('');
+                    $('#wizard-p-2').html(data); // HTML DOM replace
+                    $('#modalTempoContribuicao').modal('hide');
+
+                },
+                error: function (xhr, status, error) {
+                    alert('erro getTempoContribuicoes');
+
+                }
+            });
+        }
+        else {
+
+            alert('erro saveTempoContribuicaoAjax');
+        }
+
     },
     error: function (xhr, status, error) {
-        alert('erro setSimulacao');
-        sw = false;
+        alert('erro SetTempoContribuicao');
     }
 });
-return sw;
-//return resp.responseJSON;
 }
+function editTempoCntribuicaoModal(tempoContribuicaoID, simulacaoID, dataAdmissaoAdd, dataDemissaoAdd, atividadeAdd, profissaoAdd, empregadorAdd) {
+    $('#tempoContribuicaoID').val(tempoContribuicaoID);
+    $('#simulacaoID').val(simulacaoID);
+    $('#dataAdmissaoAdd').val(dataAdmissaoAdd);
+    $('#dataDemissaoAdd').val(dataDemissaoAdd);
+    if (atividadeAdd == 'True') document.getElementById("atividadeAdd").checked = true;
+    else document.getElementById("atividadeAdd").checked = false;
+    $('#profissaoAdd').val(profissaoAdd);
+    $('#empregadorAdd').val(empregadorAdd);
+}
+/**
+Fim Tempo Contribições **************************************************************************************************
+*/
+
 </script>
 
 

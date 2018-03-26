@@ -48,24 +48,24 @@ namespace Calculadora.DAL.Repository
 
         public Cliente GetClienteId(int? id)
         {
-            Cliente cliente = (Cliente)db.Clientes.Include(e => e.Enderecos).Include(e => e.Escritorio).Where(c => c.PessoaID == id).FirstOrDefault();
-            //if (cliente == null)
-            //{
-            //    return null;
-            //}
-            //cliente.Enderecos.ToList()[0] = db.Enderecos.Find(cliente.Enderecos.ToList()[0].EnderecoID);
-            //cliente.Escritorio = db.Escritorios.Find(cliente.EscritorioID);
+            try
+            {
+                Cliente cliente = (Cliente)db.Clientes.Include(e => e.Enderecos).Include(e => e.Escritorio).Where(c => c.PessoaID == id).FirstOrDefault();
 
-            return cliente;
+                return cliente;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
         }
 
         public void SetCliente(Cliente cliente)
         {
             try
             {
-                //db.Enderecos.Add(cliente.Endereco);
-                //cliente.EnderecoID = 3;
-                cliente.EscritorioID = 3;
                 db.Pessoas.Add(cliente);
                 db.SaveChanges();
             }
@@ -82,7 +82,7 @@ namespace Calculadora.DAL.Repository
             {
                 Cliente cliente = GetClienteId(id);
 
-                foreach(Endereco end in cliente.Enderecos)
+                foreach (Endereco end in cliente.Enderecos)
                 {
                     db.Enderecos.Remove(end);
                 }
@@ -107,7 +107,7 @@ namespace Calculadora.DAL.Repository
                 {
                     endereco.PessoaID = cliente.PessoaID;
                     db.Entry(endereco).State = EntityState.Modified;
-                   // db.SaveChanges();
+                    // db.SaveChanges();
                 }
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
