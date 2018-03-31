@@ -43,3 +43,5 @@ C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.web\o
 C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.web\obj\Debug\netcoreapp2.0\Calculadora.web.AssemblyInfo.cs
 C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.web\obj\Debug\netcoreapp2.0\Calculadora.web.dll
 C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.web\obj\Debug\netcoreapp2.0\Calculadora.web.pdb
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.web\bin\Debug\netcoreapp2.0\Calculadora.Simulador.dll
+C:\WORKPLACE\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.web\bin\Debug\netcoreapp2.0\Calculadora.Simulador.pdb

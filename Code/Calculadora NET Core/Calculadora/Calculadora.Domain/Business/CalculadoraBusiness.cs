@@ -4,6 +4,8 @@ using Calculadora.DAL;
 using Calculadora.DAL.Models;
 using Calculadora.DAL.Repository;
 using Calculadora.Domain.Models;
+using Calculadora.Simulador.Models;
+using Calculadora.Simulador;
 
 namespace Calculadora.Domain.Business
 {
@@ -42,11 +44,12 @@ namespace Calculadora.Domain.Business
             }
         }
 
-        public void AddSimulacao(Simulacao simulacao)
+        public int AddSimulacao(Simulacao simulacao)
         {
             try
             {
                 calculadoraRepository.AddSimulacao(simulacao);
+                return simulacao.SimulacaoID;
             }
             catch (Exception)
             {
@@ -153,36 +156,46 @@ namespace Calculadora.Domain.Business
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        /// 
         public CalculadoraViewModel RealizaCalculo(CalculadoraViewModel model)
         {
-            try
-            {
-                int anos = 0, meses = 0, dias = 0;
-                decimal anosTotal = 0;
-                model.SimulacaoSelecionada.Anos = 0;
-                model.SimulacaoSelecionada.Meses = 0;
-                model.SimulacaoSelecionada.Dias = 0;
-                foreach (var item in model.TempoContribuicoes)
-                {
-                    CalculaTempo(item.DataAdmissao, item.DataDemissao, ref anos, ref meses, ref dias);
-                    anosTotal += CalculaTempoAnos(item.DataAdmissao, item.DataDemissao);
-                    model.SimulacaoSelecionada.Anos += anos;
-                    model.SimulacaoSelecionada.Meses += meses;
-                    model.SimulacaoSelecionada.Dias += dias;
-                }
-                model.SimulacaoSelecionada.TempoTotalContribuicao = TempoPorExtenso(model.SimulacaoSelecionada.Anos, model.SimulacaoSelecionada.Meses, model.SimulacaoSelecionada.Dias);
+            SimulacaoINSS simulacao = CalculadoraViewModel.MapToSimuladorINSS(model);
 
-                model.SimulacaoSelecionada.DataCompletaTempoContribuicao = DataCompletaTempoContribuicao(DateTime.Now, model.SimulacaoSelecionada.Anos, model.SimulacaoSelecionada.Meses, model.SimulacaoSelecionada.Dias);
+            SimuladorINSS.Simular(simulacao);
 
-                model.SimulacaoSelecionada.PorcentagemTempoContribuicao = Math.Round((anosTotal * 100) / 35, 0);
-
-                return model;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return CalculadoraViewModel.MapToCalculadoraViewModel(model, simulacao);
         }
+
+        //public CalculadoraViewModel RealizaCalculo(CalculadoraViewModel model)
+        //{
+        //    try
+        //    {
+        //        int anos = 0, meses = 0, dias = 0;
+        //        decimal anosTotal = 0;
+        //        model.SimulacaoSelecionada.Anos = 0;
+        //        model.SimulacaoSelecionada.Meses = 0;
+        //        model.SimulacaoSelecionada.Dias = 0;
+        //        foreach (var item in model.TempoContribuicoes)
+        //        {
+        //            CalculaTempo(item.DataAdmissao, item.DataDemissao, ref anos, ref meses, ref dias);
+        //            anosTotal += CalculaTempoAnos(item.DataAdmissao, item.DataDemissao);
+        //            model.SimulacaoSelecionada.Anos += anos;
+        //            model.SimulacaoSelecionada.Meses += meses;
+        //            model.SimulacaoSelecionada.Dias += dias;
+        //        }
+        //        model.SimulacaoSelecionada.TempoTotalContribuicao = TempoPorExtenso(model.SimulacaoSelecionada.Anos, model.SimulacaoSelecionada.Meses, model.SimulacaoSelecionada.Dias);
+
+        //        model.SimulacaoSelecionada.DataCompletaTempoContribuicao = DataCompletaTempoContribuicao(DateTime.Now, model.SimulacaoSelecionada.Anos, model.SimulacaoSelecionada.Meses, model.SimulacaoSelecionada.Dias);
+
+        //        model.SimulacaoSelecionada.PorcentagemTempoContribuicao = Math.Round((anosTotal * 100) / 35, 0);
+
+        //        return model;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
     }
 }

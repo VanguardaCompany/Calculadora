@@ -4787,6 +4787,15 @@
         "runtime": {
           "bin/placeholder/Calculadora.DAL.dll": {}
         }
+      },
+      "Calculadora.Simulador/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Calculadora.Simulador.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Calculadora.Simulador.dll": {}
+        }
       }
     }
   },
@@ -12613,11 +12622,17 @@
       "type": "project",
       "path": "../Calculadora.DAL/Calculadora.DAL.csproj",
       "msbuildProject": "../Calculadora.DAL/Calculadora.DAL.csproj"
+    },
+    "Calculadora.Simulador/1.0.0": {
+      "type": "project",
+      "path": "../Calculadora.Simulador/Calculadora.Simulador.csproj",
+      "msbuildProject": "../Calculadora.Simulador/Calculadora.Simulador.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Calculadora.DAL >= 1.0.0",
+      "Calculadora.Simulador >= 1.0.0",
       "Microsoft.NETCore.App >= 2.0.0",
       "PagedList.Core.Mvc >= 1.0.1"
     ]
@@ -12651,6 +12666,9 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
+            "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Simulador\\Calculadora.Simulador.csproj": {
+              "projectPath": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Simulador\\Calculadora.Simulador.csproj"
+            },
             "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.DAL\\Calculadora.DAL.csproj": {
               "projectPath": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.DAL\\Calculadora.DAL.csproj"
             }

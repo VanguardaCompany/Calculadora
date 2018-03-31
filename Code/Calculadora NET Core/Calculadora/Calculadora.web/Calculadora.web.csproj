@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Calculadora\_TempoContribuicoes2.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.0.0" />
     <PackageReference Include="Bootstrap.Datepicker" Version="1.7.1" />
     <PackageReference Include="Bootstrap.Datepicker.Globalize" Version="1.0.0" />

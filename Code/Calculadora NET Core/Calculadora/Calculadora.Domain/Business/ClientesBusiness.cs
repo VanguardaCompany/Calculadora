@@ -41,11 +41,11 @@ namespace Calculadora.Domain.Business
             }
         }
 
-        public Cliente GetClienteId(int? id)
+        public Cliente GetClienteId(int? id, bool clienteCompleto = true)
         {
             try
             {
-                return clientesRepository.GetClienteId(id);
+                return clientesRepository.GetClienteId(id, clienteCompleto);
             }
             catch (Exception)
             {
