@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Calculadora.DAL.Models;
+using Calculadora.Simulador.Models;
 using PagedList.Core;
 
 namespace Calculadora.Domain.Models
@@ -15,6 +16,28 @@ namespace Calculadora.Domain.Models
         public ICollection<SimulacaoViewModel> Simulacoes { get; set; }
         public SimulacaoViewModel SimulacaoSelecionada { get; set; }
         public ICollection<TempoContribuicaoViewModel> TempoContribuicoes { get; set; }
+
+        public static SimulacaoINSS MapToSimuladorINSS(CalculadoraViewModel model)
+        {
+            SimulacaoINSS simulacao = new SimulacaoINSS(model.ClienteSelecionado.Nascimento, model.ClienteSelecionado.Sexo.ToString());
+            foreach (TempoContribuicaoViewModel tempoContribuicao in model.TempoContribuicoes)
+            {
+                simulacao.ListaVinculosTrabalhistas.Add(new VinculoTrabalhista(tempoContribuicao.DataAdmissao, tempoContribuicao.DataDemissao, tempoContribuicao.valorContribuicao, tempoContribuicao.Empregador));
+            }
+
+            return simulacao;
+        }
+
+        public static CalculadoraViewModel MapToCalculadoraViewModel(CalculadoraViewModel model, SimulacaoINSS simulacao)
+        {
+
+            foreach (VinculoTrabalhista vinculo in simulacao.ListaVinculosTrabalhistas)
+            {
+               // model.SimulacaoSelecionada.TempoContribuicoes
+            }
+
+            return model;
+        }
     }
     public class SimulacaoViewModel
     {
@@ -69,6 +92,16 @@ namespace Calculadora.Domain.Models
             s.ClienteID = model.Cliente.PessoaID;
             return s;
         }
+
+        public SimulacaoViewModel SimulacaoToViewModel(Simulacao model)
+        {
+            SimulacaoViewModel s = new SimulacaoViewModel();
+
+            s.Data = model.Data;
+            s.SimulacaoID = model.SimulacaoID;
+            s.Cliente.PessoaID = model.ClienteID;
+            return s;
+        }
     }
     public class TempoContribuicaoViewModel
     {
@@ -92,6 +125,8 @@ namespace Calculadora.Domain.Models
         public string Profissao { get; set; }
 
         public string Empregador { get; set; }
+
+        public double valorContribuicao { get; set; }
 
         //public Simulacao Simulacao { get; set; }
         public int SimulacaoID { get; set; }

@@ -4787,6 +4787,15 @@
         "runtime": {
           "bin/placeholder/Calculadora.DAL.dll": {}
         }
+      },
+      "Calculadora.Simulador/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Calculadora.Simulador.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Calculadora.Simulador.dll": {}
+        }
       }
     }
   },
@@ -12613,17 +12622,24 @@
       "type": "project",
       "path": "../Calculadora.DAL/Calculadora.DAL.csproj",
       "msbuildProject": "../Calculadora.DAL/Calculadora.DAL.csproj"
+    },
+    "Calculadora.Simulador/1.0.0": {
+      "type": "project",
+      "path": "../Calculadora.Simulador/Calculadora.Simulador.csproj",
+      "msbuildProject": "../Calculadora.Simulador/Calculadora.Simulador.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Calculadora.DAL >= 1.0.0",
+      "Calculadora.Simulador >= 1.0.0",
       "Microsoft.NETCore.App >= 2.0.0",
       "PagedList.Core.Mvc >= 1.0.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rerum\\.nuget\\packages\\": {}
+    "C:\\Users\\rerum\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -12631,12 +12647,15 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Domain\\Calculadora.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Domain\\Calculadora.Domain.csproj",
       "projectName": "Calculadora.Domain",
-      "projectPath": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Domain\\Calculadora.Domain.csproj",
+      "projectPath": "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Domain\\Calculadora.Domain.csproj",
       "packagesPath": "C:\\Users\\rerum\\.nuget\\packages\\",
-      "outputPath": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Domain\\obj\\",
+      "outputPath": "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Domain\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
         "C:\\Users\\rerum\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -12651,8 +12670,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.DAL\\Calculadora.DAL.csproj": {
-              "projectPath": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.DAL\\Calculadora.DAL.csproj"
+            "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Simulador\\Calculadora.Simulador.csproj": {
+              "projectPath": "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Simulador\\Calculadora.Simulador.csproj"
+            },
+            "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.DAL\\Calculadora.DAL.csproj": {
+              "projectPath": "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.DAL\\Calculadora.DAL.csproj"
             }
           }
         }
@@ -12666,14 +12688,14 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "PagedList.Core.Mvc": {
-            "target": "Package",
-            "version": "1.0.1"
-          },
           "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "2.0",
+            "version": "[2.0.0, )",
             "autoReferenced": true
+          },
+          "PagedList.Core.Mvc": {
+            "target": "Package",
+            "version": "[1.0.1, )"
           }
         },
         "imports": [

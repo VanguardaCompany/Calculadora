@@ -5327,6 +5327,7 @@
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
           "Calculadora.DAL": "1.0.0",
+          "Calculadora.Simulador": "1.0.0",
           "Microsoft.NETCore.App": "2.0.0",
           "PagedList.Core.Mvc": "1.0.1"
         },
@@ -5335,6 +5336,15 @@
         },
         "runtime": {
           "bin/placeholder/Calculadora.Domain.dll": {}
+        }
+      },
+      "Calculadora.Simulador/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Calculadora.Simulador.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Calculadora.Simulador.dll": {}
         }
       }
     }
@@ -13859,6 +13869,11 @@
       "type": "project",
       "path": "../Calculadora.Domain/Calculadora.Domain.csproj",
       "msbuildProject": "../Calculadora.Domain/Calculadora.Domain.csproj"
+    },
+    "Calculadora.Simulador/1.0.0": {
+      "type": "project",
+      "path": "../Calculadora.Simulador/Calculadora.Simulador.csproj",
+      "msbuildProject": "../Calculadora.Simulador/Calculadora.Simulador.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -13873,7 +13888,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rerum\\.nuget\\packages\\": {}
+    "C:\\Users\\rerum\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -13881,12 +13897,15 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Test\\Calculadora.Test.csproj",
+      "projectUniqueName": "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Test\\Calculadora.Test.csproj",
       "projectName": "Calculadora.Test",
-      "projectPath": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Test\\Calculadora.Test.csproj",
+      "projectPath": "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Test\\Calculadora.Test.csproj",
       "packagesPath": "C:\\Users\\rerum\\.nuget\\packages\\",
-      "outputPath": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Test\\obj\\",
+      "outputPath": "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Test\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
         "C:\\Users\\rerum\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -13901,11 +13920,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.DAL\\Calculadora.DAL.csproj": {
-              "projectPath": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.DAL\\Calculadora.DAL.csproj"
+            "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.DAL\\Calculadora.DAL.csproj": {
+              "projectPath": "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.DAL\\Calculadora.DAL.csproj"
             },
-            "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Domain\\Calculadora.Domain.csproj": {
-              "projectPath": "C:\\WORKPLACE\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Domain\\Calculadora.Domain.csproj"
+            "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Domain\\Calculadora.Domain.csproj": {
+              "projectPath": "C:\\Users\\rerum\\Documents\\GitHub\\Calculadora\\Code\\Calculadora NET Core\\Calculadora\\Calculadora.Domain\\Calculadora.Domain.csproj"
             }
           }
         }
@@ -13921,24 +13940,24 @@
         "dependencies": {
           "FluentAssertions": {
             "target": "Package",
-            "version": "5.1.2"
+            "version": "[5.1.2, )"
           },
-          "xunit.runner.visualstudio": {
+          "Microsoft.NET.Test.Sdk": {
             "target": "Package",
-            "version": "2.3.1"
+            "version": "[15.5.0, )"
           },
           "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "2.0",
+            "version": "[2.0.0, )",
             "autoReferenced": true
           },
           "xunit": {
             "target": "Package",
-            "version": "2.3.1"
+            "version": "[2.3.1, )"
           },
-          "Microsoft.NET.Test.Sdk": {
+          "xunit.runner.visualstudio": {
             "target": "Package",
-            "version": "15.5.0"
+            "version": "[2.3.1, )"
           }
         },
         "imports": [

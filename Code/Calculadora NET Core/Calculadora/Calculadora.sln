@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculadora.web", "Calculadora.web\Calculadora.web.csproj", "{C2D4990B-A175-4A89-91CB-A018F6F4C7A6}"
 EndProject
@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculadora.DAL", "Calculad
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculadora.Domain", "Calculadora.Domain\Calculadora.Domain.csproj", "{DE6AFE64-F87E-43E6-A7A5-A177C34B86EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculadora.Test", "Calculadora.Test\Calculadora.Test.csproj", "{7854A018-48B6-4CAE-A55F-5D79AE58B43E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculadora.Test", "Calculadora.Test\Calculadora.Test.csproj", "{7854A018-48B6-4CAE-A55F-5D79AE58B43E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculadora.Simulador", "Calculadora.Simulador\Calculadora.Simulador.csproj", "{075333E6-C4BD-42EB-ACCC-9D7E13BC20EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7854A018-48B6-4CAE-A55F-5D79AE58B43E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7854A018-48B6-4CAE-A55F-5D79AE58B43E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7854A018-48B6-4CAE-A55F-5D79AE58B43E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{075333E6-C4BD-42EB-ACCC-9D7E13BC20EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{075333E6-C4BD-42EB-ACCC-9D7E13BC20EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{075333E6-C4BD-42EB-ACCC-9D7E13BC20EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{075333E6-C4BD-42EB-ACCC-9D7E13BC20EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

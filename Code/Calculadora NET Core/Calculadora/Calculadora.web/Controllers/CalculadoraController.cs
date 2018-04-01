@@ -81,7 +81,7 @@ namespace Calculadora.Web.Controllers
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
 
             model.ClienteSelecionadoID = idCliente;
-            model.ClienteSelecionado = clienteBusiness.GetClienteId(idCliente);
+            model.ClienteSelecionado = clienteBusiness.GetClienteId(idCliente, false);
             model.Simulacoes = clienteBusiness.SimulacoesToViewModel(calculadoraBusiness.GetSimulacoes(idCliente)).ToList();
 
             SetSessionCalculadoraViewModel(model);
@@ -134,16 +134,16 @@ namespace Calculadora.Web.Controllers
                 CalculadoraViewModel model = GetSessionCalculadoraViewModel();
 
                 SimulacaoViewModel simulacaoVM = new SimulacaoViewModel();
-
                 simulacaoVM.Data = DateTime.Now;
                 simulacaoVM.Cliente = model.ClienteSelecionado;
-                model.SimulacaoSelecionada = simulacaoVM;
 
-                calculadoraBusiness.AddSimulacao(simulacaoVM.SimulacaoToModel(simulacaoVM));
+                simulacaoVM.SimulacaoID = calculadoraBusiness.AddSimulacao(simulacaoVM.SimulacaoToModel(simulacaoVM));
+
+                model.SimulacaoSelecionada = simulacaoVM;
 
                 SetSessionCalculadoraViewModel(model);
 
-                return PartialView("_Simulacoes", model);
+                return PartialView("_TempoContribuicoes", model);
             }
             catch (Exception)
             {
@@ -207,6 +207,7 @@ namespace Calculadora.Web.Controllers
         public ActionResult ResultCalculadora()
         {
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
+
             model = calculadoraBusiness.RealizaCalculo(model);
 
 
@@ -277,6 +278,7 @@ namespace Calculadora.Web.Controllers
 
         private void SetSessionCalculadoraViewModel(CalculadoraViewModel model)
         {
+
             var calculadoraViewModel = JsonConvert.SerializeObject(model);
             HttpContext.Session.SetString("calculadora", calculadoraViewModel);
         }
