@@ -46,11 +46,15 @@ namespace Calculadora.DAL.Repository
             return clientes;
         }
 
-        public Cliente GetClienteId(int? id)
+        public Cliente GetClienteId(int? id, bool clienteCompleto = true)
         {
             try
             {
-                Cliente cliente = (Cliente)db.Clientes.Include(e => e.Enderecos).Include(e => e.Escritorio).Where(c => c.PessoaID == id).FirstOrDefault();
+                Cliente cliente = null;
+                if (clienteCompleto)
+                    cliente = (Cliente)db.Clientes.Include(e => e.Enderecos).Include(e => e.Escritorio).Where(c => c.PessoaID == id).FirstOrDefault();
+                else
+                    cliente = (Cliente)db.Clientes.Where(c => c.PessoaID == id).FirstOrDefault();
 
                 return cliente;
             }

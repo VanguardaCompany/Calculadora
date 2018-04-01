@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
 using PagedList.Core;
 using PagedList.Core.Mvc;
+using Calculadora.web.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Calculadora.Web.Controllers
 {
@@ -21,8 +24,11 @@ namespace Calculadora.Web.Controllers
 
         CalculadoraBusiness calculadoraBusiness;
 
-        public CalculadoraController(VanguardaContext context)
+        private IHostingEnvironment _env;
+
+        public CalculadoraController(VanguardaContext context, IHostingEnvironment env)
         {
+            _env = env;
             //_context = context;
             clienteBusiness = new ClientesBusiness(context);
             calculadoraBusiness = new CalculadoraBusiness(context);
@@ -75,7 +81,7 @@ namespace Calculadora.Web.Controllers
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
 
             model.ClienteSelecionadoID = idCliente;
-            model.ClienteSelecionado = clienteBusiness.GetClienteId(idCliente);
+            model.ClienteSelecionado = clienteBusiness.GetClienteId(idCliente, false);
             model.Simulacoes = clienteBusiness.SimulacoesToViewModel(calculadoraBusiness.GetSimulacoes(idCliente)).ToList();
 
             SetSessionCalculadoraViewModel(model);
@@ -128,16 +134,16 @@ namespace Calculadora.Web.Controllers
                 CalculadoraViewModel model = GetSessionCalculadoraViewModel();
 
                 SimulacaoViewModel simulacaoVM = new SimulacaoViewModel();
-
                 simulacaoVM.Data = DateTime.Now;
                 simulacaoVM.Cliente = model.ClienteSelecionado;
-                model.SimulacaoSelecionada = simulacaoVM;
 
-                calculadoraBusiness.AddSimulacao(simulacaoVM.SimulacaoToModel(simulacaoVM));
+                simulacaoVM.SimulacaoID = calculadoraBusiness.AddSimulacao(simulacaoVM.SimulacaoToModel(simulacaoVM));
+
+                model.SimulacaoSelecionada = simulacaoVM;
 
                 SetSessionCalculadoraViewModel(model);
 
-                return PartialView("_Simulacoes", model);
+                return PartialView("_TempoContribuicoes", model);
             }
             catch (Exception)
             {
@@ -201,7 +207,11 @@ namespace Calculadora.Web.Controllers
         public ActionResult ResultCalculadora()
         {
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
+
             model = calculadoraBusiness.RealizaCalculo(model);
+
+
+
             return View(model);
         }
 
@@ -229,14 +239,46 @@ namespace Calculadora.Web.Controllers
                 throw;
             }
 
+        }
 
+        private RelatorioDuplicata getRelatorio()
+        {
+            var rpt = new RelatorioDuplicata();
 
+            //var webRoot = _env.WebRootPath;
+            //var file = System.IO.Path.Combine(webRoot, "test.txt");
+            //System.IO.File.WriteAllText(file, "Hello World!");
+
+            //rpt.BasePath = Server.MapPath("/");
+            rpt.BasePath = _env.WebRootPath;
+
+            rpt.PageTitle = "Relatório de Duplicatas";
+            rpt.PageTitle = "Relatório de Duplicatas";
+            rpt.ImprimirCabecalhoPadrao = true;
+            rpt.ImprimirRodapePadrao = true;
+
+            return rpt;
+        }
+
+        public ActionResult Preview()
+        {
+            var rpt = getRelatorio();
+
+            return File(rpt.GetOutput().GetBuffer(), "application/pdf");
+        }
+
+        public FileResult BaixarPDF()
+        {
+            var rpt = getRelatorio();
+
+            return File(rpt.GetOutput().GetBuffer(), "application/pdf", "Documento.pdf");
         }
 
         #region Session
 
         private void SetSessionCalculadoraViewModel(CalculadoraViewModel model)
         {
+
             var calculadoraViewModel = JsonConvert.SerializeObject(model);
             HttpContext.Session.SetString("calculadora", calculadoraViewModel);
         }

@@ -5327,6 +5327,7 @@
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
           "Calculadora.DAL": "1.0.0",
+          "Calculadora.Simulador": "1.0.0",
           "Microsoft.NETCore.App": "2.0.0",
           "PagedList.Core.Mvc": "1.0.1"
         },
@@ -5335,6 +5336,15 @@
         },
         "runtime": {
           "bin/placeholder/Calculadora.Domain.dll": {}
+        }
+      },
+      "Calculadora.Simulador/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Calculadora.Simulador.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Calculadora.Simulador.dll": {}
         }
       }
     }
@@ -13859,6 +13869,11 @@
       "type": "project",
       "path": "../Calculadora.Domain/Calculadora.Domain.csproj",
       "msbuildProject": "../Calculadora.Domain/Calculadora.Domain.csproj"
+    },
+    "Calculadora.Simulador/1.0.0": {
+      "type": "project",
+      "path": "../Calculadora.Simulador/Calculadora.Simulador.csproj",
+      "msbuildProject": "../Calculadora.Simulador/Calculadora.Simulador.csproj"
     }
   },
   "projectFileDependencyGroups": {
