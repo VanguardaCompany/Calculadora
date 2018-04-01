@@ -16,6 +16,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
     <PackageReference Include="Npm" Version="3.5.2" />
     <PackageReference Include="PagedList.Core.Mvc" Version="1.0.1" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.0.6" />
+    <PackageReference Include="WkWrap.Core" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +27,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Calculadora.DAL\Calculadora.DAL.csproj" />
     <ProjectReference Include="..\Calculadora.Domain\Calculadora.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Rotativa\" />
   </ItemGroup>
 
 </Project>
