@@ -94,9 +94,14 @@
                 <div class="ibox-title">
                     <h5>Aposentadoria por Tempo de Contribuição</h5>
                     <div class="ibox-tools">
-                        <a class="pdf-link">
+                        @*<a class="pdf-link" href="DemoModelPDF/Download">
                             <i class="fa fa-file-pdf-o"></i>
+                        </a>*@
+
+                        <a id="btn-exportPDF" target="_blank" href="@Url.Action("DownloadPdf", "Download")" class="pdf-link">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                         </a>
+
                         <a class="excel-link">
                             <i class="fa fa-file-excel-o"></i>
                         </a>

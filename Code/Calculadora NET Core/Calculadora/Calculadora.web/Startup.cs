@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Calculadora.DAL;
 using Microsoft.EntityFrameworkCore;
+using Rotativa;
+using Rotativa.AspNetCore;
 
 namespace Calculadora.web
 {
@@ -56,6 +58,8 @@ namespace Calculadora.web
                     template: "{controller=Clientes}/{action=IndexCliente}/{sortOrder='',currentFilter='',page=1}");
             });
             app.UseDeveloperExceptionPage();
+
+            RotativaConfiguration.Setup(env);
         }
     }
 }
