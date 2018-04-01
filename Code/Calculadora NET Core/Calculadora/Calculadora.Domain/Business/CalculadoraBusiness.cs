@@ -183,6 +183,5 @@ namespace Calculadora.Domain.Business
                 throw;
             }
         }
-
     }
 }
