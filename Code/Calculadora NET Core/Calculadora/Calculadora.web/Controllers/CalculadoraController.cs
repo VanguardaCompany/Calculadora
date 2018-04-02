@@ -15,6 +15,9 @@ using PagedList.Core.Mvc;
 using Calculadora.web.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Calculadora.web.Services;
+using System.Threading.Tasks;
+using WkWrap.Core;
 
 namespace Calculadora.Web.Controllers
 {
@@ -26,9 +29,13 @@ namespace Calculadora.Web.Controllers
 
         private IHostingEnvironment _env;
 
-        public CalculadoraController(VanguardaContext context, IHostingEnvironment env)
+        private readonly IViewRenderService _viewRenderService;
+
+
+        public CalculadoraController(VanguardaContext context, IHostingEnvironment env, IViewRenderService viewRenderService)
         {
             _env = env;
+            _viewRenderService = viewRenderService;
             //_context = context;
             clienteBusiness = new ClientesBusiness(context);
             calculadoraBusiness = new CalculadoraBusiness(context);
@@ -210,8 +217,6 @@ namespace Calculadora.Web.Controllers
 
             model = calculadoraBusiness.RealizaCalculo(model);
 
-
-
             return View(model);
         }
 
@@ -241,38 +246,38 @@ namespace Calculadora.Web.Controllers
 
         }
 
-        private RelatorioDuplicata getRelatorio()
-        {
-            var rpt = new RelatorioDuplicata();
+        //private RelatorioDuplicata getRelatorio()
+        //{
+        //    var rpt = new RelatorioDuplicata();
 
-            //var webRoot = _env.WebRootPath;
-            //var file = System.IO.Path.Combine(webRoot, "test.txt");
-            //System.IO.File.WriteAllText(file, "Hello World!");
+        //    //var webRoot = _env.WebRootPath;
+        //    //var file = System.IO.Path.Combine(webRoot, "test.txt");
+        //    //System.IO.File.WriteAllText(file, "Hello World!");
 
-            //rpt.BasePath = Server.MapPath("/");
-            rpt.BasePath = _env.WebRootPath;
+        //    //rpt.BasePath = Server.MapPath("/");
+        //    rpt.BasePath = _env.WebRootPath;
 
-            rpt.PageTitle = "Relatório de Duplicatas";
-            rpt.PageTitle = "Relatório de Duplicatas";
-            rpt.ImprimirCabecalhoPadrao = true;
-            rpt.ImprimirRodapePadrao = true;
+        //    rpt.PageTitle = "Relatório de Duplicatas";
+        //    rpt.PageTitle = "Relatório de Duplicatas";
+        //    rpt.ImprimirCabecalhoPadrao = true;
+        //    rpt.ImprimirRodapePadrao = true;
 
-            return rpt;
-        }
+        //    return rpt;
+        //}
 
-        public ActionResult Preview()
-        {
-            var rpt = getRelatorio();
+        //public ActionResult Preview()
+        //{
+        //    var rpt = getRelatorio();
 
-            return File(rpt.GetOutput().GetBuffer(), "application/pdf");
-        }
+        //    return File(rpt.GetOutput().GetBuffer(), "application/pdf");
+        //}
 
-        public FileResult BaixarPDF()
-        {
-            var rpt = getRelatorio();
+        //public FileResult BaixarPDF()
+        //{
+        //    var rpt = getRelatorio();
 
-            return File(rpt.GetOutput().GetBuffer(), "application/pdf", "Documento.pdf");
-        }
+        //    return File(rpt.GetOutput().GetBuffer(), "application/pdf", "Documento.pdf");
+        //}
 
         #region Session
 
@@ -287,6 +292,23 @@ namespace Calculadora.Web.Controllers
         {
             var str = HttpContext.Session.GetString("calculadora");
             return JsonConvert.DeserializeObject<CalculadoraViewModel>(str);
+        }
+
+        public async Task<IActionResult> DownloadPdf()
+        {
+            CalculadoraViewModel model = GetSessionCalculadoraViewModel();
+            model = calculadoraBusiness.RealizaCalculo(model);
+
+            var result = await _viewRenderService.RenderToStringAsync("Calculadora/ResultCalculo2", model);
+
+            string htmlContent = result;
+            var wkhtmltopdf = new FileInfo(@"C:\Users\rerum\Documents\GitHub\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.web\wwwroot\Rotativa\wkhtmltopdf.exe");
+            var converter = new HtmlToPdfConverter(wkhtmltopdf);
+            var pdfBytes = converter.ConvertToPdf(htmlContent);
+
+            FileResult fileResult = new FileContentResult(pdfBytes, "application/pdf");
+            fileResult.FileDownloadName = "ResultadoCalculo.pdf";
+            return fileResult;
         }
         #endregion
 

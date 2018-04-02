@@ -11,6 +11,7 @@ using Calculadora.DAL;
 using Microsoft.EntityFrameworkCore;
 using Rotativa;
 using Rotativa.AspNetCore;
+using Calculadora.web.Services;
 
 namespace Calculadora.web
 {
@@ -33,6 +34,7 @@ namespace Calculadora.web
             services.AddMvc().AddSessionStateTempDataProvider();
 
             services.AddSession();
+            services.AddScoped<IViewRenderService, ViewRenderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
