@@ -113,7 +113,7 @@ namespace Calculadora.Simulador
             }
             else if (simulacaoINSS.ListaVinculosTrabalhistasAuxiliar.Count == 1)
             {
-                simulacaoINSS.ListaVinculosTrabalhistasAuxiliar[1].PriorizadoSistema = true;
+                simulacaoINSS.ListaVinculosTrabalhistasAuxiliar[0].PriorizadoSistema = true;
             }
 
             if (!tratarIntersecao)

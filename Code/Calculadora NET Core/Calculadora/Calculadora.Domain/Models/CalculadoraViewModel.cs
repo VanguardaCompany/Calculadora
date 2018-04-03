@@ -16,6 +16,7 @@ namespace Calculadora.Domain.Models
         public ICollection<SimulacaoViewModel> Simulacoes { get; set; }
         public SimulacaoViewModel SimulacaoSelecionada { get; set; }
         public ICollection<TempoContribuicaoViewModel> TempoContribuicoes { get; set; }
+        public SimulacaoINSS SimulacaoINSS { get; set; }
 
         public static SimulacaoINSS MapToSimuladorINSS(CalculadoraViewModel model)
         {
@@ -33,7 +34,7 @@ namespace Calculadora.Domain.Models
 
             foreach (VinculoTrabalhista vinculo in simulacao.ListaVinculosTrabalhistas)
             {
-               // model.SimulacaoSelecionada.TempoContribuicoes
+                // model.SimulacaoSelecionada.TempoContribuicoes
             }
 
             return model;
@@ -46,6 +47,8 @@ namespace Calculadora.Domain.Models
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Data { get; set; }
+
+        public string Nome { get; set; }
 
         public Cliente Cliente { get; set; }
 
@@ -65,6 +68,16 @@ namespace Calculadora.Domain.Models
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:0}")]
         public decimal PorcentagemTempoContribuicao { get; set; }
+
+        /// <summary>
+        /// Idade por extenso
+        /// </summary>
+        public string IdadePorExtenso { get; set; }
+
+        /// <summary>
+        /// TempoRestanteAposentadoria por extenso
+        /// </summary>
+        public string TempoRestanteAposentadoriaPorExtenso { get; set; }
 
         /// <summary>
         /// Data em que se aposentará por tempo de contribuição
@@ -88,6 +101,7 @@ namespace Calculadora.Domain.Models
             Simulacao s = new Simulacao();
 
             s.Data = model.Data;
+            s.Nome = model.Nome;
             s.SimulacaoID = model.SimulacaoID;
             s.ClienteID = model.Cliente.PessoaID;
             return s;

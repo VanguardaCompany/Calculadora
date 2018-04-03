@@ -30,7 +30,7 @@
                             <div class="step-content">
                                 @if (Model.TempoContribuicoes != null)
                                 {
-                                @Html.Partial("_TempoContribuicoes", Model)
+                                    @Html.Partial("_TempoContribuicoes", Model)
                                 }
                             </div>
                             @*<h1>Selecione os Benefícios</h1>
@@ -312,6 +312,7 @@ $(document).ready(function () {
             }
             if (newIndex === 2) {
                 if ($('#simulacaoSelecionadaID').val() > 0) {
+                    getTempoContribuicoesAjax();
                     return true;
                 } else {
                     //var r = setSimulacao($('#simulacaoSelecionada').val());
@@ -338,6 +339,7 @@ $(document).ready(function () {
             container: '#modalAddTempoContribuicao modal-body'
         });
     });
+
 
 });
 
@@ -394,6 +396,10 @@ function proximaEtapa() {
 /**
 Inicio Simulação **************************************************************************************************
 */
+
+function mostrarModalSimulacao() {
+    $('#modalSimulacao').modal('show');
+}
 
 function getSimulacoes(idCliente) {
 
@@ -460,9 +466,19 @@ function addSimulacao() {
         cache: false,
         dataType: "html",
         async: false,
-        success: function(data, textStatus, XMLHttpRequest) {
+        data: {
+            nome: $('#nomeSimulacao').val()
+        },
+        success: function (data, textStatus, XMLHttpRequest) {
+
+            $("#modalSimulacao").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#modalSimulacao").hide();
+            //$('#modalSimulacao').modal('hide');
             $('#wizard-p-1').html(data); // HTML DOM replace
             $("#wizard").steps("next");
+
+
             sw = true;
         },
         error: function(xhr, status, error) {
@@ -521,6 +537,7 @@ function getTempoContribuicoesNovo() {
             success: function(data, textStatus, XMLHttpRequest) {
                 $('#wizard-p-2').html(data); // HTML DOM replace
                 //$("#wizard").steps("next");
+                $('#modalTempoContribuicao').modal('hide');
                 sw = true;
             },
             error: function(xhr, status, error) {

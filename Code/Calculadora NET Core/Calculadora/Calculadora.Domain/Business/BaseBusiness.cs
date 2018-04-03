@@ -12,7 +12,7 @@ namespace Calculadora.Domain.Business
     {
         public static decimal CalculaTempoAnos(DateTime dataInicio, DateTime dataFim)
         {
-            double years = (dataFim - dataInicio).TotalDays/365.24;
+            double years = (dataFim - dataInicio).TotalDays / 365.24;
             return (decimal)years;
         }
         /// <summary>
@@ -105,6 +105,7 @@ namespace Calculadora.Domain.Business
             SimulacaoViewModel simulacaoVM = new SimulacaoViewModel();
             simulacaoVM.Cliente = simulacao.Cliente;
             simulacaoVM.Data = simulacao.Data;
+            simulacaoVM.Nome = simulacao.Nome;
             if (simulacao.TempoContribuicoes != null)
                 simulacaoVM.TempoContribuicoes = TempoContribuicoesToViewModel(simulacao.TempoContribuicoes.AsQueryable());
             simulacaoVM.SimulacaoID = simulacao.SimulacaoID;
@@ -120,6 +121,7 @@ namespace Calculadora.Domain.Business
                 SimulacaoViewModel simulacaoVM = new SimulacaoViewModel();
                 simulacaoVM.Cliente = item.Cliente;
                 simulacaoVM.Data = item.Data;
+                simulacaoVM.Nome = item.Nome;
                 if (item.TempoContribuicoes != null)
                     simulacaoVM.TempoContribuicoes = TempoContribuicoesToViewModel(item.TempoContribuicoes.AsQueryable());
                 simulacaoVM.SimulacaoID = item.SimulacaoID;
@@ -133,6 +135,7 @@ namespace Calculadora.Domain.Business
             Simulacao simulacao = new Simulacao();
             simulacao.Cliente = simulacaoVM.Cliente;
             simulacao.Data = simulacaoVM.Data;
+            simulacao.Nome = simulacaoVM.Nome;
 
             return simulacao;
         }

@@ -1,20 +1,4 @@
-﻿@*@model Calculadora.Domain.Models.CalculadoraViewModel
-
-    @Html.HiddenFor(m => m.ClienteSelecionado.PessoaID, new { @id = "ClienteSelecionadoID" })
-    @if (Model.Simulacoes != null && Model.Simulacoes.Count > 0)
-    {
-        @Html.DropDownListFor(m => m.SimulacaoSelecionada, Model.Simulacoes.Select(s => new SelectListItem()
-        {
-            Text = s.Data.ToString(),
-            Value = s.SimulacaoID.ToString()
-        }), "Nova Simulação...", htmlAttributes: new { @class = "form-control", @id = "simulacaoSelecionada", onchange = "getTempoContribuicoes()" })
-    }
-    else
-    {
-        @Html.Label("Este cliente ainda não tem simulações")
-    }*@
-
-@model Calculadora.Domain.Models.CalculadoraViewModel
+﻿@model Calculadora.Domain.Models.CalculadoraViewModel
 
 @Html.HiddenFor(m => m.ClienteSelecionado.PessoaID, new { @id = "ClienteSelecionadoID" })
 @Html.HiddenFor(m => m.SimulacaoSelecionada.SimulacaoID, new { @id = "simulacaoSelecionadaID" })
@@ -26,7 +10,10 @@
             @*<button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalAddSimulacao">
                     <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
                 </button>*@
-            <button class="btn btn-xs btn-success" type="button" onclick="addSimulacao()">
+            @*<button class="btn btn-xs btn-success" type="button" data-toggle="modal" data-target="#modalSimulacao">
+                    <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+                </button>*@
+            <button class="btn btn-xs btn-success" type="button" onclick="mostrarModalSimulacao()">
                 <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
             </button>
         </div>
@@ -39,6 +26,7 @@
                         <th hidden>IdSimulacao</th>
                         <th hidden>IdClientePessoa</th>
                         <th>Data</th>
+                        <th>Nome</th>
                         <th width="20%"></th>
                     </tr>
                 </thead>
@@ -52,6 +40,7 @@
                                     <td hidden>@Html.DisplayFor(modelItem => item.SimulacaoID)</td>
                                     <td hidden>@Html.DisplayFor(modelItem => item.Cliente.PessoaID)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Data)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                                     <td>
                                         <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="selecionaSimulacao(@item.SimulacaoID)">
                                             <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Selecionar</strong>
@@ -67,3 +56,33 @@
 
     </div>
 </div>
+
+
+<div class="modal fade" id="modalSimulacao">
+    <div class="modal-dialog" style="width:500px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Adicionar Simulacao</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Hidden("simulacaoID", 0)
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <div class="input-group" style="width:100%">
+                                @Html.TextBox("nomeSimulacao", null, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button id="salvarSimulacao" type="button" class="btn btn-primary" onclick="addSimulacao()">Salvar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

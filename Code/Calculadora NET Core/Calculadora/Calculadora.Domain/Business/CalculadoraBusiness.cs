@@ -163,7 +163,13 @@ namespace Calculadora.Domain.Business
 
             SimuladorINSS.Simular(simulacao);
 
-            return CalculadoraViewModel.MapToCalculadoraViewModel(model, simulacao);
+            model.SimulacaoSelecionada.IdadePorExtenso = TempoPorExtenso(simulacao.Idade.Anos, simulacao.Idade.Meses, simulacao.Idade.Dias);
+            model.SimulacaoSelecionada.TempoRestanteAposentadoriaPorExtenso = TempoPorExtenso(simulacao.TempoRestanteAposentadoria.Anos, simulacao.TempoRestanteAposentadoria.Meses, simulacao.TempoRestanteAposentadoria.Dias);
+
+            //return CalculadoraViewModel.MapToCalculadoraViewModel(model, simulacao);
+            model.SimulacaoINSS = simulacao;
+
+            return model;
         }
 
         //public CalculadoraViewModel RealizaCalculo(CalculadoraViewModel model)

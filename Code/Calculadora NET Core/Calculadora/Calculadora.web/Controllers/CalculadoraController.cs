@@ -18,6 +18,8 @@ using System.IO;
 using Calculadora.web.Services;
 using System.Threading.Tasks;
 using WkWrap.Core;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Calculadora.Web.Controllers
 {
@@ -134,7 +136,7 @@ namespace Calculadora.Web.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult AddSimulacaoAjax()
+        public PartialViewResult AddSimulacaoAjax(string nome)
         {
             try
             {
@@ -143,14 +145,17 @@ namespace Calculadora.Web.Controllers
                 SimulacaoViewModel simulacaoVM = new SimulacaoViewModel();
                 simulacaoVM.Data = DateTime.Now;
                 simulacaoVM.Cliente = model.ClienteSelecionado;
+                simulacaoVM.Nome = nome;
 
                 simulacaoVM.SimulacaoID = calculadoraBusiness.AddSimulacao(simulacaoVM.SimulacaoToModel(simulacaoVM));
 
                 model.SimulacaoSelecionada = simulacaoVM;
 
+                model.Simulacoes.Add(model.SimulacaoSelecionada);
+
                 SetSessionCalculadoraViewModel(model);
 
-                return PartialView("_TempoContribuicoes", model);
+                return PartialView("_Simulacoes", model);
             }
             catch (Exception)
             {
@@ -294,12 +299,15 @@ namespace Calculadora.Web.Controllers
             return JsonConvert.DeserializeObject<CalculadoraViewModel>(str);
         }
 
+
+
+
         public async Task<IActionResult> DownloadPdf()
         {
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
             model = calculadoraBusiness.RealizaCalculo(model);
 
-            var result = await _viewRenderService.RenderToStringAsync("Calculadora/ResultCalculo2", model);
+            var result = await _viewRenderService.RenderToStringAsync("Calculadora/ResultCalculo", model);
 
             string htmlContent = result;
             var wkhtmltopdf = new FileInfo(@"C:\Users\rerum\Documents\GitHub\Calculadora\Code\Calculadora NET Core\Calculadora\Calculadora.web\wwwroot\Rotativa\wkhtmltopdf.exe");

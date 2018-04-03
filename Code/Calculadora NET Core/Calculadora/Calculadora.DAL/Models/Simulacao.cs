@@ -13,6 +13,9 @@ namespace Calculadora.DAL.Models
         [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}")]
         public DateTime Data { get; set; }
 
+
+        public string Nome { get; set; }
+
         public int ClienteID { get; set; }
         [ForeignKey("ClienteID")]
         public virtual Cliente Cliente { get; set; }

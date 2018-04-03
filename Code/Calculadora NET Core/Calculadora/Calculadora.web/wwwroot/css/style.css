@@ -10396,3 +10396,136 @@ body.md-skin {
     margin-bottom: 15px;
     vertical-align: middle;
 }
+
+.result-calculo {
+    background-color: white;
+}
+
+    .result-calculo .conteudo {
+        padding: 15px;
+    }
+
+    .result-calculo .titulo {
+        border-bottom: 1px solid #999999;
+    }
+
+    .result-calculo .subtitulo {
+        border-bottom: 1px solid #999999;
+        padding: 0 0;
+    }
+
+.tempo-simulado {
+    margin-top: 20px;
+    border: 1px solid #999999;
+}
+
+    .tempo-simulado .icone span {
+        background-color: cadetblue;
+        color: white;
+        padding-top: 30px;
+        font-size: 3.5em;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+    .tempo-simulado .icone i {
+        background-color: cadetblue;
+        color: white;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+    .tempo-simulado .tempo {
+        display: block;
+        font-size: 1.2em;
+    }
+
+    .tempo-simulado .simulado {
+        display: block;
+        font-size: 2.2em;
+        font-weight: bold;
+    }
+
+    .tempo-simulado .numero {
+        display: block;
+        font-size: 2.5em;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .tempo-simulado .texto-numero {
+        display: block;
+        font-size: 1em;
+        text-align: center;
+        font-weight: 500;
+        margin-top: -6px;
+    }
+
+    .tempo-simulado .idade {
+        display: block;
+        font-size: 1.2em;
+        text-align: left;
+        font-weight: 500;
+    }
+
+    .tempo-simulado .texto-idade {
+        display: block;
+        font-size: 1em;
+        text-align: left;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.5)
+    }
+
+.tempos-aposentadoria .regra {
+    font-size: 1.1em;
+    font-weight: 500;
+    display: block;
+}
+
+.tempos-aposentadoria .valor {
+    font-size: 1.4em;
+    font-weight: 800;
+    display: block;
+}
+
+.tempos-aposentadoria .icone {
+    font-size: 1em;
+    color: green;
+    position: absolute;
+    left: 0px;
+    top: 3px;
+}
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.result-calculo {
+    padding-bottom: 50px;
+}
+
+    .result-calculo .periodo {
+        padding: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        margin: 10px 0;
+    }
+
+        .result-calculo .periodo .tempototal {
+            display: block;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .result-calculo .periodo .texto-tempototal {
+            display: block;
+            text-align: center;
+        }
+
+        .result-calculo .periodo .datas {
+            font-size: 1.5em;
+            font-weight: 600;
+        }
