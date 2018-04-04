@@ -13,9 +13,10 @@ using System;
 namespace Calculadora.DAL.Migrations
 {
     [DbContext(typeof(VanguardaContext))]
-    partial class VanguardaContextModelSnapshot : ModelSnapshot
+    [Migration("20180403013326_ParametroCalculoPrevidenciario")]
+    partial class ParametroCalculoPrevidenciario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,7 +154,7 @@ namespace Calculadora.DAL.Migrations
 
             modelBuilder.Entity("Calculadora.DAL.Models.ParametroCalculoPrevidenciario", b =>
                 {
-                    b.Property<int>("ParametroCalculoPrevidenciarioID")
+                    b.Property<int>("FatoPrevidenciarioID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Ano");
@@ -164,7 +165,7 @@ namespace Calculadora.DAL.Migrations
 
                     b.Property<int>("ValorMulher");
 
-                    b.HasKey("ParametroCalculoPrevidenciarioID");
+                    b.HasKey("FatoPrevidenciarioID");
 
                     b.ToTable("ParametroCalculoPrevidenciario");
                 });
