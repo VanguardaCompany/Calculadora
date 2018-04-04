@@ -20,6 +20,7 @@ namespace Calculadora.DAL
         public DbSet<ReajusteRMI> ReajusteRMIs { get; set; }
         public DbSet<Simulacao> Simulacoes { get; set; }
         public DbSet<TempoContribuicao> TempoContribuicoes { get; set; }
+        public DbSet<ParametroCalculoPrevidenciario> ParametroCalculoPrevidenciario { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
