@@ -18,12 +18,20 @@ namespace Calculadora.Domain.Models
         public ICollection<TempoContribuicaoViewModel> TempoContribuicoes { get; set; }
         public SimulacaoINSS SimulacaoINSS { get; set; }
 
-        public static SimulacaoINSS MapToSimuladorINSS(CalculadoraViewModel model)
+        public static SimulacaoINSS MapToSimuladorINSS(CalculadoraViewModel model, List<DAL.Models.ParametroCalculoPrevidenciario> listaParametros)
         {
             SimulacaoINSS simulacao = new SimulacaoINSS(model.ClienteSelecionado.Nascimento, model.ClienteSelecionado.Sexo.ToString());
             foreach (TempoContribuicaoViewModel tempoContribuicao in model.TempoContribuicoes)
             {
                 simulacao.ListaVinculosTrabalhistas.Add(new VinculoTrabalhista(tempoContribuicao.DataAdmissao, tempoContribuicao.DataDemissao, tempoContribuicao.valorContribuicao, tempoContribuicao.Empregador));
+            }
+
+            foreach (DAL.Models.ParametroCalculoPrevidenciario parametro in listaParametros)
+            {
+                if (parametro.TipoParametro == "FATOR")
+                    simulacao.ListaFatoresPrevidenciarios.Add(new Simulador.Models.ParametroCalculoPrevidenciario() { Ano = parametro.Ano, TipoParametro = parametro.TipoParametro, ValorHomem = parametro.ValorHomem, ValorMulher = parametro.ValorMulher });
+                else
+                    simulacao.TempoMinimoAposentadoria = new Simulador.Models.ParametroCalculoPrevidenciario() { Ano = parametro.Ano, TipoParametro = parametro.TipoParametro, ValorHomem = parametro.ValorHomem, ValorMulher = parametro.ValorMulher };
             }
 
             return simulacao;
