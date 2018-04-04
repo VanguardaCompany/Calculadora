@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ParametroCalculoPrevidenciario.cs" />
     <Compile Include="Utils\DateTimeUtils.cs" />
     <Compile Include="Models\Duracao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
