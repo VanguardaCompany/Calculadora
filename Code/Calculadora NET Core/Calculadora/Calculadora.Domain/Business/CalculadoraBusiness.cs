@@ -12,10 +12,12 @@ namespace Calculadora.Domain.Business
     public class CalculadoraBusiness : BaseBusiness
     {
         CalculadoraRepository calculadoraRepository;
+        ParametroCalculoPrevidenciarioRepository calculoPrevidenciarioRepository;
 
         public CalculadoraBusiness(VanguardaContext context)
         {
             calculadoraRepository = new CalculadoraRepository(context);
+            calculoPrevidenciarioRepository = new ParametroCalculoPrevidenciarioRepository(context);
         }
 
         public IQueryable<Simulacao> GetSimulacoes(int idCliente)
@@ -159,7 +161,7 @@ namespace Calculadora.Domain.Business
         /// 
         public CalculadoraViewModel RealizaCalculo(CalculadoraViewModel model)
         {
-            SimulacaoINSS simulacao = CalculadoraViewModel.MapToSimuladorINSS(model);
+            SimulacaoINSS simulacao = CalculadoraViewModel.MapToSimuladorINSS(model, calculoPrevidenciarioRepository.GetParametrosCalculoPrevidenciario(string.Empty).ToList());
 
             SimuladorINSS.Simular(simulacao);
 

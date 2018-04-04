@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Calculadora.Simulador.Models
 {
@@ -15,6 +16,8 @@ namespace Calculadora.Simulador.Models
         private DateTime dataNascimento;
         private List<VinculoTrabalhista> listaVinculosTrabalhistasAuxiliar;
         private List<VinculoTrabalhista> listaVinculosTrabalhistas;
+        private List<ParametroCalculoPrevidenciario> listaFatoresPrevidenciarios;
+        private int tempoMinimoAposentadoria;
         private EnumSexo sexo;
 
         public SimulacaoINSS(DateTime dataNascimento, string sexo)
@@ -22,7 +25,10 @@ namespace Calculadora.Simulador.Models
             this.dataNascimento = dataNascimento;
             this.listaVinculosTrabalhistas = new List<VinculoTrabalhista>();
             this.listaVinculosTrabalhistasAuxiliar = new List<VinculoTrabalhista>();
-            this.sexo = sexo == "2" ? EnumSexo.Feminino : EnumSexo.Masculino;
+            this.sexo = (sexo == "2" ? EnumSexo.Feminino : EnumSexo.Masculino);
+            this.tempoMinimoAposentadoria = (this.sexo == EnumSexo.Masculino ? 35 : 30);
+            this.listaFatoresPrevidenciarios = new List<ParametroCalculoPrevidenciario>();
+
         }
 
         public Duracao TempoSimulado
@@ -56,12 +62,12 @@ namespace Calculadora.Simulador.Models
 
         public Duracao TempoRestanteAposentadoria
         {
-            get { return new Duracao((sexo == EnumSexo.Masculino) ? ((35 * 365) - TempoSimulado.TotalDias) : ((30 * 365) - TempoSimulado.TotalDias)); }
+            get { return new Duracao((this.tempoMinimoAposentadoria * 365) - TempoSimulado.TotalDias); }
         }
 
         public int PontuacaoRestanteAposentadoria
         {
-            get { return ((sexo == EnumSexo.Masculino) ? 95 : 85) - this.PontuacaoAtual; }
+            get { return this.FatorPrevidenciarioAtual - this.PontuacaoAtual; }
         }
 
         public int PontuacaoAtual
@@ -69,6 +75,18 @@ namespace Calculadora.Simulador.Models
             get { return this.tempoSimulado.Anos + this.Idade.Anos; }
         }
 
+        public List<ParametroCalculoPrevidenciario> ListaFatoresPrevidenciarios { get { return this.listaFatoresPrevidenciarios; } set { this.listaFatoresPrevidenciarios = value; } }
+
+        private int FatorPrevidenciarioAtual
+        {
+            get
+            {
+                ParametroCalculoPrevidenciario fator = listaFatoresPrevidenciarios.Where(f => f.Ano == DateTime.Now.Year).FirstOrDefault();
+                return (this.sexo == EnumSexo.Masculino) ? ((fator != null) ? fator.ValorHomem : 95) : ((fator != null) ? fator.ValorMulher : 85);
+            }
+        }
+
+        public ParametroCalculoPrevidenciario TempoMinimoAposentadoria { set { this.tempoMinimoAposentadoria = (this.sexo == EnumSexo.Masculino) ? value.ValorHomem : value.ValorMulher; } }
     }
 
 
