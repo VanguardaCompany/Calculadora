@@ -426,8 +426,8 @@ function getSimulacoes(idCliente) {
 
 function selecionaSimulacao(idSimulacao) {
     if (setSimulacao(idSimulacao)) {
-        getTempoContribuicoesAjax();
-        //$("#wizard").steps("next");
+        //getTempoContribuicoesAjax();
+        $("#wizard").steps("next");
     }
 }
 
@@ -510,7 +510,7 @@ function getTempoContribuicoesAjax() {
         async: false,
         success: function(data, textStatus, XMLHttpRequest) {
             $('#wizard-p-2').html(data); // HTML DOM replace
-            $("#wizard").steps("next");
+            //$("#wizard").steps("next");
             sw = true;
         },
         error: function(xhr, status, error) {
@@ -564,7 +564,7 @@ function saveTempoContribuicaoAjax() {
             TempoContribuicaoID: $('#tempoContribuicaoID').val(),
             DataAdmissao: $('#dataAdmissaoAdd').val(),
             DataDemissao: $('#dataDemissaoAdd').val(),
-            AtividadeIPP: $('#atividadeAdd').val(),
+            AtividadeIPP: document.getElementById("atividadeAdd").checked,
             Profissao: $('#profissaoAdd').val(),
             Empregador: $('#empregadorAdd').val()
         },

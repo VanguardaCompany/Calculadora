@@ -15,6 +15,7 @@
     @*<a id="btn-exportPDF" target="_blank" href="@Url.Action("DownloadPdf", "Calculadora")" class="pdf-link">
             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
         </a>*@
+
     <div class="ibox-content" id="ibox-content">
         <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
             @{
@@ -26,7 +27,7 @@
                         contador = contador + 1;
                         <div class="vertical-timeline-block">
                             <div class="vertical-timeline-icon navy-bg">
-                                <i class="fa fa-briefcase"></i>
+                                <i class="fa fa-calendar-check"></i>
                             </div>
                             <div class="vertical-timeline-content">
                                 <h2 style="text-align:left;">@Html.DisplayFor(modelItem => item.Empregador)</h2>
@@ -46,21 +47,21 @@
                                 <div style="text-align:left">
                                     <p style="margin-bottom:0;margin-top:5px;"><strong>Início:</strong> @Html.DisplayFor(modelItem => item.DataAdmissao, "{0:dd/MM/yyyy}")</p>
                                     <p style="margin-bottom:0;margin-top:0px;"><strong>Fim:</strong> @Html.DisplayFor(modelItem => item.DataDemissao, "{0:dd/MM/yyyy}")</p>
-                                    <p style="margin-bottom:10px;margin-top:0px;"> <strong>Tipo: </strong> Período Especial</p>
+                                    <p style="margin-bottom:10px;margin-top:0px;"> <strong>Tipo: </strong> Período Normal</p>
                                 </div>
                                 @if (contador % 2 == 0)
                                 {
                                     <span class="vertical-date" style="text-align:right">
-                                        @Html.DisplayFor(modelItem => item.DataAdmissao, "{0:yyyy}") <br />
-                                        <small>@Html.DisplayFor(modelItem => item.DataAdmissao, "{0:MMM}")</small>
+                                        @item.DataAdmissao.ToString("yyyy")<br />
+                                        <small> @item.DataAdmissao.ToString("MMMM") </small>
                                     </span>
 
                                 }
                                 else
                                 {
                                     <span class="vertical-date" style="text-align:left">
-                                        @Html.DisplayFor(modelItem => item.DataAdmissao, "{0:yyyy}") <br />
-                                        <small>@Html.DisplayFor(modelItem => item.DataAdmissao, "{0:MMM}")</small>
+                                        @item.DataAdmissao.ToString("yyyy")<br />
+                                        <small>@item.DataAdmissao.ToString("MMMM")</small>
                                     </span>
 
                                 }
