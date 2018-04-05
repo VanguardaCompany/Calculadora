@@ -10529,3 +10529,20 @@ body.md-skin {
             font-size: 1.5em;
             font-weight: 600;
         }
+
+        .result-calculo .periodo .empregador {
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+    .result-calculo .periodo-sem-lancamento {
+        background-color: rgba(0, 0, 0, 0.12);
+    }
+
+.ocultar {
+    display: none;
+}
+
+.cor-tempo-ocioso {
+    background-color: #ccc;
+}

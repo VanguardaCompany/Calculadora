@@ -68,6 +68,7 @@ namespace Calculadora.DAL.Repository
             {
                 IQueryable<TempoContribuicao> tempoContribuicoes = from s in db.TempoContribuicoes
                                                                    where s.SimulacaoID == idSimulacao
+                                                                   orderby s.DataAdmissao
                                                                    select s;
 
 
@@ -108,6 +109,22 @@ namespace Calculadora.DAL.Repository
             {
 
                 throw e;
+            }
+        }
+
+        public void DeleteTempoContribuicao(int id)
+        {
+            try
+            {
+                TempoContribuicao tempo = GetTempoContribuicaoId(id);
+
+                db.TempoContribuicoes.Remove(tempo);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 

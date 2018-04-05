@@ -83,6 +83,7 @@
         <link rel="stylesheet" href="~/lib/steps/jquery.steps.css" />
         <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
         <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+        <link rel="stylesheet" href="~/lib_bower/sweetalert/dist/sweetalert.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="~/lib/iCheck/custom.css" />
@@ -92,6 +93,7 @@
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.css" />
         <link rel="stylesheet" href="~/lib/ionRangeSlider/ion.rangeSlider.skinFlat.css" />
         <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+        <link rel="stylesheet" href="~/lib_bower/sweetalert/dist/sweetalert.css" />
     </environment>
 }
 
@@ -103,6 +105,7 @@
     <script src="~/lib/dualListbox/jquery.bootstrap-duallistbox.js"></script>
     <script src="~/lib/ionRangeSlider/ion.rangeSlider.min.js"></script>
     <script src="~/lib/footable/dist/footable.all.min.js"></script>
+    <script src="~/lib_bower/sweetalert/dist/sweetalert-dev.js"></script>
     @*
         <script src="~/lib/validate/jquery.validate.min.js"></script>*@
 </environment>
@@ -619,6 +622,63 @@ function addTempoContribuicaoModal() {
     document.getElementById("atividadeAdd").checked = false;
     $('#profissaoAdd').val('');
     $('#empregadorAdd').val('');
+    }
+
+function deleteTempoContribuicao(tempoContribuicaoID) {
+    console.log('deleteTempoContribuição');
+    swal({
+        title: "Tem certeza?",
+        text: "Cuidado, você eliminará esse tempo de contribuição!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sim, pode eliminar!",
+        cancelButtonText: "Não",
+        closeOnConfirm: true
+    }, function () {
+        $.ajax({
+            /**/
+            url: '@Url.Action("DeleteTempoContribuicaoAjax", "Calculadora", new { })',
+            /**/
+            type: "POST",
+            cache: false,
+            dataType: "json",
+            data: {
+                id: tempoContribuicaoID
+            },
+            success: function(success, data) {
+                if (success.success == "true") {
+                    $.ajax({
+
+                        url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
+
+                        type: "POST",
+                        cache: false,
+                        dataType: "html",
+                        async: false,
+                        success: function(data, textStatus, XMLHttpRequest) {
+                            $('#wizard-p-2').html('');
+                            $('#wizard-p-2').html(data); // HTML DOM replace
+                        },
+                        error: function(xhr, status, error) {
+                            alert('erro getTempoContribuicoes deleteTempoContribuicaoAjax');
+
+                        }
+                    });
+                } else {
+
+                    alert('erro deleteTempoContribuicaoAjax');
+                }
+
+            },
+            error: function(xhr, status, error) {
+                alert('erro DeleteTempoContribuicao');
+            }
+        });
+        //swal("Deleted!", "Your imaginary file has been deleted.", "success");
+    });
+
+
 }
 /**
 Fim Tempo Contribições **************************************************************************************************
