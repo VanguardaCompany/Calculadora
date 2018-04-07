@@ -28,3 +28,18 @@ Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Ca
 Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/project.assets.json
 Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/.suo
 Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/Server/sqlite3/storage.ide
+*.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Calculadora.DAL.csproj.nuget.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Debug/netcoreapp2.0/Calculadora.DAL.AssemblyInfo.cs
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Debug/netcoreapp2.0/Calculadora.DAL.AssemblyInfoInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Debug/netcoreapp2.0/Calculadora.DAL.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/Calculadora.Domain.csproj.nuget.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/Debug/netcoreapp2.0/Calculadora.Domain.AssemblyInfo.cs
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/Debug/netcoreapp2.0/Calculadora.Domain.AssemblyInfoInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/Debug/netcoreapp2.0/Calculadora.Domain.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Simulador/obj/Debug/Calculadora.Simulador.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Test/obj/Calculadora.Test.csproj.nuget.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Calculadora.web.csproj.nuget.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Calculadora.web.AssemblyInfo.cs
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Calculadora.web.AssemblyInfoInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Calculadora.web.csproj.CoreCompileInputs.cache
