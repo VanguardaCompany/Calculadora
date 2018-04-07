@@ -42,7 +42,7 @@ namespace Calculadora.Web.Controllers
 
             IQueryable<ReajusteRMI> reajustes = reajusteBusiness.GetReajustes(sortOrder, currentFilter, searchString, page);
 
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(reajustes.ToPagedList(pageNumber, pageSize));
         }
@@ -52,7 +52,7 @@ namespace Calculadora.Web.Controllers
         {
             if (id == null)
             {
-                return StatusCode(StatusCodes.Status400BadRequest); 
+                return StatusCode(StatusCodes.Status400BadRequest);
             }
             ReajusteRMI reajusteRMI = reajusteBusiness.GetReajusteId(id);
             if (reajusteRMI == null)
@@ -62,7 +62,7 @@ namespace Calculadora.Web.Controllers
             return View(reajusteRMI);
         }
 
-       
+
         // POST: ReajusteRMIs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -147,7 +147,7 @@ namespace Calculadora.Web.Controllers
             base.Dispose(disposing);
         }
 
-        
+
         public JsonResult GetReajusteAjax(string reajusteId)
         {
             bool sucess = false;
@@ -184,7 +184,7 @@ namespace Calculadora.Web.Controllers
                 if (!string.IsNullOrEmpty(reajusteId))
                 {
                     reajuste = reajusteBusiness.GetReajusteId(Int32.Parse(reajusteId));
-                    
+
                     if (reajuste == null)
                     {
                         sucess = false;
@@ -241,7 +241,7 @@ namespace Calculadora.Web.Controllers
                 {
                     reajusteBusiness.UpdateReajuste(reajuste);
                 }
-                
+
                 sucess = true;
             }
             else

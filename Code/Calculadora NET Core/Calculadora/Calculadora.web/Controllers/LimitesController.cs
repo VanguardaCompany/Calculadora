@@ -42,7 +42,7 @@ namespace Calculadora.Web.Controllers
 
             IQueryable<Limite> limites = limitesBusiness.GetLimites(sortOrder, currentFilter, searchString, page);
 
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(limites.ToPagedList(pageNumber, pageSize));
         }
@@ -132,7 +132,7 @@ namespace Calculadora.Web.Controllers
                 {
                     limitesBusiness.UpdateLimite(limite);
                 }
-                
+
                 sucess = true;
             }
             else

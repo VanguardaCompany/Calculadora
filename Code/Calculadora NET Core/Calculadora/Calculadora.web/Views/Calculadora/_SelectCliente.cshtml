@@ -9,10 +9,10 @@
                 <div class="ibox-title">
                     <h5>Clientes</h5>
                     <div class="ibox-tools">
-                        <button onclick="window.location.href='@Url.Action("CreateCliente","Clientes")'" class="btn btn-xs btn-success"
-                                type="button">
-                            <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
-                        </button>
+                        @*<button onclick="window.location.href='@Url.Action("CreateCliente","Clientes")'" class="btn btn-xs btn-success"
+                                    type="button">
+                                <strong><i class="fa fa-plus" style="margin-right:6px;"></i>Adicionar</strong>
+                            </button>*@
 
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Cpf)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Telefone1)</td>
-                                        <td>
+                                        <td style="text-align:right">
                                             @*<button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("EditCliente", "Clientes", new { id = item.PessoaID})'">
                                                     <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
                                                 </button>

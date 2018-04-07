@@ -115,45 +115,29 @@
 
             <div class="col-lg-6 tabela-aposentadoria" style="padding:10px 0;">
                 <h5>Tabela progressiva de não aplicação do Fator Previdenciário </h5>
-                <table class=" col-lg-6 table table-hover">
+                <table class=" col-lg-6 table table-hover" style="text-align:center">
                     <thead>
                         <tr>
-                            <th class="col-lg-2"></th>
-                            <th class="col-lg-2"><img src="~/images/boss_woman-512.png" width="26" /></th>
-                            <th class="col-lg-2"><img src="~/images/boss_man-512.png" width="26" /></th>
+                            <th class="col-lg-2" style="text-align:center"></th>
+                            <th class="col-lg-2" style="text-align:center"><img src="~/images/boss_woman-512.png" width="26" /></th>
+                            <th class="col-lg-2" style="text-align:center"><img src="~/images/boss_man-512.png" width="26" /></th>
                         </tr>
                         <tr>
-                            <th class="col-lg-2">Ano</th>
-                            <th class="col-lg-2">Mulher</th>
-                            <th class="col-lg-2">Homem</th>
+                            <th class="col-lg-2" style="text-align:center">Ano</th>
+                            <th class="col-lg-2" style="text-align:center">Mulher</th>
+                            <th class="col-lg-2" style="text-align:center">Homem</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2019</td>
-                            <td>86</td>
-                            <td>96</td>
-                        </tr>
-                        <tr>
-                            <td>2021</td>
-                            <td>87</td>
-                            <td>97</td>
-                        </tr>
-                        <tr>
-                            <td>2023</td>
-                            <td>88</td>
-                            <td>98</td>
-                        </tr>
-                        <tr>
-                            <td>2025</td>
-                            <td>89</td>
-                            <td>99</td>
-                        </tr>
-                        <tr>
-                            <td>2027</td>
-                            <td>90</td>
-                            <td>100</td>
-                        </tr>
+                        @foreach (var item in Model.SimulacaoINSS.ListaFatoresPrevidenciarios)
+                        {
+                            <tr>
+                                <td>@item.Ano</td>
+                                <td>@item.ValorMulher</td>
+                                <td>@item.ValorHomem</td>
+                            </tr>
+                        }
+
                     </tbody>
                 </table>
 
