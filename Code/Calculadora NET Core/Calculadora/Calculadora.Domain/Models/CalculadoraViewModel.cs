@@ -23,7 +23,8 @@ namespace Calculadora.Domain.Models
             SimulacaoINSS simulacao = new SimulacaoINSS(model.ClienteSelecionado.Nascimento, model.ClienteSelecionado.Sexo.ToString());
             foreach (TempoContribuicaoViewModel tempoContribuicao in model.TempoContribuicoes)
             {
-                simulacao.ListaVinculosTrabalhistas.Add(new VinculoTrabalhista(tempoContribuicao.DataAdmissao, tempoContribuicao.DataDemissao, tempoContribuicao.valorContribuicao, tempoContribuicao.Empregador));
+                if (!tempoContribuicao.TempoOcioso)
+                    simulacao.ListaVinculosTrabalhistas.Add(new VinculoTrabalhista(tempoContribuicao.DataAdmissao, tempoContribuicao.DataDemissao, tempoContribuicao.valorContribuicao, tempoContribuicao.Empregador));
             }
 
             foreach (DAL.Models.ParametroCalculoPrevidenciario parametro in listaParametros)
@@ -152,6 +153,13 @@ namespace Calculadora.Domain.Models
 
         //public Simulacao Simulacao { get; set; }
         public int SimulacaoID { get; set; }
+
+        public bool TempoOcioso { get; set; }
+
+        public TempoContribuicaoViewModel()
+        {
+            TempoOcioso = false;
+        }
 
         public TempoContribuicao TempoContribuicaoToModel(TempoContribuicaoViewModel model)
         {

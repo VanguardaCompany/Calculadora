@@ -174,13 +174,42 @@ namespace Calculadora.Web.Controllers
             {
                 //model.SimulacaoSelecionada = SimulacaoToViewModel(calculadoraBusiness.GetSimulacaoId(model.SimulacaoSelecionada.SimulacaoID));
                 model.TempoContribuicoes = calculadoraBusiness.TempoContribuicoesToViewModel(calculadoraBusiness.GetTempoContribuicoes(model.SimulacaoSelecionada.SimulacaoID)).ToList();
+                List<TempoContribuicaoViewModel> temposOcioso = new List<TempoContribuicaoViewModel>();
+                TempoContribuicaoViewModel tempoOcioso = new TempoContribuicaoViewModel();
+                foreach (var item in model.TempoContribuicoes)
+                {
+                    if (tempoOcioso.DataDemissao != null && tempoOcioso.DataDemissao != DateTime.MinValue)
+                    {
+                        if (tempoOcioso.DataDemissao < item.DataAdmissao)
+                        {
+                            tempoOcioso.DataAdmissao = tempoOcioso.DataDemissao;
+                            tempoOcioso.DataDemissao = item.DataAdmissao;
+                            tempoOcioso.Empregador = "TEMPO OCIOSO";
+                            tempoOcioso.TempoOcioso = true;
+                            temposOcioso.Add(tempoOcioso);
+                            tempoOcioso = new TempoContribuicaoViewModel();
+                            tempoOcioso.DataDemissao = item.DataDemissao;
+                        }
+                        else
+                        {
+                            tempoOcioso.DataDemissao = item.DataDemissao;
+                        }
+                    }
+                    else
+                    {
+                        tempoOcioso.DataDemissao = item.DataDemissao;
+                    }
+                }
+                foreach (var item in temposOcioso)
+                {
+                    model.TempoContribuicoes.Add(item);
+                }
+                model.TempoContribuicoes = model.TempoContribuicoes.OrderBy(s => s.DataAdmissao).ToList();
             }
             else
             {
 
             }
-
-
             SetSessionCalculadoraViewModel(model);
 
 
@@ -213,11 +242,30 @@ namespace Calculadora.Web.Controllers
             return Json(new { success });
         }
 
+        [HttpPost]
+        public ActionResult DeleteTempoContribuicaoAjax(int id)
+        {
+            string success = "true";
+            try
+            {
+                calculadoraBusiness.DeleteTempoContribuicao(id);
+            }
+            catch (Exception)
+            {
+                success = "false";
+                throw;
+            }
+
+            return Json(new { success });
+        }
+
         // POST: Calculadora/ResultCalculadora
         [HttpPost, ActionName("ResultCalculadora")]
         [ValidateAntiForgeryToken]
         public ActionResult ResultCalculadora()
         {
+            //ViewBag.Layout = "_PrintLayout";
+
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
 
             model = calculadoraBusiness.RealizaCalculo(model);
