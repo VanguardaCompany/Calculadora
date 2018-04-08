@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Calculadora.Simulador.Models;
 
 namespace Calculadora.web
 {
@@ -60,8 +61,23 @@ namespace Calculadora.web
                 else
                     tempo = tempo + dias + " dias";
             }
-
+            if (tempo == "")
+            {
+                tempo = "0 anos, 0 meses e 0 dias";
+            }
             return tempo;
+        }
+
+        public static bool DuracaoZero(this IHtmlHelper htmlHelper, Duracao duracao)
+        {
+            if (duracao.Anos == 0 && duracao.Meses == 0 && duracao.Dias == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

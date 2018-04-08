@@ -73,6 +73,19 @@ namespace Calculadora.Domain.Business
             }
         }
 
+        public void DeleteTempoContribuicao(int id)
+        {
+            try
+            {
+                calculadoraRepository.DeleteTempoContribuicao(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public void AddTempoContribuicao(TempoContribuicao tempoContribuicao)
         {
             try

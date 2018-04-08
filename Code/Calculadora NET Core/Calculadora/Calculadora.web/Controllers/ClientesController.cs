@@ -11,7 +11,7 @@ using Calculadora.web.Models;
 
 namespace Calculadora.Web.Controllers
 {
-    
+
     public class ClientesController : Controller
     {
         ClientesBusiness clienteBusiness;
@@ -40,8 +40,8 @@ namespace Calculadora.Web.Controllers
 
             IQueryable<Cliente> clientes = clienteBusiness.GetClientes(sortOrder, currentFilter, searchString, page);
 
-            
-            int pageSize = 3;
+
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(clientes.ToPagedList(pageNumber, pageSize));
         }
@@ -70,7 +70,7 @@ namespace Calculadora.Web.Controllers
             Cliente model = new Cliente();
             //model.Endereco = new Endereco();
             model.Nascimento = DateTime.Now;
-            
+
             return View(model);
         }
 
@@ -98,7 +98,7 @@ namespace Calculadora.Web.Controllers
 
                     throw e;
                 }
-               
+
             }
             else
             {

@@ -1,8 +1,55 @@
 
 Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/Server/sqlite3/storage.ide
-Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/Server/sqlite3/storage.ide
-Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/Server/sqlite3/storage.ide
-Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/Server/sqlite3/storage.ide-shm
-Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/Server/sqlite3/storage.ide
 Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/Server/sqlite3/storage.ide-shm
 Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/Server/sqlite3/storage.ide-wal
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/bin/Debug/netcoreapp2.0/Calculadora.DAL.deps.json
+*.dll
+*.pdb
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/bin/Debug/netcoreapp2.0/Calculadora.DAL.runtimeconfig.dev.json
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/bin/Debug/netcoreapp2.0/Calculadora.DAL.runtimeconfig.json
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Debug/netcoreapp2.0/Calculadora.DAL.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Debug/netcoreapp2.0/Calculadora.DAL.csproj.FileListAbsolute.txt
+*.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/project.assets.json
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/bin/Debug/netcoreapp2.0/Calculadora.Domain.deps.json
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/bin/Debug/netcoreapp2.0/Calculadora.Domain.runtimeconfig.json
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/project.assets.json
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/bin/Debug/netcoreapp2.0/Calculadora.Domain.runtimeconfig.dev.json
+Code/Calculadora NET Core/Calculadora/Calculadora.Simulador/obj/Debug/Calculadora.Simulador.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Simulador/obj/Debug/Calculadora.Simulador.csproj.FileListAbsolute.txt
+Code/Calculadora NET Core/Calculadora/Calculadora.Test/obj/project.assets.json
+Code/Calculadora NET Core/Calculadora/Calculadora.web/bin/Debug/netcoreapp2.0/Calculadora.web.deps.json
+Code/Calculadora NET Core/Calculadora/Calculadora.web/bin/Debug/netcoreapp2.0/Calculadora.web.runtimeconfig.dev.json
+Code/Calculadora NET Core/Calculadora/Calculadora.web/bin/Debug/netcoreapp2.0/Calculadora.web.runtimeconfig.json
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Calculadora.web.csproj.CopyComplete
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Calculadora.web.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Calculadora.web.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Calculadora.web.csproj.FileListAbsolute.txt
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/project.assets.json
+Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/.suo
+Code/Calculadora NET Core/Calculadora/.vs/Calculadora/v15/Server/sqlite3/storage.ide
+*.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Calculadora.DAL.csproj.nuget.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Debug/netcoreapp2.0/Calculadora.DAL.AssemblyInfo.cs
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Debug/netcoreapp2.0/Calculadora.DAL.AssemblyInfoInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Debug/netcoreapp2.0/Calculadora.DAL.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/Calculadora.Domain.csproj.nuget.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/Debug/netcoreapp2.0/Calculadora.Domain.AssemblyInfo.cs
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/Debug/netcoreapp2.0/Calculadora.Domain.AssemblyInfoInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/Debug/netcoreapp2.0/Calculadora.Domain.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Simulador/obj/Debug/Calculadora.Simulador.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Test/obj/Calculadora.Test.csproj.nuget.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Calculadora.web.csproj.nuget.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Calculadora.web.AssemblyInfo.cs
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Calculadora.web.AssemblyInfoInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.web/obj/Debug/netcoreapp2.0/Calculadora.web.csproj.CoreCompileInputs.cache
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/Debug/netcoreapp2.0/Calculadora.Domain.csproj.FileListAbsolute.txt
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Debug/netcoreapp2.0/Calculadora.DAL.csproj.FileListAbsolute.txt
+Code/Calculadora NET Core/Calculadora/Calculadora.Test/bin/Debug/netcoreapp2.0/Calculadora.Test.deps.json
+Code/Calculadora NET Core/Calculadora/Calculadora.Test/bin/Debug/netcoreapp2.0/Calculadora.Test.runtimeconfig.dev.json
+Code/Calculadora NET Core/Calculadora/Calculadora.Test/obj/Debug/netcoreapp2.0/Calculadora.Test.AssemblyInfo.cs
+Code/Calculadora NET Core/Calculadora/Calculadora.Test/obj/Debug/netcoreapp2.0/Calculadora.Test.AssemblyInfo.cs
+Code/Calculadora NET Core/Calculadora/Calculadora.Test/obj/Debug/netcoreapp2.0/Calculadora.Test.csproj.FileListAbsolute.txt
+Code/Calculadora NET Core/Calculadora/Calculadora.Test/bin/Debug/netcoreapp2.0/Calculadora.Test.runtimeconfig.json
+Code/Calculadora NET Core/Calculadora/Calculadora.DAL/obj/Debug/netcoreapp2.0/Calculadora.DAL.csproj.FileListAbsolute.txt
+Code/Calculadora NET Core/Calculadora/Calculadora.Domain/obj/Debug/netcoreapp2.0/Calculadora.Domain.csproj.FileListAbsolute.txt

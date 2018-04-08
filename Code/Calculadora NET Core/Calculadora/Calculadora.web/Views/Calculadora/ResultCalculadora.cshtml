@@ -5,7 +5,12 @@
 }
 @using Calculadora.web
 
-<div class="wrapper result-calculo">
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/jquery-printme.js"></script>
+<script src="~/js/jquery-printme.min.js"></script>
+
+
+<div id="divResultado" class="wrapper result-calculo">
     <div class="row white-bg">
         <div class="col-lg-12 titulo">
             <h2 style="float:left;">Resultado da Simulação</h2>
@@ -17,16 +22,17 @@
             <div class="col-lg-12 subtitulo">
                 <h3>Dados do cliente</h3>
             </div>
-            <div class="col-lg-12" style="padding:10px 0;">
-                <div class="col-lg-4">
+
+            <div class="col-lg-12" style="padding:10px 0;font-size: 15px;">
+                <div class="col-lg-4" style="padding-left: 0;text-align:left;">
                     <label style="margin-right:5px">Nome: </label>
                     @Html.DisplayFor(m => m.ClienteSelecionado.Nome, new { @class = "form-control" })
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4" style="padding-right: 0;text-align:center;">
                     <label style="margin-right:5px">Sexo: </label>
                     @Html.DisplayFor(m => m.ClienteSelecionado.Sexo, new { @class = "form-control" })
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4" style="padding-right: 0;text-align:right;">
                     <label style="margin-right:5px">Data Nascimento: </label>
                     @Html.DisplayFor(m => m.ClienteSelecionado.Nascimento, new { @class = "form-control" })
                 </div>
@@ -94,19 +100,53 @@
                     <span class="regra">REGRA SEM APLICAÇÃO DO FATOR PREVIDENCIÁRIO </span>
                     <span class="valor">@Html.DisplayFor(m => m.SimulacaoINSS.PontuacaoRestanteAposentadoria) PONTOS</span>
                 </div>
+                <div class="row"></div>
                 <div class="col-lg-12 requisitos" style="padding-left:0px">
-                    Requisitos:<br>
-                    Sem exigência de idade mínima.<br>
-                    Tempo total de contribuição:<br>
-                    35 anos de contribuição (homem).<br>
-                    30 anos de contribuição  (mulher).<br>
-                    180 meses de contribuição para efeito de carência.
+                    <n>
+                        Requisitos:<br>
+                        <n>
+                            Sem exigência de idade mínima.<br>
+                            Tempo total de contribuição:<br>
+                            35 anos de contribuição (homem).<br>
+                            30 anos de contribuição  (mulher).<br>
+                            180 meses de contribuição para efeito de carência.
                 </div>
+            </div>
+
+            <div class="col-lg-6 tabela-aposentadoria" style="padding:10px 0;">
+                <h5>Tabela progressiva de não aplicação do Fator Previdenciário </h5>
+                <table class=" col-lg-6 table table-hover" style="text-align:center">
+                    <thead>
+                        <tr>
+                            <th class="col-lg-2" style="text-align:center"></th>
+                            <th class="col-lg-2" style="text-align:center"><img src="~/images/boss_woman-512.png" width="26" /></th>
+                            <th class="col-lg-2" style="text-align:center"><img src="~/images/boss_man-512.png" width="26" /></th>
+                        </tr>
+                        <tr>
+                            <th class="col-lg-2" style="text-align:center">Ano</th>
+                            <th class="col-lg-2" style="text-align:center">Mulher</th>
+                            <th class="col-lg-2" style="text-align:center">Homem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SimulacaoINSS.ListaFatoresPrevidenciarios)
+                        {
+                            <tr>
+                                <td>@item.Ano</td>
+                                <td>@item.ValorMulher</td>
+                                <td>@item.ValorHomem</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
             </div>
         </div>
 
 
-        <div class="row  white-bg" style="padding:25px 0 0 0;">
+
+        <div class="row  white-bg" style="padding:5px 0 0 0;">
             <div class="col-lg-12 subtitulo">
                 <h3>Períodos</h3>
             </div>
@@ -117,25 +157,25 @@
                     {
                         @foreach (var item in Model.SimulacaoINSS.ListaVinculosTrabalhistas)
                         {
-                            <div class="row periodo">
+                            <div class="row periodo @(item.PeriodoSemLancamento == true ? "periodo-sem-lancamento" : string.Empty)">
 
-                                <div class="col-lg-6" style="padding:0;">
-                                    <span class="">Vinculo Trabalhista Adicionado Manualmente</span>
+                                <div class="col-lg-6 empregador" style="padding:0;">
+                                    <span class="">@item.NomeEmpregador @(item.PeriodoSemLancamento == true ? "TEMPO SEM LANÇAMENTO" : string.Empty)</span>
                                 </div>
                                 <div class="col-lg-6 datas" style="padding:0;text-align:right">
                                     <span class=""> @item.DataInicio.ToString("dd/MM/yyyy")  a @item.DataFim.ToString("dd/MM/yyyy")</span>
                                 </div>
 
                                 <div class="col-lg-12" style="padding:0;margin-top:15px;">
-                                    <div class="col-lg-4" style="padding:0;">
+                                    <div class="@(!Html.DuracaoZero(item.PeriodoEmDuplicidade) && !Html.DuracaoZero(item.TempoLiquido) ? "col-lg-4" :  "col-lg-6")" style="padding:0;">
                                         <span class="tempototal">TEMPO TOTAL</span>
                                         <span class="texto-tempototal">@Html.TempoPorExtenso(item.TempoTotal.Anos, item.TempoTotal.Meses, item.TempoTotal.Dias)</span>
                                     </div>
-                                    <div class="col-lg-4" style="padding:0;">
+                                    <div class="@(Html.DuracaoZero(item.PeriodoEmDuplicidade) ? "ocultar" :  Html.DuracaoZero(item.TempoLiquido) ? "col-lg-6" :  "col-lg-4")" style="padding:0;">
                                         <span class="tempototal">PERÍODO EM DUPLICIDADE</span>
                                         <span class="texto-tempototal"> @Html.TempoPorExtenso(item.PeriodoEmDuplicidade.Anos, item.PeriodoEmDuplicidade.Meses, item.PeriodoEmDuplicidade.Dias)</span>
                                     </div>
-                                    <div class="col-lg-4" style="padding:0;">
+                                    <div class="@(Html.DuracaoZero(item.TempoLiquido) ? "ocultar" :  Html.DuracaoZero(item.PeriodoEmDuplicidade) ? "col-lg-6" :  "col-lg-4")" style="padding:0;">
                                         <span class="tempototal">TEMPO LÍQUIDO</span>
                                         <span class="texto-tempototal"> @Html.TempoPorExtenso(item.TempoLiquido.Anos, item.TempoLiquido.Meses, item.TempoLiquido.Dias)</span>
                                     </div>
@@ -155,21 +195,27 @@
 
 
 </div>
+@*<button class="btn btn-primary pull-right hidden-print" onclick="window.print();" style="margin-right: 5px;"><i class="fa fa-print"></i> Imprimir</button>*@
+@*<button id="example2" class="btn btn-primary pull-right hidden-print" style="margin-right: 5px;"><i class="fa fa-print"></i> Imprimir</button>*@
 
+<style>
+    .table > tbody > tr > td {
+        padding: 2px 8px;
+    }
+</style>
 
+<script type="text/javascript">
+    $(document).ready(function () {
 
-@section Scripts {
-    <environment names="Development,Staging,Production">
-        <script src="~/lib_bower/jquery-ui/jquery-ui.js"></script>
-        <script src="~/lib/touchpunch/jquery.ui.touch-punch.min.js"></script>
-    </environment>
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            //WinMove();
-
+        $("#example2").click(function () {
+            $("#divResultado").printMe({
+                "path": ["print.css"]
+            });
         });
-    </script>
-}
+
+    });
+
+</script>
+
 
 

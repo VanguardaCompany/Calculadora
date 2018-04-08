@@ -52,7 +52,7 @@ namespace Calculadora.Web.Controllers
 
             IQueryable<IndiceCorrecao> indices = indiceBusiness.GetIndices(sortOrder, percentagemFilter, valorFilter, aniversarioFilter, somatorioFilter, mensaisFilter, diariosFilter, atualizadosFilter, desatualizadosFilter, extintosFilter, searchString, page);
 
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(indices.ToPagedList(pageNumber, pageSize));
         }
@@ -136,7 +136,7 @@ namespace Calculadora.Web.Controllers
         {
             if (id == null)
             {
-                return StatusCode(StatusCodes.Status400BadRequest); 
+                return StatusCode(StatusCodes.Status400BadRequest);
             }
 
             IndiceCorrecao indice = indiceBusiness.GetIndiceId(id);
@@ -215,7 +215,7 @@ namespace Calculadora.Web.Controllers
             valorIC.IndiceCorrecaoID = indiceCorrecaoID;
 
             valorBusiness.SetIndice(valorIC);
-            
+
             return null;
         }
 
