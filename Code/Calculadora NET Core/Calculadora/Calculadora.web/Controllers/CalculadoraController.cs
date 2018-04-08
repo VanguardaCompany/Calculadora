@@ -299,6 +299,30 @@ namespace Calculadora.Web.Controllers
 
         }
 
+        [HttpPost]
+        public PartialViewResult UploadFileAjax(IFormFile file)
+        {
+            CalculadoraViewModel model = GetSessionCalculadoraViewModel();
+
+            //if (file == null || file.Length == 0)
+            //    return Content("file not selected");
+
+            //var path = Path.Combine(
+            //            Directory.GetCurrentDirectory(), "wwwroot",
+            //            file.FileName);
+
+            //using (var stream = new FileStream(path, FileMode.Create))
+            //{
+            //    await file.CopyToAsync(stream);
+            //}
+
+            SetSessionCalculadoraViewModel(model);
+
+            return PartialView("_TempoContribuicoes", model);
+            //return RedirectToAction("Files");
+        }
+
+
         //private RelatorioDuplicata getRelatorio()
         //{
         //    var rpt = new RelatorioDuplicata();

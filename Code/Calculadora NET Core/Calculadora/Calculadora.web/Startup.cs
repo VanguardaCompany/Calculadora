@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Rotativa;
 using Rotativa.AspNetCore;
 using Calculadora.web.Services;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Calculadora.web
 {
@@ -31,6 +33,12 @@ namespace Calculadora.web
             services.AddDbContext<VanguardaContext>(options =>
                         options.UseSqlServer(connection)
             );
+
+            services.AddSingleton<IFileProvider>(
+                new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+
+
             services.AddMvc().AddSessionStateTempDataProvider();
 
             services.AddSession();

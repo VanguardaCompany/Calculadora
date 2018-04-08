@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Calculadora.DAL.Models;
 using Calculadora.Simulador.Models;
+using Microsoft.AspNetCore.Http;
 using PagedList.Core;
 
 namespace Calculadora.Domain.Models
@@ -15,6 +16,7 @@ namespace Calculadora.Domain.Models
         public int ClienteSelecionadoID { get; set; }
         public ICollection<SimulacaoViewModel> Simulacoes { get; set; }
         public SimulacaoViewModel SimulacaoSelecionada { get; set; }
+        public IFormFile FileToUpload { get; set; }
         public ICollection<TempoContribuicaoViewModel> TempoContribuicoes { get; set; }
         public SimulacaoINSS SimulacaoINSS { get; set; }
 
