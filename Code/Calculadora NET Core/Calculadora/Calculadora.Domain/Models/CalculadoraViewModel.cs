@@ -24,7 +24,7 @@ namespace Calculadora.Domain.Models
             foreach (TempoContribuicaoViewModel tempoContribuicao in model.TempoContribuicoes)
             {
                 if (!tempoContribuicao.TempoOcioso)
-                    simulacao.ListaVinculosTrabalhistas.Add(new VinculoTrabalhista(tempoContribuicao.DataAdmissao, tempoContribuicao.DataDemissao, tempoContribuicao.valorContribuicao, tempoContribuicao.Empregador));
+                    simulacao.ListaVinculosTrabalhistas.Add(new VinculoTrabalhista(tempoContribuicao.DataAdmissao, tempoContribuicao.DataDemissao.AddDays(1).AddSeconds(-1), tempoContribuicao.valorContribuicao, tempoContribuicao.Empregador));
             }
 
             foreach (DAL.Models.ParametroCalculoPrevidenciario parametro in listaParametros)
