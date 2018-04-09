@@ -28,7 +28,7 @@ namespace Calculadora.Simulador.Models
             this.priorizadoSistema = priorizadoSistema;
             this.periodoSemLancamento = periodoSemLancamento;
             this.id = (string.IsNullOrEmpty(idPai)) ? Guid.NewGuid().ToString() : idPai;
-            this.PeriodoEmDuplicidade = new Duracao(0);
+            this.PeriodoEmDuplicidade = new Duracao(0, 0, 0);
         }
 
         public DateTime DataFim
@@ -74,12 +74,12 @@ namespace Calculadora.Simulador.Models
 
         public Duracao TempoLiquido
         {
-            get { return new Duracao(this.TempoTotal.TotalDias - this.PeriodoEmDuplicidade.TotalDias); }
+            get { return Duracao.SubtrairDuracoes(this.TempoTotal, this.PeriodoEmDuplicidade); }
         }
 
         public Duracao PeriodoEmDuplicidade
         {
-            get; set; //{ return new Duracao((int)((dataInicio - dataInicioSemIntersecao).TotalDays + (dataFim - dataFimSemIntersecao).TotalDays)); }
+            get; set;
         }
 
         internal bool PriorizadoSistema

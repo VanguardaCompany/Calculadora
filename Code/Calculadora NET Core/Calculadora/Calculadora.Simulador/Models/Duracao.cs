@@ -1,29 +1,25 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 
 namespace Calculadora.Simulador.Models
 {
     public class Duracao
     {
-        private DateTime dataInicio;
-        private DateTime dataFim;
         private int dias;
         private int meses;
         private int anos;
 
         public Duracao(DateTime dataInicio, DateTime dataFim)
         {
-            this.dataInicio = dataInicio;
-            this.dataFim = dataFim;
-
-            DuracaoEntreDatas(this.dataInicio, this.dataFim, out this.anos, out this.meses, out this.dias);
+            DuracaoEntreDatas(dataInicio, dataFim.AddSeconds(1), out this.anos, out this.meses, out this.dias);
         }
 
-        public Duracao(int totalDias)
+        public Duracao(int anos, int meses, int dias)
         {
-            this.dataInicio = DateTime.Now.AddDays(-totalDias);
-            this.dataFim = DateTime.Now;
-
-            DuracaoEntreDatas(this.dataInicio, this.dataFim, out this.anos, out this.meses, out this.dias);
+            this.anos = anos;
+            this.meses = meses;
+            this.dias = dias;
         }
 
         public int Dias
@@ -31,9 +27,6 @@ namespace Calculadora.Simulador.Models
             get
             {
                 return this.dias;
-                //if (this.dataInicio != null)
-                //    this.totalDias = (int)((TimeSpan)(this.dataFim - this.dataInicio)).TotalDays;
-                //return Convert.ToInt32(Math.Truncate((this.totalDias % 365.0) % 30));
             }
         }
 
@@ -42,9 +35,6 @@ namespace Calculadora.Simulador.Models
             get
             {
                 return this.meses;
-                //if (this.dataInicio != null)
-                //    this.totalDias = (int)((TimeSpan)(this.dataFim - this.dataInicio)).TotalDays;
-                //return Convert.ToInt32(Math.Truncate(this.totalDias % 365.0) / 30);
             }
         }
 
@@ -53,31 +43,10 @@ namespace Calculadora.Simulador.Models
             get
             {
                 return this.anos;
-                //if (this.dataInicio != null)
-                //    this.totalDias = (int)((TimeSpan)(this.dataFim - this.dataInicio)).TotalDays;
-                //return (this.totalDias / 365);
             }
         }
 
-        public TimeSpan Periodo
-        {
-            get
-            {
-                if (this.dataInicio != null) return ((TimeSpan)(this.dataFim - this.dataInicio));
-                else
-                    return new TimeSpan(this.TotalDias, 0, 0, 0);
-            }
-        }
-
-        public int TotalDias
-        {
-            get
-            {
-                return ((int)(this.dataFim - this.dataInicio).TotalDays);
-            }
-        }
-
-        private void DuracaoEntreDatas(DateTime d1, DateTime d2, out int years, out int months, out int days)
+        private int DuracaoEntreDatas(DateTime d1, DateTime d2, out int years, out int months, out int days)
         {
             // compute & return the difference of two dates,
             // returning years, months & days
@@ -99,7 +68,7 @@ namespace Calculadora.Simulador.Models
             if (d1.Day < d2.Day)
             {
                 months--;
-                days = DateTime.DaysInMonth(d2.Year, d2.Month) - d2.Day + d1.Day;
+                days = 30 - d2.Day + d1.Day;
             }
             else
             {
@@ -108,7 +77,61 @@ namespace Calculadora.Simulador.Models
             // compute years & actual months
             years = months / 12;
             months -= years * 12;
+
+            return ((years * 12 * 30) + (months * 30) + days);
         }
 
+        public static Duracao SomarDuracoes(Duracao duracao1, Duracao duracao2)
+        {
+
+            if (duracao1 == null) duracao1 = new Duracao(0, 0, 0);
+            if (duracao2 == null) duracao2 = new Duracao(0, 0, 0);
+
+            int anos, meses, dias = 0;
+
+            dias = duracao1.dias + duracao2.dias;
+            meses = duracao1.meses + duracao2.meses;
+            anos = duracao1.anos + duracao2.anos;
+
+            if (dias >= 30)
+            {
+                meses += dias / 30;
+                dias = dias % 30;
+            }
+
+            if (meses >= 12)
+            {
+                anos += meses / 12;
+                meses = meses % 12;
+            }
+
+            return new Duracao(anos, meses, dias);
+        }
+
+        public static Duracao SubtrairDuracoes(Duracao duracao1, Duracao duracao2)
+        {
+            if (duracao1 == null) duracao1 = new Duracao(0, 0, 0);
+            if (duracao2 == null) duracao2 = new Duracao(0, 0, 0);
+
+            int anos, meses, dias = 0;
+
+            dias = duracao1.dias - duracao2.dias;
+            meses = duracao1.meses - duracao2.meses;
+            anos = duracao1.anos - duracao2.anos;
+
+            if (dias < 0)
+            {
+                meses--;
+                dias = 30 + dias;
+            }
+
+            if (meses < 0)
+            {
+                anos--;
+                meses = 12 + meses;
+            }
+
+            return new Duracao(anos, meses, dias);
+        }
     }
 }

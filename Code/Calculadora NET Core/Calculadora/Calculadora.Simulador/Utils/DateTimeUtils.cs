@@ -65,17 +65,5 @@ namespace Calculadora.Simulador.Utils
 
             return result;
         }
-
-        public static double? GetIntervalDuration(DateTimeInterval interval)
-        {
-            if (interval.To == null || interval.From == null)
-            {
-                return null;
-            }
-
-            TimeSpan? difference = interval.To.Value.Date - interval.From.Value.Date;
-            double days = Math.Floor(difference.Value.TotalDays + 1);
-            return days;
-        }
     }
 }
