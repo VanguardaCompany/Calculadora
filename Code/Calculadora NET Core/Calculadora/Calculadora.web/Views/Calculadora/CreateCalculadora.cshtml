@@ -2,6 +2,12 @@
 @{
     ViewBag.Title = "Create";
 }
+<form asp-controller="Calculadora" asp-action="UploadFileAjax" id="formUpload" method="post"
+      enctype="multipart/form-data">
+    <input type="file" name="file" id="selectedFile" style="display: none;" onchange="uploadFileCNIS()" />
+
+
+</form>
 <form id="formRealizarCalculo" asp-action="ResultCalculadora" asp-controller="Calculadora" method="POST">
     <div class="wrapper wrapper-content animated fadeInRight" id="divCreateCalculadora">
         <div class="row">
@@ -122,278 +128,284 @@
 </environment>
 
 <script type="text/javascript">
-$(document).ready(function () {
+    $(document).ready(function () {
 
-    $('.footable').footable();
-    $('#body').addClass('mini-navbar');
+        $('.footable').footable();
+        $('#body').addClass('mini-navbar');
 
-    $('.datetimepicker').datepicker({
-        format: 'dd/mm/yyyy',
-        language: 'pt-BR',
-        todayHighlight: true,
-        autoclose: true
-    });
-
-    $('.dual_select').bootstrapDualListbox({
-        selectorMinimalHeight: 210,
-        showFilterInputs: false,
-        infoText: false,
-        filterTextClear: false,
-        selectedListLabel: "Benefícios selecionados  ",
-        nonSelectedListLabel: "Lista de benefícios  ",
-        moveAllLabel: "Selecionar todos",
-        removeAllLabel: "Retirar os selecionados",
-        //moveOnSelect: false,
-        preserveSelectionOnMove: 'all'
-    });
-
-    $('.dataTables-example').DataTable({
-        "bFilter": false,
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado",
-            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sInfoThousands": ".",
-            "sLengthMenu": "_MENU_ resultados por página",
-            "sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...",
-            "sZeroRecords": "Nenhum registro encontrado",
-            "sSearch": "Pesquisar",
-            "oPaginate": {
-                "sNext": "Próximo",
-                "sPrevious": "Anterior",
-                "sFirst": "Primeiro",
-                "sLast": "Último"
-            },
-            "oAria": {
-                "sSortAscending": ": Ordenar colunas de forma ascendente",
-                "sSortDescending": ": Ordenar colunas de forma descendente"
-            }
-        },
-        pageLength: 5,
-        responsive: true,
-        //dom: '<"html5buttons"B>lTfgitp',
-        dom: '<"html5buttons"B>ftipr',
-        buttons: [
-            //{ extend: 'copy'},
-            //{extend: 'csv'},
-            //{extend: 'excel', title: 'ExampleFile'},
-            //{extend: 'pdf', title: 'ExampleFile'}
-
-            /*{extend: 'print',
-                 customize: function (win){
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-
-                        $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                }
-            }*/
-        ]
-
-    });
-
-    $('#data_inicio .input-group.date').datepicker({
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true
-    });
-
-    $('#data_fim .input-group.date').datepicker({
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true
-    });
-
-    $('.i-checks').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-    });
-
-    $("#ionrange_1").ionRangeSlider({
-        values: [
-            "Jan-1973", "Feb-1973", "Mar-1973",
-            "Abr-1973", "Mai-1973", "Jun-1973",
-            "Jul-1973", "Ago-1973", "Set-1973",
-            "Out-1973", "Nov-1973", "Dez-1973",
-            "Jan-1974", "Feb-1974", "Mar-1974",
-            "Abr-1974", "Mai-1974", "Jun-1974",
-            "Jul-1974", "Ago-1974", "Set-1974",
-            "Out-1974", "Nov-1974", "Dez-1974"
-        ],
-        type: 'double',
-        hasGrid: true,
-        from: 0,
-        to: 20
-    });
-
-    $("#ionrange_2").ionRangeSlider({
-        values: [
-            "Jan-1973", "Feb-1973", "Mar-1973",
-            "Abr-1973", "Mai-1973", "Jun-1973",
-            "Jul-1973", "Ago-1973", "Set-1973",
-            "Out-1973", "Nov-1973", "Dez-1973",
-            "Jan-1974", "Feb-1974", "Mar-1974",
-            "Abr-1974", "Mai-1974", "Jun-1974",
-            "Jul-1974", "Ago-1974", "Set-1974",
-            "Out-1974", "Nov-1974", "Dez-1974"
-        ],
-        type: 'double',
-        hasGrid: true,
-        from: 6,
-        to: 9
-    });
-
-    $("#ionrange_3").ionRangeSlider({
-        values: [
-            "Jan-1973", "Feb-1973", "Mar-1973",
-            "Abr-1973", "Mai-1973", "Jun-1973",
-            "Jul-1973", "Ago-1973", "Set-1973",
-            "Out-1973", "Nov-1973", "Dez-1973",
-            "Jan-1974", "Feb-1974", "Mar-1974",
-            "Abr-1974", "Mai-1974", "Jun-1974",
-            "Jul-1974", "Ago-1974", "Set-1974",
-            "Out-1974", "Nov-1974", "Dez-1974"
-        ],
-        type: 'double',
-        hasGrid: true,
-        from: 10,
-        to: 15
-    });
-
-    $('#ionrange_4').ionRangeSlider({
-        values: [
-            "Jan-1973", "Feb-1973", "Mar-1973",
-            "Abr-1973", "Mai-1973", "Jun-1973",
-            "Jul-1973", "Ago-1973", "Set-1973",
-            "Out-1973", "Nov-1973", "Dez-1973",
-            "Jan-1974", "Feb-1974", "Mar-1974",
-            "Abr-1974", "Mai-1974", "Jun-1974",
-            "Jul-1974", "Ago-1974", "Set-1974",
-            "Out-1974", "Nov-1974", "Dez-1974"
-        ],
-        type: 'double',
-        hasGrid: true,
-        from: 16,
-        to: 22
-    });
-
-    /*******************************************************************************************************/
-    /*******************************************************************************************************/
-    /*******************************************************************************************************/
-
-    $("#wizard").steps({
-        transitionEffect: "slideLeft",
-        stepsOrientation: "vertical",
-        labels: {
-            current: "Passo atual:",
-            pagination: "Paginação",
-            finish: "Realizar Cálculo",
-            next: "Próximo",
-            previous: "Anterior",
-            loading: "Carregando ..."
-        },
-        onFinished: function(event, currentIndex) {
-            var form = $('#formRealizarCalculo');
-
-            // Submit form input
-            form.submit();
-            /**/
-            //var url = '@Url.Action("Result", "Calculadora", null)';
-            /**/
-        },
-        onStepChanging: function(event, currentIndex, newIndex) {
-            if (newIndex === 1 && $('#ClienteSelecionadoID').val() > 0) {
-                return true;
-            }
-            if (newIndex === 2) {
-                if ($('#simulacaoSelecionadaID').val() > 0) {
-                    getTempoContribuicoesAjax();
-                    return true;
-                } else {
-                    //var r = setSimulacao($('#simulacaoSelecionada').val());
-                    //if (r) {
-                    //    return getTempoContribuicoesNovo();
-                    //} else {
-                    return false;
-                    //}
-                }
-
-            } else if (newIndex === 3) {
-                return true;
-            }
-        }
-    });
-    $('#modalAddTempoContribuicao').on('shown.bs.modal', function() {
-        $('.input-group.date').datepicker({
-            format: "dd/mm/yyyy",
-            startDate: "01-01-2015",
-            endDate: "01-01-2020",
-            todayBtn: "linked",
-            autoclose: true,
+        $('.datetimepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'pt-BR',
             todayHighlight: true,
-            container: '#modalAddTempoContribuicao modal-body'
+            autoclose: true
         });
-    });
+
+        $('.dual_select').bootstrapDualListbox({
+            selectorMinimalHeight: 210,
+            showFilterInputs: false,
+            infoText: false,
+            filterTextClear: false,
+            selectedListLabel: "Benefícios selecionados  ",
+            nonSelectedListLabel: "Lista de benefícios  ",
+            moveAllLabel: "Selecionar todos",
+            removeAllLabel: "Retirar os selecionados",
+            //moveOnSelect: false,
+            preserveSelectionOnMove: 'all'
+        });
+
+        $('.dataTables-example').DataTable({
+            "bFilter": false,
+            "language": {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+            },
+            pageLength: 5,
+            responsive: true,
+            //dom: '<"html5buttons"B>lTfgitp',
+            dom: '<"html5buttons"B>ftipr',
+            buttons: [
+                //{ extend: 'copy'},
+                //{extend: 'csv'},
+                //{extend: 'excel', title: 'ExampleFile'},
+                //{extend: 'pdf', title: 'ExampleFile'}
+
+                /*{extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                }*/
+            ]
+
+        });
+
+        $('#data_inicio .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+        $('#data_fim .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+
+        $("#ionrange_1").ionRangeSlider({
+            values: [
+                "Jan-1973", "Feb-1973", "Mar-1973",
+                "Abr-1973", "Mai-1973", "Jun-1973",
+                "Jul-1973", "Ago-1973", "Set-1973",
+                "Out-1973", "Nov-1973", "Dez-1973",
+                "Jan-1974", "Feb-1974", "Mar-1974",
+                "Abr-1974", "Mai-1974", "Jun-1974",
+                "Jul-1974", "Ago-1974", "Set-1974",
+                "Out-1974", "Nov-1974", "Dez-1974"
+            ],
+            type: 'double',
+            hasGrid: true,
+            from: 0,
+            to: 20
+        });
+
+        $("#ionrange_2").ionRangeSlider({
+            values: [
+                "Jan-1973", "Feb-1973", "Mar-1973",
+                "Abr-1973", "Mai-1973", "Jun-1973",
+                "Jul-1973", "Ago-1973", "Set-1973",
+                "Out-1973", "Nov-1973", "Dez-1973",
+                "Jan-1974", "Feb-1974", "Mar-1974",
+                "Abr-1974", "Mai-1974", "Jun-1974",
+                "Jul-1974", "Ago-1974", "Set-1974",
+                "Out-1974", "Nov-1974", "Dez-1974"
+            ],
+            type: 'double',
+            hasGrid: true,
+            from: 6,
+            to: 9
+        });
+
+        $("#ionrange_3").ionRangeSlider({
+            values: [
+                "Jan-1973", "Feb-1973", "Mar-1973",
+                "Abr-1973", "Mai-1973", "Jun-1973",
+                "Jul-1973", "Ago-1973", "Set-1973",
+                "Out-1973", "Nov-1973", "Dez-1973",
+                "Jan-1974", "Feb-1974", "Mar-1974",
+                "Abr-1974", "Mai-1974", "Jun-1974",
+                "Jul-1974", "Ago-1974", "Set-1974",
+                "Out-1974", "Nov-1974", "Dez-1974"
+            ],
+            type: 'double',
+            hasGrid: true,
+            from: 10,
+            to: 15
+        });
+
+        $('#ionrange_4').ionRangeSlider({
+            values: [
+                "Jan-1973", "Feb-1973", "Mar-1973",
+                "Abr-1973", "Mai-1973", "Jun-1973",
+                "Jul-1973", "Ago-1973", "Set-1973",
+                "Out-1973", "Nov-1973", "Dez-1973",
+                "Jan-1974", "Feb-1974", "Mar-1974",
+                "Abr-1974", "Mai-1974", "Jun-1974",
+                "Jul-1974", "Ago-1974", "Set-1974",
+                "Out-1974", "Nov-1974", "Dez-1974"
+            ],
+            type: 'double',
+            hasGrid: true,
+            from: 16,
+            to: 22
+        });
+
+        /*******************************************************************************************************/
+        /*******************************************************************************************************/
+        /*******************************************************************************************************/
+
+        $("#wizard").steps({
+            transitionEffect: "slideLeft",
+            stepsOrientation: "vertical",
+            labels: {
+                current: "Passo atual:",
+                pagination: "Paginação",
+                finish: "Realizar Cálculo",
+                next: "Próximo",
+                previous: "Anterior",
+                loading: "Carregando ..."
+            },
+            onFinished: function (event, currentIndex) {
+                var form = $('#formRealizarCalculo');
+
+                // Submit form input
+                form.submit();
+                /**/
+                /**/
+                //var url = '@Url.Action("Result", "Calculadora", null)';
+    /**/
+    /**/
+},
+onStepChanging: function (event, currentIndex, newIndex) {
+    if (newIndex === 1 && $('#ClienteSelecionadoID').val() > 0) {
+        return true;
+    }
+    if (newIndex === 2) {
+        if ($('#simulacaoSelecionadaID').val() > 0) {
+            getTempoContribuicoesAjax();
+            return true;
+        } else {
+            //var r = setSimulacao($('#simulacaoSelecionada').val());
+            //if (r) {
+            //    return getTempoContribuicoesNovo();
+            //} else {
+            return false;
+            //}
+        }
+
+    } else if (newIndex === 3) {
+        return true;
+    }
+}
+});
+$('#modalAddTempoContribuicao').on('shown.bs.modal', function () {
+$('.input-group.date').datepicker({
+    format: "dd/mm/yyyy",
+    startDate: "01-01-2015",
+    endDate: "01-01-2020",
+    todayBtn: "linked",
+    autoclose: true,
+    todayHighlight: true,
+    container: '#modalAddTempoContribuicao modal-body'
+});
+});
 
 
 });
 
 function filtrarClientes() {
-    console.log('#btnSearchCliente: ' + $('#SearchString').val());
-    $.ajax({
-        /**/
-        url: '@Url.Action("GetClientesAjax", "Calculadora")',
-        /**/
-        type: "POST",
-        cache: false,
-        dataType: "html",
-        data: {
-            page: 1,
-            searchString: $('#SearchString').val()
-        },
-        success: function(data, textStatus, XMLHttpRequest) {
-            $('#wizard-p-0').html('');
-            $('#wizard-p-0').html(data);
-        },
-        error: function(xhr, status, error) {
-            alert('erro btnSearchCliente');
-        }
-    });
+console.log('#btnSearchCliente: ' + $('#SearchString').val());
+$.ajax({
+/**/
+/**/
+url: '@Url.Action("GetClientesAjax", "Calculadora")',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    data: {
+        page: 1,
+        searchString: $('#SearchString').val()
+    },
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-0').html('');
+        $('#wizard-p-0').html(data);
+    },
+    error: function (xhr, status, error) {
+        alert('erro btnSearchCliente');
+    }
+});
 }
 
 function mudarPaginaAjax(pagina) {
-    console.log('mudarPagina: ' + pagina);
-    $.ajax({
-        /**/
-        url: '@Url.Action("GetClientesAjax", "Calculadora")',
-        /**/
-        type: "POST",
-        cache: false,
-        dataType: "html",
-        data: {
-            page: pagina,
-            searchString: $('#SearchString').val()
-        },
-        success: function(data, textStatus, XMLHttpRequest) {
-            $('#wizard-p-0').html('');
-            $('#wizard-p-0').html(data);
-        },
-        error: function(xhr, status, error) {
-            alert('erro mudarPagina');
-        }
-    });
+console.log('mudarPagina: ' + pagina);
+$.ajax({
+    /**/
+    /**/
+    url: '@Url.Action("GetClientesAjax", "Calculadora")',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    data: {
+        page: pagina,
+        searchString: $('#SearchString').val()
+    },
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-0').html('');
+        $('#wizard-p-0').html(data);
+    },
+    error: function (xhr, status, error) {
+        alert('erro mudarPagina');
+    }
+});
 }
 
 function proximaEtapa() {
-    $('#wizard').steps('next');
+$('#wizard').steps('next');
 }
 
 /**
@@ -401,95 +413,101 @@ Inicio Simulação *************************************************************
 */
 
 function mostrarModalSimulacao() {
-    $('#modalSimulacao').modal('show');
+$('#modalSimulacao').modal('show');
 }
 
 function getSimulacoes(idCliente) {
 
-    $('#ClienteSelecionadoID').val(idCliente);
-    $.ajax({
-        /**/
-        url: '@Url.Action("GetSimulacoes", "Calculadora", new { })',
-        /**/
-        type: "POST",
-        cache: false,
-        dataType: "html",
-        data: {
-            idCliente: idCliente
-        },
-        success: function(data, textStatus, XMLHttpRequest) {
-            $('#wizard-p-1').html(data); // HTML DOM replace
-            $("#wizard").steps("next");
-        },
-        error: function(xhr, status, error) {
-            alert('erro getSimulacoes');
-        }
-    });
+$('#ClienteSelecionadoID').val(idCliente);
+$.ajax({
+    /**/
+    /**/
+    url: '@Url.Action("GetSimulacoes", "Calculadora", new { })',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    data: {
+        idCliente: idCliente
+    },
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-1').html(data); // HTML DOM replace
+        $("#wizard").steps("next");
+    },
+    error: function (xhr, status, error) {
+        alert('erro getSimulacoes');
+    }
+});
 }
 
 function selecionaSimulacao(idSimulacao) {
-    if (setSimulacao(idSimulacao)) {
-        //getTempoContribuicoesAjax();
-        $("#wizard").steps("next");
-    }
+if (setSimulacao(idSimulacao)) {
+    //getTempoContribuicoesAjax();
+    $("#wizard").steps("next");
+}
 }
 
 function setSimulacao(idSimulacao) {
-    var sw;
-    $('#simulacaoSelecionadaID').val(idSimulacao);
-    var resp = $.ajax({
-        /**/
-        url: '@Url.Action("SetSimulacaoAjax", "Calculadora", new { })',
-        /**/
-        type: "POST",
-        cache: false,
-        dataType: "Json",
-        async: false,
-        data: {
-            idSimulacao: idSimulacao
-        },
-        success: function(data, textStatus, XMLHttpRequest) {
-            sw = true;
-        },
-        error: function(xhr, status, error) {
-            alert('erro setSimulacao');
-            sw = false;
-        }
-    });
-    return sw;
+var sw;
+$('#simulacaoSelecionadaID').val(idSimulacao);
+var resp = $.ajax({
+    /**/
+    /**/
+    url: '@Url.Action("SetSimulacaoAjax", "Calculadora", new { })',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "Json",
+    async: false,
+    data: {
+        idSimulacao: idSimulacao
+    },
+    success: function (data, textStatus, XMLHttpRequest) {
+        sw = true;
+    },
+    error: function (xhr, status, error) {
+        alert('erro setSimulacao');
+        sw = false;
+    }
+});
+return sw;
 }
 
 function addSimulacao() {
-    var sw;
-    var resp = $.ajax({
-        /**/
-        url: '@Url.Action("AddSimulacaoAjax", "Calculadora", new { })',
-        /**/
-        type: "POST",
-        cache: false,
-        dataType: "html",
-        async: false,
-        data: {
-            nome: $('#nomeSimulacao').val()
-        },
-        success: function (data, textStatus, XMLHttpRequest) {
+var sw;
+var resp = $.ajax({
+    /**/
+    /**/
+    url: '@Url.Action("AddSimulacaoAjax", "Calculadora", new { })',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    async: false,
+    data: {
+        nome: $('#nomeSimulacao').val()
+    },
+    success: function (data, textStatus, XMLHttpRequest) {
 
-            $("#modalSimulacao").removeClass("in");
-            $(".modal-backdrop").remove();
-            $("#modalSimulacao").hide();
-            //$('#modalSimulacao').modal('hide');
-            $('#wizard-p-1').html(data); // HTML DOM replace
-            $("#wizard").steps("next");
+        $("#modalSimulacao").removeClass("in");
+        $(".modal-backdrop").remove();
+        $("#modalSimulacao").hide();
+        //$('#modalSimulacao').modal('hide');
+        $('#wizard-p-1').html(data); // HTML DOM replace
+        $("#wizard").steps("next");
 
 
-            sw = true;
-        },
-        error: function(xhr, status, error) {
-            alert('erro addSimulacao');
-            sw = false;
-        }
-    });
-    return sw;
+        sw = true;
+    },
+    error: function (xhr, status, error) {
+        alert('erro addSimulacao');
+        sw = false;
+    }
+});
+return sw;
 }
 /**
 Fim Simulação **************************************************************************************************
@@ -502,187 +520,234 @@ Inicio Tempo contribuições ***************************************************
 
 function getTempoContribuicoesAjax() {
 
-    var sw;
-    $.ajax({
-        /**/
-        url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
-        /**/
-        type: "POST",
-        cache: false,
-        dataType: "html",
-        async: false,
-        success: function(data, textStatus, XMLHttpRequest) {
-            $('#wizard-p-2').html(data); // HTML DOM replace
-            //$("#wizard").steps("next");
-            sw = true;
-        },
-        error: function(xhr, status, error) {
-            alert('erro getTempoContribuicoes');
-            sw = false;
-        }
-    });
-    return sw;
+var sw;
+$.ajax({
+    /**/
+    /**/
+    url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    async: false,
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-2').html(data); // HTML DOM replace
+        //$("#wizard").steps("next");
+        sw = true;
+    },
+    error: function (xhr, status, error) {
+        alert('erro getTempoContribuicoes');
+        sw = false;
+    }
+});
+return sw;
 }
 
 function getTempoContribuicoesNovo() {
-    var r = setSimulacao($('#simulacaoSelecionada').val());
-    //var r = true;
-    if (r) {
-        var sw;
-        $.ajax({
-            /**/
-            url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
-            /**/
-            type: "POST",
-            cache: false,
-            dataType: "html",
-            async: false,
-            success: function(data, textStatus, XMLHttpRequest) {
-                $('#wizard-p-2').html(data); // HTML DOM replace
-                //$("#wizard").steps("next");
-                $('#modalTempoContribuicao').modal('hide');
-                sw = true;
-            },
-            error: function(xhr, status, error) {
-                alert('erro getTempoContribuicoesNovo');
-                sw = false;
-            }
-        });
-        return sw;
-    } else {
-        return false;
+var r = setSimulacao($('#simulacaoSelecionada').val());
+//var r = true;
+if (r) {
+    var sw;
+    $.ajax({
+        /**/
+        /**/
+        url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    async: false,
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-2').html(data); // HTML DOM replace
+        //$("#wizard").steps("next");
+        $('#modalTempoContribuicao').modal('hide');
+        sw = true;
+    },
+    error: function (xhr, status, error) {
+        alert('erro getTempoContribuicoesNovo');
+        sw = false;
     }
+});
+return sw;
+} else {
+return false;
+}
 }
 
 function saveTempoContribuicaoAjax() {
-    console.log($('#dataAdmissaoAdd').val());
-    $.ajax({
-        /**/
-        url: '@Url.Action("SaveTempoContribuicaoAjax", "Calculadora", new { })',
-        /**/
-        type: "POST",
-        cache: false,
-        dataType: "json",
-        data: {
-            TempoContribuicaoID: $('#tempoContribuicaoID').val(),
-            DataAdmissao: $('#dataAdmissaoAdd').val(),
-            DataDemissao: $('#dataDemissaoAdd').val(),
-            AtividadeIPP: document.getElementById("atividadeAdd").checked,
-            Profissao: $('#profissaoAdd').val(),
-            Empregador: $('#empregadorAdd').val()
-        },
-        success: function(success, data) {
-            if (success.success == "true") {
-                $.ajax({
+console.log($('#dataAdmissaoAdd').val());
+$.ajax({
+/**/
+/**/
+url: '@Url.Action("SaveTempoContribuicaoAjax", "Calculadora", new { })',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "json",
+    data: {
+        TempoContribuicaoID: $('#tempoContribuicaoID').val(),
+        DataAdmissao: $('#dataAdmissaoAdd').val(),
+        DataDemissao: $('#dataDemissaoAdd').val(),
+        AtividadeIPP: document.getElementById("atividadeAdd").checked,
+        Profissao: $('#profissaoAdd').val(),
+        Empregador: $('#empregadorAdd').val()
+    },
+    success: function (success, data) {
+        if (success.success == "true") {
+            $.ajax({
 
-                    url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
+                /**/
+                url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
+    /**/
 
-                    type: "POST",
-                    cache: false,
-                    dataType: "html",
-                    async: false,
-                    success: function(data, textStatus, XMLHttpRequest) {
-                        $('#wizard-p-2').html('');
-                        $('#wizard-p-2').html(data); // HTML DOM replace
-                        $('#modalTempoContribuicao').modal('hide');
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    async: false,
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-2').html('');
+        $('#wizard-p-2').html(data); // HTML DOM replace
+        $('#modalTempoContribuicao').modal('hide');
 
-                    },
-                    error: function(xhr, status, error) {
-                        alert('erro getTempoContribuicoes saveTempoContribuicaoAjax');
+    },
+    error: function (xhr, status, error) {
+        alert('erro getTempoContribuicoes saveTempoContribuicaoAjax');
 
-                    }
-                });
-            } else {
+    }
+});
+} else {
 
-                alert('erro saveTempoContribuicaoAjax');
-            }
+alert('erro saveTempoContribuicaoAjax');
+}
 
-        },
-        error: function(xhr, status, error) {
-            alert('erro SetTempoContribuicao');
-        }
-    });
+},
+error: function (xhr, status, error) {
+alert('erro SetTempoContribuicao');
+}
+});
 }
 
 function editTempoCntribuicaoModal(tempoContribuicaoID, simulacaoID, dataAdmissaoAdd, dataDemissaoAdd, atividadeAdd, profissaoAdd, empregadorAdd) {
-    $('#tempoContribuicaoID').val(tempoContribuicaoID);
-    $('#simulacaoID').val(simulacaoID);
-    $('#dataAdmissaoAdd').val(dataAdmissaoAdd);
-    $('#dataDemissaoAdd').val(dataDemissaoAdd);
-    if (atividadeAdd == 'True') document.getElementById("atividadeAdd").checked = true;
-    else document.getElementById("atividadeAdd").checked = false;
-    $('#profissaoAdd').val(profissaoAdd);
-    $('#empregadorAdd').val(empregadorAdd);
+$('#tempoContribuicaoID').val(tempoContribuicaoID);
+$('#simulacaoID').val(simulacaoID);
+$('#dataAdmissaoAdd').val(dataAdmissaoAdd);
+$('#dataDemissaoAdd').val(dataDemissaoAdd);
+if (atividadeAdd == 'True') document.getElementById("atividadeAdd").checked = true;
+else document.getElementById("atividadeAdd").checked = false;
+$('#profissaoAdd').val(profissaoAdd);
+$('#empregadorAdd').val(empregadorAdd);
 }
 
 function addTempoContribuicaoModal() {
-    $('#tempoContribuicaoID').val(0);
-    $('#dataAdmissaoAdd').val('');
-    $('#dataDemissaoAdd').val('');
-    document.getElementById("atividadeAdd").checked = false;
-    $('#profissaoAdd').val('');
-    $('#empregadorAdd').val('');
-    }
+$('#tempoContribuicaoID').val(0);
+$('#dataAdmissaoAdd').val('');
+$('#dataDemissaoAdd').val('');
+document.getElementById("atividadeAdd").checked = false;
+$('#profissaoAdd').val('');
+$('#empregadorAdd').val('');
+}
 
 function deleteTempoContribuicao(tempoContribuicaoID) {
-    console.log('deleteTempoContribuição');
-    swal({
-        title: "Tem certeza?",
-        text: "Cuidado, você eliminará esse tempo de contribuição!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Sim, pode eliminar!",
-        cancelButtonText: "Não",
-        closeOnConfirm: true
-    }, function () {
-        $.ajax({
-            /**/
-            url: '@Url.Action("DeleteTempoContribuicaoAjax", "Calculadora", new { })',
-            /**/
-            type: "POST",
-            cache: false,
-            dataType: "json",
-            data: {
-                id: tempoContribuicaoID
-            },
-            success: function(success, data) {
-                if (success.success == "true") {
-                    $.ajax({
+console.log('deleteTempoContribuição');
+swal({
+title: "Tem certeza?",
+text: "Cuidado, você eliminará esse tempo de contribuição!",
+type: "warning",
+showCancelButton: true,
+confirmButtonColor: "#DD6B55",
+confirmButtonText: "Sim, pode eliminar!",
+cancelButtonText: "Não",
+closeOnConfirm: true
+}, function () {
+$.ajax({
+/**/
+/**/
+url: '@Url.Action("DeleteTempoContribuicaoAjax", "Calculadora", new { })',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "json",
+    data: {
+        id: tempoContribuicaoID
+    },
+    success: function (success, data) {
+        if (success.success == "true") {
+            $.ajax({
 
-                        url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
+                /**/
+                url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
+    /**/
 
-                        type: "POST",
-                        cache: false,
-                        dataType: "html",
-                        async: false,
-                        success: function(data, textStatus, XMLHttpRequest) {
-                            $('#wizard-p-2').html('');
-                            $('#wizard-p-2').html(data); // HTML DOM replace
-                        },
-                        error: function(xhr, status, error) {
-                            alert('erro getTempoContribuicoes deleteTempoContribuicaoAjax');
+    type: "POST",
+    cache: false,
+    dataType: "html",
+    async: false,
+    success: function (data, textStatus, XMLHttpRequest) {
+        $('#wizard-p-2').html('');
+        $('#wizard-p-2').html(data); // HTML DOM replace
+    },
+    error: function (xhr, status, error) {
+        alert('erro getTempoContribuicoes deleteTempoContribuicaoAjax');
 
-                        }
-                    });
-                } else {
+    }
+});
+} else {
 
-                    alert('erro deleteTempoContribuicaoAjax');
-                }
+alert('erro deleteTempoContribuicaoAjax');
+}
 
-            },
-            error: function(xhr, status, error) {
-                alert('erro DeleteTempoContribuicao');
-            }
-        });
-        //swal("Deleted!", "Your imaginary file has been deleted.", "success");
-    });
+},
+error: function (xhr, status, error) {
+alert('erro DeleteTempoContribuicao');
+}
+});
+//swal("Deleted!", "Your imaginary file has been deleted.", "success");
+});
 
 
 }
 /**
 Fim Tempo Contribições **************************************************************************************************
 */
+function uploadFileCNIS() {
+
+    console.log('selectedFile');
+    var formUpload = document.getElementById('formUpload');
+    var data = new FormData(formUpload);
+
+    var files = $("#selectedFile").get(0).files;
+
+    // Add the uploaded image content to the form data collection
+    if (files.length > 0) {
+    data.append("UploadedImage", files[0]);
+    }
+    $.ajax({
+    /**/
+    /**/
+    url: '@Url.Action("UploadFileAjax", "Calculadora")',
+        /**/
+        /**/
+        type: "POST",
+        cache: false,
+        dataType: "html",
+        contentType: false,
+        processData: false,
+        data: data,
+        success: function (data, textStatus, XMLHttpRequest) {
+            $('#wizard-p-2').html('');
+            $('#wizard-p-2').html(data);
+        },
+        error: function (xhr, status, error) {
+            alert('erro UploadFileAjax');
+        }
+    });
+
+}
+
 </script>
 
 
