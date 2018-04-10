@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Calculadora.Simulador.Utils;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.IO;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
 
 namespace Calculadora.Simulador
 {
@@ -31,6 +36,76 @@ namespace Calculadora.Simulador
             }
             return simulacaoINSS;
         }
+
+        //public static List<VinculoTrabalhista> ExtrairVinculosTrabalhistasCNIS(Stream file)//string file)//
+        //{
+        //    string searchText = "Seq.";
+        //    StringBuilder text = new StringBuilder();
+        //    List<string> lines = new List<string>();
+        //    List<string> listaVinculosPdf = new List<string>();
+        //    List<VinculoTrabalhista> listaVinculos = new List<VinculoTrabalhista>();
+        //    bool ehVinculo = false;
+
+        //    try
+        //    {
+        //        using (PdfReader reader = new PdfReader(file))
+        //        {
+        //            for (int i = 1; i <= reader.NumberOfPages; i++)
+        //            {
+        //                ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+        //                string currentText = PdfTextExtractor.GetTextFromPage(reader, i, strategy);
+        //                text.Append(currentText);
+        //            }
+        //        }
+
+        //        lines = text.ToString().Trim().Split('\n').ToList();
+        //        foreach (string item in lines)
+        //        {
+        //            if (!string.IsNullOrEmpty(item))
+        //            {
+        //                if (ehVinculo && !item.ToUpper().Contains("Benefício".ToUpper()) && !item.ToUpper().Contains("Segurado Especial".ToUpper()))
+        //                    listaVinculosPdf.Add(item);
+
+        //                ehVinculo = (item.ToUpper().Contains(searchText.ToUpper()));
+        //            }
+        //        }
+
+        //        foreach (string linha in listaVinculosPdf)
+        //        {
+        //            DateTime dataInicio = DateTime.MinValue;
+        //            DateTime dataFim = DateTime.MinValue;
+        //            string nomeEmpregador = String.Empty;
+        //            string[] colunas = linha.Split(' ');
+        //            string padraoCnpj = @"(^(\d{2}.\d{3}.\d{3}/\d{4}-\d{2})|(\d{14})$)";
+        //            int aux = -1;
+
+        //            foreach (string coluna in colunas)
+        //            {
+        //                if (int.TryParse(coluna, out aux) || (Regex.IsMatch(coluna, padraoCnpj))) continue;
+
+        //                if (dataInicio == DateTime.MinValue && !DateTime.TryParse(coluna, out dataInicio))
+        //                {
+        //                    nomeEmpregador = nomeEmpregador + " " + coluna;
+        //                    continue;
+        //                }
+
+        //                //if (dataInicio == DateTime.MinValue && DateTime.TryParse(coluna, out dataInicio)) continue;
+
+        //                if (dataInicio != DateTime.MinValue && dataFim == DateTime.MinValue)
+        //                    if (DateTime.TryParse(coluna, out dataFim)) break;
+        //            }
+
+        //            if (dataInicio != DateTime.MinValue && dataFim != DateTime.MinValue)
+        //                listaVinculos.Add(new VinculoTrabalhista(dataInicio, dataFim, 0, nomeEmpregador.TrimStart()));
+        //        }
+
+        //        return listaVinculos;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         private static SimulacaoINSS CalcularPeriodosEmDuplicidade(SimulacaoINSS simulacaoINSS)
         {

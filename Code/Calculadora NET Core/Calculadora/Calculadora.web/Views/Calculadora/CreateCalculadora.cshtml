@@ -738,8 +738,24 @@ function uploadFileCNIS() {
         processData: false,
         data: data,
         success: function (data, textStatus, XMLHttpRequest) {
-            $('#wizard-p-2').html('');
-            $('#wizard-p-2').html(data);
+            $.ajax({
+            /**/
+                url: '@Url.Action("GetTempoContribuicoesAjax", "Calculadora")',
+            /**/
+
+            type: "POST",
+            cache: false,
+            dataType: "html",
+            async: false,
+            success: function (data, textStatus, XMLHttpRequest) {
+                $('#wizard-p-2').html('');
+                $('#wizard-p-2').html(data); // HTML DOM replace
+
+            },
+            error: function (xhr, status, error) {
+                alert('erro getTempoContribuicoes UploadFileAjax');
+
+            }});
         },
         error: function (xhr, status, error) {
             alert('erro UploadFileAjax');

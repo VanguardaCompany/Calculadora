@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Calculadora.Domain.Business;
 using Calculadora.DAL;
-using Calculadora.DAL.Models;
 using Calculadora.Domain.Models;
-using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
 using PagedList.Core;
-using PagedList.Core.Mvc;
-using Calculadora.web.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Calculadora.web.Services;
 using System.Threading.Tasks;
 using WkWrap.Core;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using iTextSharp.text.pdf;
+using System.Text;
+using Calculadora.DAL.Models;
+using iTextSharp.text.pdf.parser;
+using System.Text.RegularExpressions;
 
 namespace Calculadora.Web.Controllers
 {
@@ -300,61 +298,97 @@ namespace Calculadora.Web.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult UploadFileAjax(IFormFile file)
+        public ActionResult UploadFileAjax(IFormFile file)
         {
             CalculadoraViewModel model = GetSessionCalculadoraViewModel();
 
-            //if (file == null || file.Length == 0)
-            //    return Content("file not selected");
+            string success = "true";
 
-            //var path = Path.Combine(
-            //            Directory.GetCurrentDirectory(), "wwwroot",
-            //            file.FileName);
+            var result = string.Empty;
 
-            //using (var stream = new FileStream(path, FileMode.Create))
-            //{
-            //    await file.CopyToAsync(stream);
-            //}
+            foreach (TempoContribuicao tempo in ExtrairVinculosTrabalhistasCNIS(file.OpenReadStream()))
+            {
+                tempo.SimulacaoID = model.SimulacaoSelecionada.SimulacaoID;
+                calculadoraBusiness.AddTempoContribuicao(tempo);
+            }
 
             SetSessionCalculadoraViewModel(model);
 
-            return PartialView("_TempoContribuicoes", model);
-            //return RedirectToAction("Files");
+            return Json(new { success });
+            //return PartialView("_TempoContribuicoes", model);
         }
 
+        public static List<TempoContribuicao> ExtrairVinculosTrabalhistasCNIS(Stream file)//string file)//
+        {
+            string searchText = "Seq.";
+            StringBuilder text = new StringBuilder();
+            List<string> lines = new List<string>();
+            List<string> listaVinculosPdf = new List<string>();
+            List<TempoContribuicao> listaVinculos = new List<TempoContribuicao>();
+            bool ehVinculo = false;
 
-        //private RelatorioDuplicata getRelatorio()
-        //{
-        //    var rpt = new RelatorioDuplicata();
+            try
+            {
+                using (PdfReader reader = new PdfReader(file))
+                {
+                    for (int i = 1; i <= reader.NumberOfPages; i++)
+                    {
+                        ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+                        string currentText = PdfTextExtractor.GetTextFromPage(reader, i, strategy);
+                        text.Append(currentText);
+                    }
+                }
 
-        //    //var webRoot = _env.WebRootPath;
-        //    //var file = System.IO.Path.Combine(webRoot, "test.txt");
-        //    //System.IO.File.WriteAllText(file, "Hello World!");
+                lines = text.ToString().Trim().Split('\n').ToList();
+                foreach (string item in lines)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        if (ehVinculo && !item.ToUpper().Contains("Benefício".ToUpper()) && !item.ToUpper().Contains("Segurado Especial".ToUpper()))
+                            listaVinculosPdf.Add(item);
 
-        //    //rpt.BasePath = Server.MapPath("/");
-        //    rpt.BasePath = _env.WebRootPath;
+                        ehVinculo = (item.ToUpper().Contains(searchText.ToUpper()));
+                    }
+                }
 
-        //    rpt.PageTitle = "Relatório de Duplicatas";
-        //    rpt.PageTitle = "Relatório de Duplicatas";
-        //    rpt.ImprimirCabecalhoPadrao = true;
-        //    rpt.ImprimirRodapePadrao = true;
+                foreach (string linha in listaVinculosPdf)
+                {
+                    DateTime dataInicio = DateTime.MinValue;
+                    DateTime dataFim = DateTime.MinValue;
+                    string nomeEmpregador = String.Empty;
+                    string[] colunas = linha.Split(' ');
+                    string padraoCnpj = @"(^(\d{2}.\d{3}.\d{3}/\d{4}-\d{2})|(\d{14})$)";
+                    int aux = -1;
 
-        //    return rpt;
-        //}
+                    foreach (string coluna in colunas)
+                    {
+                        if (int.TryParse(coluna, out aux) || (Regex.IsMatch(coluna, padraoCnpj))) continue;
 
-        //public ActionResult Preview()
-        //{
-        //    var rpt = getRelatorio();
+                        if (dataInicio == DateTime.MinValue)
+                        {
+                            if (!DateTime.TryParse(coluna, out dataInicio))
+                                nomeEmpregador = nomeEmpregador + " " + coluna;
 
-        //    return File(rpt.GetOutput().GetBuffer(), "application/pdf");
-        //}
+                            continue;
+                        }
 
-        //public FileResult BaixarPDF()
-        //{
-        //    var rpt = getRelatorio();
+                        //if (dataInicio == DateTime.MinValue && DateTime.TryParse(coluna, out dataInicio)) continue;
 
-        //    return File(rpt.GetOutput().GetBuffer(), "application/pdf", "Documento.pdf");
-        //}
+                        if (dataInicio != DateTime.MinValue && dataFim == DateTime.MinValue)
+                            if (DateTime.TryParse(coluna, out dataFim)) break;
+                    }
+
+                    if (dataInicio != DateTime.MinValue && dataFim != DateTime.MinValue)
+                        listaVinculos.Add(new TempoContribuicao() { DataAdmissao = dataInicio, DataDemissao = dataFim, Empregador = nomeEmpregador.TrimStart() });
+                }
+
+                return listaVinculos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         #region Session
 

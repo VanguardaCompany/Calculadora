@@ -109,8 +109,11 @@ namespace Calculadora.DAL.Repository
 
                 foreach (Endereco endereco in cliente.Enderecos)
                 {
-                    endereco.PessoaID = cliente.PessoaID;
-                    db.Entry(endereco).State = EntityState.Modified;
+                    if (!string.IsNullOrEmpty(endereco.Cep))
+                    {
+                        endereco.PessoaID = cliente.PessoaID;
+                        db.Entry(endereco).State = (endereco.EnderecoID <= 0) ? EntityState.Added : EntityState.Modified;
+                    }
                     // db.SaveChanges();
                 }
                 db.Entry(cliente).State = EntityState.Modified;
