@@ -81,7 +81,7 @@
                                             <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("EditCliente", "Clientes", new { id = item.PessoaID})'">
                                                 <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
                                             </button>
-                                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="location.href='@Url.Action("DeleteCliente", "Clientes", new { id = item.PessoaID})'">
+                                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="deleteCliente(@item.PessoaID)">
                                                 <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Apagar</strong>
                                             </button>
                                         </td>
@@ -140,24 +140,63 @@
 @section Styles {
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+        <link rel="stylesheet" href="~/lib_bower/sweetalert/dist/sweetalert.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+        <link rel="stylesheet" href="~/lib_bower/sweetalert/dist/sweetalert.css" />
     </environment>
-    
-    
+
+
 }
-@section Scripts {
-    <environment names="Development,Staging,Production">
-        <script src="~/lib/footable/dist/footable.all.min.js"></script>
-    </environment>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.footable').footable();
+
+<environment names="Development,Staging,Production">
+    <script src="~/lib/footable/dist/footable.all.min.js"></script>
+    <script src="~/lib_bower/sweetalert/dist/sweetalert-dev.js"></script>
+</environment>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.footable').footable();
+
+    });
+    function deleteCliente(id) {
+        swal({
+            title: "Tem certeza?",
+            text: "Cuidado, você todos os dados desse cliente!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sim, pode eliminar!",
+            cancelButtonText: "Não",
+            closeOnConfirm: true,
+            showLoaderOnConfirm: true
+        }, function () {
+            $.ajax({
+                url: '@Url.Action("DeleteCliente", "Clientes")',
+                data: { 'id': id },
+                type: "post",
+                cache: false,
+                dataType: "html"
+            }).success(function (json) {
+                swal({
+                    title: "Sucesso",
+                    type: "success",
+                    showCancelButton: false,
+                    text: "Cliente eliminado com sucesso!",
+                    timer: 5000,
+                    showConfirmButton: true
+                },
+                    function () {
+                        location.reload();
+                    }
+                );
+
+            });
         });
 
-    </script>
-}
+    }
+</script>
+
 
 
 
