@@ -270,6 +270,8 @@ namespace Calculadora.DAL.Migrations
 
                     b.Property<DateTime>("Data");
 
+                    b.Property<string>("Nome");
+
                     b.HasKey("SimulacaoID");
 
                     b.HasIndex("ClienteID");

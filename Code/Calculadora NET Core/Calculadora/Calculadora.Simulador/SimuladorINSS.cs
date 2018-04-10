@@ -42,10 +42,11 @@ namespace Calculadora.Simulador
                     {
                         DateTimeInterval intersecao = DateTimeUtils.GetIntervalIntersection(new DateTimeInterval(vinculo.DataInicio, vinculo.DataFim), new DateTimeInterval(vinculoAux.DataInicio, vinculoAux.DataFim));
 
-                        if (intersecao.From != null && intersecao.To != null)
+                        if (intersecao.From != null && intersecao.To != null &&
+                            vinculo.DataInicio >= vinculoAux.DataInicio && vinculo.DataInicio <= vinculoAux.DataFim)
                         {
                             var periodo = new Duracao(intersecao.From.Value, intersecao.To.Value);
-                            vinculo.PeriodoEmDuplicidade = new Duracao(periodo.TotalDias + vinculo.PeriodoEmDuplicidade.TotalDias);
+                            vinculo.PeriodoEmDuplicidade = Duracao.SomarDuracoes(periodo, vinculo.PeriodoEmDuplicidade);
                         }
                     }
                 }
@@ -79,7 +80,10 @@ namespace Calculadora.Simulador
         {
             List<VinculoTrabalhista> listaVinculos = simulacaoINSS.ListaVinculosTrabalhistasAuxiliar.Where(v => v.Priorizado).ToList();
 
-            simulacaoINSS.TempoSimulado = new Duracao((int)listaVinculos.Select(v => new Duracao(v.DataInicioSemIntersecao, v.DataFimSemIntersecao).TotalDias).Sum());
+            foreach (VinculoTrabalhista vinculo in listaVinculos)
+            {
+                simulacaoINSS.TempoSimulado = Duracao.SomarDuracoes(new Duracao(vinculo.DataInicioSemIntersecao, vinculo.DataFimSemIntersecao), simulacaoINSS.TempoSimulado);
+            }
 
             return simulacaoINSS;
         }
@@ -147,14 +151,10 @@ namespace Calculadora.Simulador
             {
                 if (vinculo.ValorContribuicao >= vinculoAux.ValorContribuicao || vinculo.PriorizadoUsuario)
                 {
-                    //vinculo.DataInicioSemIntersecao = vinculo.DataInicioSemIntersecao;
-                    //vinculo.DataFimSemIntersecao = vinculo.DataFimSemIntersecao;
-                    //vinculo.PriorizadoSistema = true;
 
                     if (vinculoAux.DataFimSemIntersecao > vinculo.DataFimSemIntersecao)
                     {
                         vinculoAux.DataInicioSemIntersecao = vinculo.DataFimSemIntersecao.AddSeconds(1);
-                        //vinculoAux.DataFimSemIntersecao = vinculoAux.DataFimSemIntersecao;
                         vinculoAux.PriorizadoSistema = true;
                     }
                     else
@@ -171,7 +171,6 @@ namespace Calculadora.Simulador
                     }
                     vinculoAux.PriorizadoSistema = true;
 
-                    //vinculo.DataInicioSemIntersecao = vinculo.DataInicioSemIntersecao;
                     vinculo.DataFimSemIntersecao = vinculoAux.DataInicioSemIntersecao.AddSeconds(-1);
                     vinculo.PriorizadoSistema = true;
                 }

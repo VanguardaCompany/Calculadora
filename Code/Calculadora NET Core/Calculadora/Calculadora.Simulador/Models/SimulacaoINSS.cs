@@ -39,7 +39,7 @@ namespace Calculadora.Simulador.Models
 
         public Duracao Idade
         {
-            get { return new Duracao(dataNascimento, DateTime.Now); }
+            get { return new Duracao(dataNascimento, DateTime.Now.Date); }
         }
 
         public DateTime DataNascimento
@@ -62,7 +62,7 @@ namespace Calculadora.Simulador.Models
 
         public Duracao TempoRestanteAposentadoria
         {
-            get { return new Duracao((this.tempoMinimoAposentadoria * 365) - TempoSimulado.TotalDias); }
+            get { return Duracao.SomarDuracoes(new Duracao(this.tempoMinimoAposentadoria, 0, 0), TempoSimulado); }
         }
 
         public int PontuacaoRestanteAposentadoria
