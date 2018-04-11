@@ -62,6 +62,21 @@ namespace Calculadora.DAL.Repository
             }
         }
 
+        public void UpdateSimulacao(Simulacao simulacao)
+        {
+
+            try
+            {
+                db.Simulacoes.Update(simulacao);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
         public IQueryable<TempoContribuicao> GetTempoContribuicoes(int idSimulacao)
         {
             try

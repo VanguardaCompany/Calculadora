@@ -8,6 +8,8 @@ namespace Calculadora.DAL.Models
 {
     public enum EnumSexo
     {
+        [Display(Name = "Selecionar...")]
+        Selecione = -1,
         [Display(Name = "Masculino")]
         Masculino = 1,
         [Display(Name = "Feminino")]
@@ -15,6 +17,7 @@ namespace Calculadora.DAL.Models
     }
     public enum EnumTratamento
     {
+
         [Display(Name = "Sr.")]
         Sr = 1,
         [Display(Name = "Sra.")]
@@ -26,6 +29,8 @@ namespace Calculadora.DAL.Models
     }
     public enum EnumEstadoCivil
     {
+        [Display(Name = "Selecionar...")]
+        Selecione = -1,
         [Display(Name = "Solteiro(a)")]
         Solteiro = 1,
         [Display(Name = "Casado(a)")]
@@ -41,6 +46,8 @@ namespace Calculadora.DAL.Models
     }
     public enum EnumDocumentoIdentificacao
     {
+        [Display(Name = "Selecionar...")]
+        Selecione = -1,
         [Display(Name = "RG")]
         RG = 1,
         [Display(Name = "CTPS")]
@@ -50,6 +57,8 @@ namespace Calculadora.DAL.Models
     }
     public enum EnumTipoTelefone
     {
+        [Display(Name = "Selecionar...")]
+        Selecione = -1,
         [Display(Name = "Celular")]
         Celular = 1,
         [Display(Name = "Fixo")]
@@ -67,23 +76,27 @@ namespace Calculadora.DAL.Models
         [Required(ErrorMessage = "Campo obrigatório")]
         public string Nome { get; set; }
 
+        [Range(1, 2, ErrorMessage = "Campo obrigatório")]
         public EnumSexo Sexo { get; set; }
 
         public EnumTratamento Tratamento { get; set; }
 
+        [Range(1, 6, ErrorMessage = "Campo obrigatório")]
         public EnumEstadoCivil EstadoCivil { get; set; }
 
         public string Profissao { get; set; }
 
+        [Range(1, 3, ErrorMessage = "Campo obrigatório")]
         public EnumDocumentoIdentificacao DocumentoIdentificacao { get; set; }
 
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string NumeroDocumentoIdentificacao { get; set; }
 
         public string Email { get; set; }
 
         public string HomePage { get; set; }
 
-        [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(1, 3, ErrorMessage = "Campo obrigatório")]
         public EnumTipoTelefone TipoTelefone1 { get; set; }
 
         public EnumTipoTelefone? TipoTelefone2 { get; set; }
@@ -108,6 +121,15 @@ namespace Calculadora.DAL.Models
         //public virtual Endereco Endereco { get; set; }
 
         public virtual List<Endereco> Enderecos { get; set; } = new List<Endereco>();
+
+        public Pessoa()
+        {
+            this.Sexo = EnumSexo.Selecione;
+            this.TipoTelefone1 = EnumTipoTelefone.Selecione;
+            this.DocumentoIdentificacao = EnumDocumentoIdentificacao.Selecione;
+            this.EstadoCivil = EnumEstadoCivil.Selecione;
+
+        }
 
     }
 }

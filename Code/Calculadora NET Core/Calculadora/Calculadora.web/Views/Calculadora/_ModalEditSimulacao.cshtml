@@ -1,0 +1,71 @@
+﻿@model Calculadora.Domain.Models.SimulacaoViewModel
+
+
+@using (Html.BeginForm("ManterSimulacao", "Calculadora", FormMethod.Post, new { @class = "form-custom" }))
+{
+
+    <div class="modal fade" id="modalSimulacaoEdit">
+        <div class="modal-dialog" style="width:500px !important">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Editar Simulacao</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Hidden("simulacaoID", Model.SimulacaoID)
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <div class="input-group" style="width:100%">
+                                    @Html.TextBoxFor(m => m.Nome, null, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button id="salvarSimulacao" type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+}
+    <script>
+    function editSimulacao(idSimulacao) {
+if (editSimulacao(idSimulacao)) {
+    //getTempoContribuicoesAjax();
+    $("#wizard").steps("next");
+}
+}
+
+    function editSimulacao(idSimulacao) {
+var sw;
+
+var resp = $.ajax({
+    /**/
+    /**/
+    url: '@Url.Action("EditSimulacao", "Calculadora", new { })',
+    /**/
+    /**/
+    type: "POST",
+    cache: false,
+    dataType: "Html",
+    async: false,
+    data: {
+        id: idSimulacao
+    },
+    success: function (partialResult) {
+        $("#form-container").html(partialResult);
+        $("#modalSimulacaoEdit").modal('show');
+    },
+    error: function (xhr, status, error) {
+        alert('erro setSimulacao');
+        sw = false;
+    }
+});
+return sw;
+}
+    </script>

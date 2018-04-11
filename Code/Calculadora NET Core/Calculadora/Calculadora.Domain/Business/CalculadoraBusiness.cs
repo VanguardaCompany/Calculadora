@@ -112,6 +112,19 @@ namespace Calculadora.Domain.Business
             }
         }
 
+        public void UpdateSimulacao(Simulacao simulacao)
+        {
+            try
+            {
+                calculadoraRepository.UpdateSimulacao(simulacao);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         /// <summary>
         /// Recebe a data de ínicio do cálculo, o tempo de contribuição e devolve a data em que completará 35 anos de tempo de contribuição.
         /// </summary>

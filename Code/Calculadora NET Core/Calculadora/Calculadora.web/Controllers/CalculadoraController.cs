@@ -62,10 +62,37 @@ namespace Calculadora.Web.Controllers
             CalculadoraViewModel model = new CalculadoraViewModel();
             model.Clientes = clienteBusiness.GetAllClientes().ToList();
             ViewBag.Clientes = model.Clientes.AsQueryable().ToPagedList(1, 3);
+            model.SimulacaoSelecionada = new SimulacaoViewModel();
 
             SetSessionCalculadoraViewModel(model);
 
             return View(model);
+        }
+
+        public PartialViewResult EditSimulacao(int id)
+        {
+            CalculadoraViewModel model = GetSessionCalculadoraViewModel();
+
+            SimulacaoViewModel simulacaoVM = new SimulacaoViewModel();
+            if (id > 0)
+            {
+                simulacaoVM = calculadoraBusiness.SimulacaoToViewModel(calculadoraBusiness.GetSimulacaoId(id));
+            }
+            else
+            {
+
+                simulacaoVM.Data = DateTime.Now;
+                simulacaoVM.Cliente = model.ClienteSelecionado;
+            }
+
+            //calculadoraBusiness.SetSimulacao(ViewModelToSimulacao(simulacaoVM));
+            model.SimulacaoSelecionada = simulacaoVM;
+
+            SetSessionCalculadoraViewModel(model);
+
+          
+            return PartialView("_ModalEditSimulacao", model.SimulacaoSelecionada);
+
         }
 
         // POST: Calculadora/Create
@@ -153,6 +180,38 @@ namespace Calculadora.Web.Controllers
 
                 model.Simulacoes.Add(model.SimulacaoSelecionada);
 
+                SetSessionCalculadoraViewModel(model);
+
+                return PartialView("_Simulacoes", model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult ManterSimulacao(SimulacaoViewModel modelSimu)
+        {
+            try
+            {
+                CalculadoraViewModel model = GetSessionCalculadoraViewModel();
+
+                //Recupera a simulação antiga
+                SimulacaoViewModel simulacaoVM = new SimulacaoViewModel();
+                simulacaoVM = calculadoraBusiness.SimulacaoToViewModel(calculadoraBusiness.GetSimulacaoId(modelSimu.SimulacaoID));
+                //Edito o nome 
+                simulacaoVM.Nome = modelSimu.Nome;
+                simulacaoVM.Cliente = new Cliente();
+                simulacaoVM.Cliente.PessoaID = model.ClienteSelecionadoID;
+                
+                //Update
+                calculadoraBusiness.UpdateSimulacao(calculadoraBusiness.ViewModelToSimulacao(simulacaoVM));
+
+                model.Simulacoes = clienteBusiness.SimulacoesToViewModel(calculadoraBusiness.GetSimulacoes(model.ClienteSelecionadoID)).ToList();
+               
                 SetSessionCalculadoraViewModel(model);
 
                 return PartialView("_Simulacoes", model);
@@ -370,9 +429,6 @@ namespace Calculadora.Web.Controllers
             var str = HttpContext.Session.GetString("calculadora");
             return JsonConvert.DeserializeObject<CalculadoraViewModel>(str);
         }
-
-
-
 
         public async Task<IActionResult> DownloadPdf()
         {

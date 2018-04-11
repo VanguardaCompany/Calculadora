@@ -81,7 +81,11 @@ namespace Calculadora.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateCliente(Cliente cliente)
         {
-            if (clienteBusiness.ExisteCPF(cliente.Cpf))
+            //Verifica se o CPF Fornecido é válido
+            if (!clienteBusiness.IsCPFValido(cliente.Cpf))
+            {
+                ModelState.AddModelError("Cpf", "C.P.F. inválido.");
+            }else if (clienteBusiness.ExisteCPF(cliente.Cpf)) //Se válido, verifica se o mesmo não é reptido;
             {
                 ModelState.AddModelError("Cpf", "C.P.F. já cadastrado no sistema.");
             }

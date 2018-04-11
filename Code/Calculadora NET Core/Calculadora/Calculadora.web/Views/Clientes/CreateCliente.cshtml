@@ -92,21 +92,20 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Sexo</label>
-                                    @Html.DropDownListFor(m => m.Sexo, Html.GetEnumSelectList<EnumSexo>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Sexo, Html.GetEnumSelectList<EnumSexo>(), htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Sexo, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Tratamento</label>
-                                    @Html.DropDownListFor(m => m.Tratamento, Html.GetEnumSelectList<EnumTratamento>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Tratamento, "", new { @class = "text-danger" })
+                                    @Html.DropDownListFor(m => m.Tratamento, Html.GetEnumSelectList<EnumTratamento>(), htmlAttributes: new { @class = "form-control" })                                   
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Estado Civil</label>
-                                    @Html.DropDownListFor(m => m.EstadoCivil, Html.GetEnumSelectList<EnumEstadoCivil>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.EstadoCivil, Html.GetEnumSelectList<EnumEstadoCivil>(), htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.EstadoCivil, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -116,7 +115,6 @@
                                 <div class="form-group">
                                     <label>Profissão</label>
                                     @Html.TextBoxFor(m => m.Profissao, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Profissao, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -125,7 +123,7 @@
                                     <div class="input-group date datetimepicker">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         @Html.TextBoxFor(m => m.Nascimento, "{0:dd/MM/yyyy}", new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(m => m.Nascimento, "", new { @class = "text-danger" })
+                                        @*@Html.ValidationMessageFor(m => m.Nascimento, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +131,7 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Tipo de Documento</label>
-                                    @Html.DropDownListFor(m => m.DocumentoIdentificacao, Html.GetEnumSelectList<EnumDocumentoIdentificacao>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.DocumentoIdentificacao, Html.GetEnumSelectList<EnumDocumentoIdentificacao>(), htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.DocumentoIdentificacao, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -160,13 +158,6 @@
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label>Telefone 1</label>
-                                    @Html.TextBoxFor(m => m.Telefone1, new { @class = "form-control telefone", @placeholder = "(__) ___.____-____" })
-                                    @Html.ValidationMessageFor(m => m.Telefone1, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="form-group">
                                     <label>Tipo</label>
                                     @Html.DropDownListFor(m => m.TipoTelefone1, Html.GetEnumSelectList<EnumTipoTelefone>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.TipoTelefone1, "", new { @class = "text-danger" })
@@ -174,11 +165,12 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label>Telefone 2</label>
-                                    @Html.TextBoxFor(m => m.Telefone2, new { @class = "form-control telefone", @placeholder = "(__) ___.____-____" })
-                                    @Html.ValidationMessageFor(m => m.Telefone2, "", new { @class = "text-danger" })
+                                    <label>Telefone 1</label>
+                                    @Html.TextBoxFor(m => m.Telefone1, new { @class = "form-control telefone", @placeholder = "(__) ___.____-____" })
+                                    @Html.ValidationMessageFor(m => m.Telefone1, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Tipo</label>
@@ -188,11 +180,12 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label>Telefone 3</label>
-                                    @Html.TextBoxFor(m => m.Telefone3, new { @class = "form-control telefone", @placeholder = "(__) ___.____-____" })
-                                    @Html.ValidationMessageFor(m => m.Telefone3, "", new { @class = "text-danger" })
+                                    <label>Telefone 2</label>
+                                    @Html.TextBoxFor(m => m.Telefone2, new { @class = "form-control telefone", @placeholder = "(__) ___.____-____" })
+                                    @Html.ValidationMessageFor(m => m.Telefone2, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Tipo</label>
@@ -200,6 +193,14 @@
                                     @Html.ValidationMessageFor(m => m.TipoTelefone3, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label>Telefone 3</label>
+                                    @Html.TextBoxFor(m => m.Telefone3, new { @class = "form-control telefone", @placeholder = "(__) ___.____-____" })
+                                    @Html.ValidationMessageFor(m => m.Telefone3, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
                         </div>
                         <div class="row">
                             <div class="col-lg-6">

@@ -133,7 +133,8 @@ namespace Calculadora.Domain.Business
         public Simulacao ViewModelToSimulacao(SimulacaoViewModel simulacaoVM)
         {
             Simulacao simulacao = new Simulacao();
-            simulacao.Cliente = simulacaoVM.Cliente;
+
+            simulacao.ClienteID = simulacaoVM.Cliente.PessoaID;
             simulacao.Data = simulacaoVM.Data;
             simulacao.Nome = simulacaoVM.Nome;
 

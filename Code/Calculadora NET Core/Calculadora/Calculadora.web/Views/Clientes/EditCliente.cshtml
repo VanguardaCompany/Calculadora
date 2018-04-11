@@ -94,21 +94,21 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Sexo</label>
-                                    @Html.DropDownListFor(m => m.Sexo, Html.GetEnumSelectList<EnumSexo>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Sexo, Html.GetEnumSelectList<EnumSexo>(),htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Sexo, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Tratamento</label>
-                                    @Html.DropDownListFor(m => m.Tratamento, Html.GetEnumSelectList<EnumTratamento>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Tratamento, Html.GetEnumSelectList<EnumTratamento>(), htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Tratamento, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Estado Civil</label>
-                                    @Html.DropDownListFor(m => m.EstadoCivil, Html.GetEnumSelectList<EnumEstadoCivil>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.EstadoCivil, Html.GetEnumSelectList<EnumEstadoCivil>(), htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.EstadoCivil, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Tipo de Documento</label>
-                                    @Html.DropDownListFor(m => m.DocumentoIdentificacao, Html.GetEnumSelectList<EnumDocumentoIdentificacao>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.DocumentoIdentificacao, Html.GetEnumSelectList<EnumDocumentoIdentificacao>(),  htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.DocumentoIdentificacao, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -166,7 +166,7 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label>Tipo</label>
-                                    @Html.DropDownListFor(m => m.TipoTelefone1, Html.GetEnumSelectList<EnumTipoTelefone>(), "Selecionar...", htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.TipoTelefone1, Html.GetEnumSelectList<EnumTipoTelefone>(), htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.TipoTelefone1, "", new { @class = "text-danger" })
                                 </div>
                             </div>

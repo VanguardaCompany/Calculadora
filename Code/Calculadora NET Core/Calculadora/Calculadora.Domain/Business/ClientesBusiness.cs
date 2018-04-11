@@ -93,6 +93,19 @@ namespace Calculadora.Domain.Business
             }
         }
 
+        public bool IsCPFValido(string cpf)
+        {
+            try
+            {
+                return clientesRepository.ExisteCPF(cpf);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public void DeleteCliente(int id)
         {
             try

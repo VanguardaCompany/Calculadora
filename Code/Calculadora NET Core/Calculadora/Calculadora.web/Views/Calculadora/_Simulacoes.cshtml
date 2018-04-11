@@ -36,17 +36,22 @@
                         {
                             @foreach (var item in Model.Simulacoes)
                             {
-                                <tr>
-                                    <td hidden>@Html.DisplayFor(modelItem => item.SimulacaoID)</td>
-                                    <td hidden>@Html.DisplayFor(modelItem => item.Cliente.PessoaID)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Data)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-                                    <td style="text-align:right">
-                                        <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="selecionaSimulacao(@item.SimulacaoID)">
-                                            <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Selecionar</strong>
-                                        </button>
-                                    </td>
-                                </tr>
+                    <tr>
+                        <td hidden>@Html.DisplayFor(modelItem => item.SimulacaoID)</td>
+                        <td hidden>@Html.DisplayFor(modelItem => item.Cliente.PessoaID)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Data)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                        <td style="text-align:right">
+                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="editSimulacao(@item.SimulacaoID)">
+                                <strong><i class="fa fa-edit" style="margin-right:6px;"></i>Editar</strong>
+                            </button>
+                        </td>
+                        <td style="text-align:right">
+                            <button class="btn btn-xs btn-default  btn-white btn-sm" type="button" onclick="selecionaSimulacao(@item.SimulacaoID)">
+                                <strong><i class="fa fa-eraser" style="margin-right:6px;"></i>Selecionar</strong>
+                            </button>
+                        </td>
+                    </tr>
                             }
                         }
                     }
@@ -55,6 +60,9 @@
         </div>
 
     </div>
+</div>
+<div id="form-container">
+    @Html.Partial("_ModalEditSimulacao", Model.SimulacaoSelecionada)
 </div>
 
 
