@@ -6,6 +6,8 @@ using Calculadora.DAL.Repository;
 using Calculadora.Domain.Models;
 using Calculadora.Simulador.Models;
 using Calculadora.Simulador;
+using System.IO;
+using System.Collections.Generic;
 
 namespace Calculadora.Domain.Business
 {
@@ -193,12 +195,22 @@ namespace Calculadora.Domain.Business
 
             model.SimulacaoSelecionada.IdadePorExtenso = TempoPorExtenso(simulacao.Idade.Anos, simulacao.Idade.Meses, simulacao.Idade.Dias);
             model.SimulacaoSelecionada.TempoRestanteAposentadoriaPorExtenso = TempoPorExtenso(simulacao.TempoRestanteAposentadoria.Anos, simulacao.TempoRestanteAposentadoria.Meses, simulacao.TempoRestanteAposentadoria.Dias);
-
-            //return CalculadoraViewModel.MapToCalculadoraViewModel(model, simulacao);
+            
             model.SimulacaoINSS = simulacao;
 
             return model;
         }
+
+        //public static List<TempoContribuicao> ExtrairVinculosTrabalhistasCNIS(Stream pdf)
+        //{
+        //    List<TempoContribuicao> lista = new List<TempoContribuicao>();
+        //    foreach (VinculoTrabalhista vinculo in SimuladorINSS.ExtrairVinculosTrabalhistasCNIS(pdf))
+        //    {
+        //        lista.Add(new TempoContribuicao() { Empregador = vinculo.NomeEmpregador, DataAdmissao = vinculo.DataInicio, DataDemissao = vinculo.DataFim });
+        //    }
+
+        //    return lista;
+        //}
 
         //public CalculadoraViewModel RealizaCalculo(CalculadoraViewModel model)
         //{

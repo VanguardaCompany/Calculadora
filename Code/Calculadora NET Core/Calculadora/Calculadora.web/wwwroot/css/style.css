@@ -10546,3 +10546,25 @@ body.md-skin {
 .cor-tempo-ocioso {
     background-color: #ccc;
 }
+
+
+/*****cores do site***********************************************************************/
+body {
+    background-color: #23584a; /*#224F28 ; claro*/
+}
+
+.navbar-default .nav > li > a:hover, .navbar-default .nav > li > a:focus {
+    background-color: #215144; /*#1D452E; escuro*/
+}
+
+.nav > li.active {
+    border-left: 4px solid #19aa8d;
+    background: #2e6f5e; /*#275e4f; #20381B; medio*/
+}
+
+.nav-header {
+    background-color: #224F28;
+    background-image: url("patterns/header-profile.png");
+}
+
+/*****fim cores do site***********************************************************************/
